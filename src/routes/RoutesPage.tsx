@@ -21,6 +21,7 @@ export const RoutesPage = () => {
                 <Route path={'/recoverPassword'} element={<div>Recover Password</div>}/>
                 <Route path={'/404'} element={<Error404/>}/>
                 <Route path={'*'} element={<Navigate to={'/404'}/>}/>
+                //hello
             </Routes>
         </>
     );
