@@ -1,10 +1,8 @@
-import {Dispatch} from 'redux'
-import {loginAPI, LoginDataType} from "./loginAPI";
-import {AxiosError} from "axios";
-import {errorUtils} from "../../../utils/error-utils";
-import {setAppStatusAC} from "../../../bll/reducers/app-reducer";
-import {Navigate} from "react-router-dom";
-import React from "react";
+import {loginAPI, LoginDataType} from './loginAPI';
+import {AxiosError} from 'axios';
+import {errorUtils} from '../../../utils/error-utils';
+import {setAppStatusAC} from '../../../bll/reducers/app-reducer';
+import {AppThunk} from '../../../bll/store';
 
 const initialState: InitialStateType = {
     isLoggedIn: false,
@@ -13,9 +11,9 @@ const initialState: InitialStateType = {
 
 export const loginReducer = (state: InitialStateType = initialState, action: ActionsType): InitialStateType => {
     switch (action.type) {
-        case 'login/SET-IS-LOGGED-IN':
+        case 'SET-IS-LOGGED-IN':
             return {...state, isLoggedIn: action.value}
-        case 'APP/SET-IS-INITIALIED':
+        case 'SET-IS-INITIALIZED':
             return {...state, isInitialized: action.value}
         default:
             return state
@@ -23,32 +21,33 @@ export const loginReducer = (state: InitialStateType = initialState, action: Act
 }
 
 //actions
-export const setIsLoggedInAC = (value: boolean) => ({type: 'login/SET-IS-LOGGED-IN', value} as const)
-export const setAppInitializedAC = (value: boolean) => ({type: 'APP/SET-IS-INITIALIED', value} as const)
+export const setIsLoggedInAC = (value: boolean) => ({type: 'SET-IS-LOGGED-IN', value} as const)
+export const setAppInitializedAC = (value: boolean) => ({type: 'SET-IS-INITIALIZED', value} as const)
 
 //thunks
-export const loginTC = (data: LoginDataType) => (dispatch: Dispatch<ActionsType>) => {
-    //dispatch(setAppStatusAC('loading'))
+export const loginTC = (data: LoginDataType): AppThunk => (dispatch) => {
+    dispatch(setAppStatusAC('loading'))
     loginAPI.login(data)
         .then(res => {
             dispatch(setIsLoggedInAC(true))
-            //handleServerAppError(res.data, dispatch)
         })
         .catch((error: AxiosError<{ error: string }>) => {
             errorUtils(error, dispatch)
         })
         .finally(() => {
-            //dispatch(setAppStatusAC('idle'))
+            dispatch(setAppStatusAC('idle'))
         })
 }
-export const initializeAppTC = () => (dispatch: Dispatch) => {
+export const initializeAppTC = (): AppThunk => (dispatch) => {
     loginAPI.me()
         .then(res => {
             dispatch(setIsLoggedInAC(true));
-            dispatch(setAppInitializedAC(true));
         })
         .catch((error: AxiosError<{ error: string }>) => {
             errorUtils(error, dispatch)
+        })
+        .finally(() => {
+            dispatch(setAppInitializedAC(true));
         })
 }
 

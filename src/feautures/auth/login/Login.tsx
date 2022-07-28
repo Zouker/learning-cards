@@ -1,29 +1,26 @@
 import {useFormik} from 'formik';
 import React from 'react';
-import {useDispatch} from 'react-redux';
 import {
+    Button,
     Checkbox,
     FormControl,
     FormControlLabel,
-    FormGroup,
-    FormLabel,
-    TextField,
-    Button,
-    Grid,
-    InputAdornment, IconButton
+    IconButton,
+    Input,
+    InputAdornment,
+    InputLabel
 } from '@mui/material'
 import {loginTC} from './login-reducer';
-import styles from "../register/Register.module.css";
-import {Input, InputLabel} from "@mui/material";
-import VisibilityOff from "@mui/icons-material/VisibilityOff";
-import Visibility from "@mui/icons-material/Visibility";
-import {useAppSelector} from "../../../bll/store";
-import { Navigate } from 'react-router-dom';
+import styles from '../register/Register.module.css';
+import VisibilityOff from '@mui/icons-material/VisibilityOff';
+import Visibility from '@mui/icons-material/Visibility';
+import {useAppDispatch, useAppSelector} from '../../../bll/store';
+import {Navigate} from 'react-router-dom';
 
 export const Login = () => {
 
     const isLoggedIn = useAppSelector(state => state.login.isLoggedIn)
-    const dispatch: any = useDispatch()
+    const dispatch = useAppDispatch()
     const formik = useFormik({
         validate: (values) => {
             const errors: FormikErrorType = {};
@@ -52,11 +49,6 @@ export const Login = () => {
         showPassword: false,
     });
 
-    // const [confirmPasswordValues, setConfirmPasswordValues] = React.useState({
-    //     confirmPassword: '',
-    //     showConfirmPassword: false,
-    // });
-
     const handleClickShowPassword = () => {
         setPasswordValues({
             ...passwordValues,
@@ -64,19 +56,12 @@ export const Login = () => {
         });
     };
 
-    // const handleClickShowConfirmPassword = () => {
-    //     setConfirmPasswordValues({
-    //         ...confirmPasswordValues,
-    //         showConfirmPassword: !confirmPasswordValues.showConfirmPassword,
-    //     });
-    // };
-
     const handleMouseDownPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
         event.preventDefault();
     };
 
     if (isLoggedIn) {
-        return <Navigate to={'/profile'} />
+        return <Navigate to={'/profile'}/>
     }
 
     return (
@@ -93,8 +78,8 @@ export const Login = () => {
                                 {...formik.getFieldProps('email')}
                             />
                         </FormControl>
-                                {formik.errors.email ?
-                                    <div className={styles.error}>{formik.errors.email}</div> : null}
+                        {formik.errors.email ?
+                            <div className={styles.error}>{formik.errors.email}</div> : null}
                         <FormControl sx={{m: 1, width: '40ch'}} variant="standard">
                             <InputLabel htmlFor="password">Password</InputLabel>
                             <Input
@@ -113,17 +98,17 @@ export const Login = () => {
                                 }
                             />
                         </FormControl>
-                                {formik.errors.password ?
-                                    <div className={styles.error}>{formik.errors.password}</div> : null}
-                                <FormControlLabel
-                                    label={'Remember me'}
-                                    control={<Checkbox
-                                        {...formik.getFieldProps("rememberMe")}
-                                        checked={formik.values.rememberMe}
-                                    />}
-                                />
-                                <Button type={'submit'} variant={'contained'} color={'primary'}>Login</Button>
-                            {/*</FormGroup>*/}
+                        {formik.errors.password ?
+                            <div className={styles.error}>{formik.errors.password}</div> : null}
+                        <FormControlLabel
+                            label={'Remember me'}
+                            control={<Checkbox
+                                {...formik.getFieldProps('rememberMe')}
+                                checked={formik.values.rememberMe}
+                            />}
+                        />
+                        <Button type={'submit'} variant={'contained'} color={'primary'}>Login</Button>
+                        {/*</FormGroup>*/}
                     </div>
                 </form>
             </div>
