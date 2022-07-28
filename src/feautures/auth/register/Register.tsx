@@ -38,7 +38,6 @@ export const Register = () => {
             return errors;
         },
         onSubmit: values => {
-
             dispatch(registerTC(values))
         },
     });
