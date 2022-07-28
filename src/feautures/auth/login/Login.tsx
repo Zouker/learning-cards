@@ -1,22 +1,42 @@
-import { useFormik } from 'formik';
+import {useFormik} from 'formik';
 import React from 'react';
-import { useDispatch } from 'react-redux';
+import {useDispatch} from 'react-redux';
+import {
+    Checkbox,
+    FormControl,
+    FormControlLabel,
+    FormGroup,
+    FormLabel,
+    TextField,
+    Button,
+    Grid,
+    InputAdornment, IconButton
+} from '@mui/material'
+import {loginTC} from './login-reducer';
+import styles from "../register/Register.module.css";
+import {Input, InputLabel} from "@mui/material";
+import VisibilityOff from "@mui/icons-material/VisibilityOff";
+import Visibility from "@mui/icons-material/Visibility";
+import {useAppSelector} from "../../../bll/store";
+import { Navigate } from 'react-router-dom';
 
 export const Login = () => {
-    const dispatch = useDispatch()
+
+    const isLoggedIn = useAppSelector(state => state.login.isLoggedIn)
+    const dispatch: any = useDispatch()
     const formik = useFormik({
         validate: (values) => {
+            const errors: FormikErrorType = {};
             if (!values.email) {
-                return {
-                    email: 'Email is required'
-                }
+                errors.email = 'Required';
+            } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
+                errors.email = 'Invalid email address';
             }
             if (!values.password) {
-                return {
-                    password: 'Password is required'
-                }
+                errors.password = 'Required';
+            } else if (values.password.length <= 7) {
+                errors.password = 'Password must be more than 7 characters...';
             }
-
         },
         initialValues: {
             email: '',
@@ -24,16 +44,96 @@ export const Login = () => {
             rememberMe: false
         },
         onSubmit: values => {
-            //dispatch(loginTC(values));
+            dispatch(loginTC(values));
         },
     })
+    const [passwordValues, setPasswordValues] = React.useState({
+        password: '',
+        showPassword: false,
+    });
 
-    // if (isLoggedIn) {
-    //     return <Redirect to={"/"} />
-    // }
+    // const [confirmPasswordValues, setConfirmPasswordValues] = React.useState({
+    //     confirmPassword: '',
+    //     showConfirmPassword: false,
+    // });
+
+    const handleClickShowPassword = () => {
+        setPasswordValues({
+            ...passwordValues,
+            showPassword: !passwordValues.showPassword,
+        });
+    };
+
+    // const handleClickShowConfirmPassword = () => {
+    //     setConfirmPasswordValues({
+    //         ...confirmPasswordValues,
+    //         showConfirmPassword: !confirmPasswordValues.showConfirmPassword,
+    //     });
+    // };
+
+    const handleMouseDownPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
+        event.preventDefault();
+    };
+
+    if (isLoggedIn) {
+        return <Navigate to={'/profile'} />
+    }
+
     return (
-        <div>
-
+        <div className={styles.wrapper}>
+            <div className={styles.container}>
+                <h1>Sign In</h1>
+                <form onSubmit={formik.handleSubmit}>
+                    <div className={styles.form}>
+                        <FormControl sx={{m: 1, width: '40ch'}} variant="standard">
+                            <InputLabel htmlFor="email">E-mail</InputLabel>
+                            <Input
+                                id="email"
+                                type={'email'}
+                                {...formik.getFieldProps('email')}
+                            />
+                        </FormControl>
+                                {formik.errors.email ?
+                                    <div className={styles.error}>{formik.errors.email}</div> : null}
+                        <FormControl sx={{m: 1, width: '40ch'}} variant="standard">
+                            <InputLabel htmlFor="password">Password</InputLabel>
+                            <Input
+                                id="password"
+                                type={passwordValues.showPassword ? 'text' : 'password'}
+                                {...formik.getFieldProps('password')}
+                                endAdornment={
+                                    <InputAdornment position="end">
+                                        <IconButton
+                                            onClick={handleClickShowPassword}
+                                            onMouseDown={handleMouseDownPassword}
+                                        >
+                                            {passwordValues.showPassword ? <VisibilityOff/> : <Visibility/>}
+                                        </IconButton>
+                                    </InputAdornment>
+                                }
+                            />
+                        </FormControl>
+                                {formik.errors.password ?
+                                    <div className={styles.error}>{formik.errors.password}</div> : null}
+                                <FormControlLabel
+                                    label={'Remember me'}
+                                    control={<Checkbox
+                                        {...formik.getFieldProps("rememberMe")}
+                                        checked={formik.values.rememberMe}
+                                    />}
+                                />
+                                <Button type={'submit'} variant={'contained'} color={'primary'}>Login</Button>
+                            {/*</FormGroup>*/}
+                    </div>
+                </form>
+            </div>
         </div>
-    );
+    )
 };
+
+//types
+
+type FormikErrorType = {
+    email?: string,
+    password?: string
+}
