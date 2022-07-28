@@ -1,6 +1,7 @@
 import React from 'react';
 import {Navigate, NavLink, Route, Routes} from 'react-router-dom';
 import {Error404} from '../common/error-page/Error404';
+import { Login } from '../feautures/auth/login/Login';
 import {Register} from '../feautures/auth/register/Register';
 
 export const RoutesPage = () => {
@@ -14,7 +15,7 @@ export const RoutesPage = () => {
 
             <Routes>
                 <Route path={'/'} element={<Navigate to={'/profile'}/>}/>
-                <Route path={'/login'} element={<div>Login</div>}/>
+                <Route path={'/login'} element={<div><Login/></div>}/>
                 <Route path={'/register'} element={<div><Register/></div>}/>
                 <Route path={'/profile'} element={<div>Profile</div>}/>
                 <Route path={'/forgotPassword'} element={<div>Forgot Password</div>}/>
