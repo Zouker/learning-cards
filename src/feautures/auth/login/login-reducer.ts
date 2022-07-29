@@ -3,7 +3,7 @@ import {AxiosError} from 'axios';
 import {errorUtils} from '../../../utils/error-utils';
 import {setAppStatusAC} from '../../../bll/reducers/app-reducer';
 import {AppThunk} from '../../../bll/store';
-import {setUserDataAC} from "../../../bll/reducers/profile-reducer";
+import {setUserDataAC} from '../../../bll/reducers/profile-reducer';
 
 const initialState = {
     isLoggedIn: false,
@@ -45,9 +45,6 @@ export const initializeAppTC = (): AppThunk => (dispatch) => {
         .then(res => {
             dispatch(setIsLoggedInAC(true));
             dispatch(setUserDataAC(res.data))
-        })
-        .catch((error: AxiosError<{ error: string }>) => {
-            errorUtils(error, dispatch)
         })
         .finally(() => {
             dispatch(setAppInitializedAC(true));
