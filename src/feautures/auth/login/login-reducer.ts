@@ -3,8 +3,9 @@ import {AxiosError} from 'axios';
 import {errorUtils} from '../../../utils/error-utils';
 import {setAppStatusAC} from '../../../bll/reducers/app-reducer';
 import {AppThunk} from '../../../bll/store';
+import {setUserDataAC} from "../../../bll/reducers/profile-reducer";
 
-const initialState: InitialStateType = {
+const initialState = {
     isLoggedIn: false,
     isInitialized: false
 }
@@ -30,6 +31,7 @@ export const loginTC = (data: LoginDataType): AppThunk => (dispatch) => {
     loginAPI.login(data)
         .then(res => {
             dispatch(setIsLoggedInAC(true))
+            dispatch(setUserDataAC(res.data))
         })
         .catch((error: AxiosError<{ error: string }>) => {
             errorUtils(error, dispatch)
@@ -42,6 +44,7 @@ export const initializeAppTC = (): AppThunk => (dispatch) => {
     loginAPI.me()
         .then(res => {
             dispatch(setIsLoggedInAC(true));
+            dispatch(setUserDataAC(res.data))
         })
         .catch((error: AxiosError<{ error: string }>) => {
             errorUtils(error, dispatch)
@@ -51,9 +54,20 @@ export const initializeAppTC = (): AppThunk => (dispatch) => {
         })
 }
 
-//types
-type InitialStateType = {
-    isLoggedIn: boolean,
-    isInitialized: boolean
+export const logoutTC = (): AppThunk => (dispatch) => {
+    dispatch(setAppStatusAC('loading'))
+    loginAPI.logout()
+        .then(res => {
+            dispatch(setIsLoggedInAC(false))
+        })
+        .catch((error: AxiosError<{ error: string }>) => {
+            errorUtils(error, dispatch)
+        })
+        .finally(() => {
+            dispatch(setAppStatusAC('idle'))
+        })
 }
+
+//types
+type InitialStateType = typeof initialState
 type ActionsType = ReturnType<typeof setIsLoggedInAC> | ReturnType<typeof setAppInitializedAC>
