@@ -1,5 +1,5 @@
 import axios from 'axios';
-import {UpdatedUserType} from "../../../bll/reducers/profile-reducer";
+import {UserDataType} from "../../../bll/reducers/profile-reducer";
 
 export const instance = axios.create({
     baseURL: process.env.REACT_APP_BACK_URL || 'http://localhost:7542/2.0/',
@@ -7,10 +7,13 @@ export const instance = axios.create({
 })
 
 export const profileAPI = {
-    changeUserData: function (data: UpdatedUserType) {
-        return instance.put('/auth/me', data);
-    },
-    // logout() {
-    //     return instance.delete('auth/me');
-    // }
+    updateUserData(params: UserDataType) {
+        return instance.put('auth/me', params)
+    }
+};
+
+// types
+export type UpdateUserParamsType = {
+    name: string
+    avatar: string
 }

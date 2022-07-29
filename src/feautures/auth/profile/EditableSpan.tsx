@@ -24,7 +24,7 @@ export const EditableSpan = ({
                                  setEditMode,
                              }: EditableSpanPropsType) => {
     const userName = useAppSelector(state => state.profile.name)
-    const [localName, setLocalName] = useState<string>(userName)
+    const [localName, setLocalName] = useState(userName)
 
     const activateViewMode = () => {
         changeTitle(localName)
@@ -44,7 +44,6 @@ export const EditableSpan = ({
     return editMode
         ? <Box sx={{'& > :not(style)': {m: 1}}}
                onBlur={activateViewMode}
-               onChange={onChangeHandler}
                onKeyDown={onKeyPressHandler}
         >
             <FormControl variant="standard">
@@ -52,17 +51,19 @@ export const EditableSpan = ({
                     Nickname
                 </InputLabel>
                 <Input
+                    value={localName}
+                    onChange={onChangeHandler}
                     id="input-with-icon-nickname"
                     autoFocus
                     startAdornment={
-                        <InputAdornment position="start">
-                            <SaveIcon color={"primary"} onClick={activateViewMode}/>
+                        <InputAdornment position="start" onClick={activateViewMode}>
+                            <SaveIcon color={"primary"}/>
                         </InputAdornment>
                     }
                 />
             </FormControl>
-        </Box> : <div className={style.editableSpan}><span onDoubleClick={() => setEditMode(true)}><EditIcon color={"primary"}
-                                                                                                      onClick={() => setEditMode(true)}/>{title}</span>
+        </Box> : <div className={style.editableSpan}>
+            <span onDoubleClick={() => setEditMode(true)}><EditIcon color={"primary"} onClick={() => setEditMode(true)}/>{title}</span>
         </div>
 }
 

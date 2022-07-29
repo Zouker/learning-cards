@@ -1,4 +1,4 @@
-import React, {ChangeEvent, useState} from 'react';
+import React, {useState} from 'react';
 import style from './Profile.module.css'
 import Badge from '@mui/material/Badge';
 import Avatar from '@mui/material/Avatar';
@@ -7,29 +7,50 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import PhotoCameraIcon from '@mui/icons-material/PhotoCamera';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { useAppDispatch, useAppSelector} from "../../../bll/store";
+import {EditableSpan} from "./EditableSpan";
+import {updateUserDataTC} from "../../../bll/reducers/profile-reducer";
+import {Navigate} from "react-router-dom";
+import {logoutTC} from "../login/login-reducer";
+
+type ProfilePropsType = {
+    title?: string
+    changeTitle?: (title: string) => void
+    disabled?: boolean
+    activateEditMode?: () => void
+}
 
 
-export const Profile = () => {
+export const Profile: React.FC<ProfilePropsType> = () => {
+    const publicCardPacksCount = useAppSelector(state => state.profile.publicCardPacksCount)
+    const isLoggedIn = useAppSelector(state => state.login.isLoggedIn)
     const userName = useAppSelector(state => state.profile.name)
+    const userId = useAppSelector(state => state.profile._id)
+    const email = useAppSelector(state => state.profile.email)
+    const userAvatar = useAppSelector(state => state.profile.avatar)
+
     const dispatch = useAppDispatch()
 
     let [editMode, setEditMode] = useState(false);
-    let [name, setName] = useState('user');
 
 
 
     const activateEditMode = () => {
         setEditMode(true);
-        setName(name);
-    }
-    const activateViewMode = () => {
-        setEditMode(false);
-        // onChangeHandler(name);
-    }
-    const changeNickName = (e: ChangeEvent<HTMLInputElement>) => {
-        setName(e.currentTarget.value)
+        }
+
+    const changeUserName = (name: string) => {
+        console.log(name)
+        dispatch(updateUserDataTC({
+            publicCardPacksCount: publicCardPacksCount,
+            _id: userId,
+            name: name,
+            avatar: userAvatar,
+            email}))
     }
 
+    if (!isLoggedIn) {
+        return <Navigate to={'/login'}/>
+    }
 
 
     return (
@@ -48,11 +69,16 @@ export const Profile = () => {
                             src="/"
                             sx={{width: 96, height: 96}}/>
                 </Badge>
-
-                {/*//     <TextField value={title} onChange={changeTitle} autoFocus onBlur={activateViewMode} />*/}
-                {/*//     : <span onDoubleClick={activateEditMode}>{props.value}</span>*/}
-                <address className={style.profileEmail}>me@mail.com</address>
-                <Button variant="outlined" startIcon={<LogoutIcon/>} onClick={()=>alert("Bye!")}>
+                <div className={style.editableSpan}>
+                <EditableSpan
+                    title={userName}
+                    changeTitle={changeUserName}
+                    editMode={editMode}
+                    setEditMode={activateEditMode}
+                />
+                </div>
+                <div className={style.profileEmail}>{email}</div>
+                <Button variant="outlined" startIcon={<LogoutIcon/>} onClick={() => dispatch(logoutTC())}>
                     Log out
                 </Button>
             </div>

@@ -11,6 +11,9 @@ export const loginAPI = {
     },
     me() {
         return instance.post('/auth/me');
+    },
+    logout() {
+        return instance.delete('/auth/me')
     }
 }
 

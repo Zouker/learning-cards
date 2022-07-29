@@ -1,15 +1,27 @@
-import {AppThunk} from "../store";
+import {AppThunk} from '../store';
+import {AxiosError} from 'axios';
+import {errorUtils} from '../../utils/error-utils';
 import {profileAPI} from "../../feautures/auth/profile/profileAPI";
-import {errorUtils} from "../../utils/error-utils";
-import {AxiosError} from "axios";
 
+const initialState = {
+    _id: '',
+    email: '',
+    // rememberMe: false,
+    // isAdmin: false,
+    name: 'Enter name',
+    // verified: true,
+    publicCardPacksCount: 0,
+    // created: '',
+    // updated: '',
+    // __v: 0,
+    // token: '',
+    // tokenDeathTime: 0,
+    avatar: ''
+}
 
-const initialState = {_id: '', name: 'Your name', avatar: '', email: ''}
-
-
-export const profileReducer = (state: { name: string; _id: string; avatar: string; email: string } = initialState, action: ActionsType): InitialStateType => {
+export const profileReducer = (state: UserDataType = initialState, action: ActionType): InitialStateType => {
     switch (action.type) {
-        case 'CHANGE-USER-NAME': {
+        case 'profile/SET-USER-DATA': {
             return {...state, ...action.userData}
         }
         default:
@@ -17,49 +29,43 @@ export const profileReducer = (state: { name: string; _id: string; avatar: strin
     }
 }
 
-
-export type changeUserDataActionType = ReturnType<typeof changeUserDataAC>;
-export const changeUserDataAC = (userData: UpdatedUserType) => ({
-    type: 'CHANGE-USER-NAME',
-       userData
-} as const)
-
-// thunk
-
-export const updateUserDataTC = (userData: UpdatedUserType): AppThunk => (dispatch) => {
-    profileAPI.changeUserData(userData)
+// thunks
+export const updateUserDataTC = (userData: UserDataType): AppThunk => (dispatch) => {
+    profileAPI.updateUserData(userData)
         .then((res) => {
-            dispatch(changeUserDataAC(res.data.updatedUser))
+            dispatch(setUserDataAC(res.data.updatedUser))
         })
         .catch((error: AxiosError<{ error: string }>) => {
             errorUtils(error, dispatch)
         })
-
-
 }
 
+// actions
+export const setUserDataAC = (userData: UserDataType) => ({type: 'profile/SET-USER-DATA', userData} as const)
 
-//types:
-
+// types
 type InitialStateType = typeof initialState
 
-type ActionsType = changeUserDataActionType
+type ActionType = ReturnType<typeof setUserDataAC>
 
-export type ResponceDataType = {
-    updatedUser: UpdatedUserType
-    error?: string
+export type UpdateResponseType = {
+    updatedUser: UserDataType
+    token: string
+    tokenDeathTime: string
 }
 
-export type UpdatedUserType ={
+export type UserDataType = {
     _id: string
     email: string
+    rememberMe?: boolean
+    isAdmin?: boolean
     name: string
-    avatar?: string
+    verified?: boolean
     publicCardPacksCount: number
-    created: Date
-    updated: Date
-    isAdmin: boolean
-    verified: boolean
-    rememberMe: boolean
-    error?: string
+    created?: Date
+    updated?: Date
+    __v?: number
+    token?: string
+    tokenDeathTime?: number
+    avatar: string
 }
