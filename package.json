@@ -4,6 +4,7 @@
   "private": true,
   "homepage": "https://Zouker.github.io/learning-cards",
   "dependencies": {
+    "@material-ui/core": "^4.10.1",
     "@emotion/react": "^11.9.3",
     "@emotion/styled": "^11.9.3",
     "@mui/icons-material": "^5.8.4",
