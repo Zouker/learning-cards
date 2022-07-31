@@ -4,15 +4,17 @@ import {Error404} from '../common/error-page/Error404';
 import { Login } from '../feautures/auth/login/Login';
 import {Register} from '../feautures/auth/register/Register';
 import {Profile} from "../feautures/auth/profile/Profile";
+import style from './RoutesPage.module.css'
 
 export const RoutesPage = () => {
+
     return (
         <>
-            <NavLink to={'/login'}>Login</NavLink> |
-            <NavLink to={'/register'}> Register</NavLink> |
-            <NavLink to={'/profile'}> Profile</NavLink>|
-            <NavLink to={'/forgotPassword'}> Forgot Password</NavLink> |
-            <NavLink to={'/recoverPassword'}> Recover Password</NavLink>
+            <NavLink to={'/login'} className={({isActive}) => isActive ? style.active : ''}>Login</NavLink> |
+            <NavLink to={'/register'} className={({isActive}) => isActive ? style.active : ''}> Register</NavLink> |
+            <NavLink to={'/'} className={({isActive}) => isActive ? style.active : ''}> Profile</NavLink>|
+            <NavLink to={'/forgotPassword'} className={({isActive}) => isActive ? style.active : ''}> Forgot Password</NavLink> |
+            <NavLink to={'/recoverPassword'} className={({isActive}) => isActive ? style.active : ''}> Recover Password</NavLink>
 
             <Routes>
                 <Route path={'/'} element={<Navigate to={'/profile'}/>}/>
