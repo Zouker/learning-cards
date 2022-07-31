@@ -7,7 +7,8 @@ import {registerReducer} from './reducers/register-reducer';
 import {profileReducer} from './reducers/profile-reducer';
 import {forgotPasswordReducer} from './reducers/forgot-password-reducer';
 import {recoverPasswordReducer} from './reducers/recover-password-reducer';
-import {loginReducer} from "../feautures/auth/login/login-reducer";
+import {loginReducer} from '../feautures/auth/login/login-reducer';
+import {packsReducer} from './reducers/packs-reducer';
 
 const rootReducer = combineReducers({
     app: appReducer,
@@ -16,8 +17,8 @@ const rootReducer = combineReducers({
     profile: profileReducer,
     forgotPassword: forgotPasswordReducer,
     recoverPassword: recoverPasswordReducer,
-    login:loginReducer
-
+    login: loginReducer,
+    packs: packsReducer,
 })
 
 export const store = legacy_createStore(rootReducer, applyMiddleware(thunk))
