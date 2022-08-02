@@ -5,8 +5,8 @@ export const packsAPI = {
     getPacks(params: RequestGetPacksType) {
         return instance.get<RequestGetPacksType, AxiosResponse<ResponseCardPacksType>>('/cards/pack', {params});
     },
-    deletePacks(cardsPack:RequestAddPacksType){
-        return instance.post<RequestAddPacksType,AxiosResponse<RespondNewCardsPack>>('/cards/pack',{cardsPack})
+    addPacks(name:string){
+        return instance.post<RequestAddPacksType,AxiosResponse<RespondAddNewCardsPackType>>('/cards/pack',{cardsPack:{name}})
     }
 }
 
@@ -22,16 +22,30 @@ export type RequestGetPacksType = {
     user_id?: string
 }
 export type RequestAddPacksType={
-    cardsPack: {
         name?: string
         deckCover?: string
         private?: boolean
-    }
 }
 
 //Responds
-export type RespondNewCardsPack= {
-
+export type RespondAddNewCardsPackType= {
+    cardsCount: number
+    created: string
+    grade: number
+    more_id: string
+    name: string
+    path: string
+    private: boolean
+    rating: number
+    shots: number
+    type: string
+    updated: string
+    user_id: string
+    user_name: string
+    __v: number
+    _id: string
+    token: string
+    tokenDeathTime: number
 }
 type ResponseCardPacksType = {
     cardPacks: CardPacksType[]

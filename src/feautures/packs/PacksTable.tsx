@@ -14,9 +14,10 @@ import FirstPageIcon from '@mui/icons-material/FirstPage';
 import KeyboardArrowLeft from '@mui/icons-material/KeyboardArrowLeft';
 import KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight';
 import LastPageIcon from '@mui/icons-material/LastPage';
-import {useAppSelector} from '../../bll/store';
+import {useAppDispatch, useAppSelector} from '../../bll/store';
 import {Button, TableHead} from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
+import { addPacksTC } from '../../bll/reducers/packs-reducer';
 
 interface TablePaginationActionsProps {
     count: number;
@@ -85,8 +86,9 @@ function TablePaginationActions(props: TablePaginationActionsProps) {
 }
 
 export const PacksTable = () => {
+    const dispatch = useAppDispatch()
     const packs = useAppSelector(state => state.packs.cardPacks)
-    console.log(packs)
+    //console.log(packs)
     const [page, setPage] = React.useState(0);
     const [packsPerPage, setPacksPerPage] = React.useState(5);
 
@@ -110,7 +112,7 @@ export const PacksTable = () => {
 
     return (
         <TableContainer component={Paper}>
-            <Button  variant="contained">Add new pack</Button>
+            <Button variant="contained" onClick={()=>dispatch(addPacksTC())}>Add new pack</Button>
             <Table sx={{minWidth: 500}} aria-label="custom pagination table">
                 <TableHead>
                     <TableRow>

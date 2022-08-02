@@ -1,4 +1,4 @@
-import {CardPacksType, packsAPI} from '../../feautures/packs/packsAPI';
+import {CardPacksType, packsAPI, RequestAddPacksType} from '../../feautures/packs/packsAPI';
 import {AppThunk} from '../store';
 import {AxiosError} from 'axios';
 import {errorUtils} from '../../utils/error-utils';
@@ -26,6 +26,8 @@ export const packsReducer = (state: InitialStateType = initialState, action: Act
     switch (action.type) {
         case 'packs/GET-PACKS':
             return {...state, cardPacks: action.packs}
+        case "packs/ADD-PACKS":
+            // return {cardPacks: action.newCardPack, ...state}
         default:
             return state
     }
@@ -46,12 +48,21 @@ export const getPacksTC = (): AppThunk => (dispatch, getState) => {
             dispatch(setAppStatusAC('idle'))
         })
 }
-
+export const addPacksTC = ():AppThunk=>(dispatch)=>{
+    dispatch(setAppStatusAC('loading'))
+    packsAPI.addPacks('Hello')
+        .then((res)=>{
+            console.log('AddRequests')
+            dispatch(getPacksTC())
+            dispatch(setAppStatusAC('succeeded'))
+    })
+}
 
 // actions
 const getPacksAC = (packs: CardPacksType[]) => ({type: 'packs/GET-PACKS', packs} as const)
+const addPacksAC = (newCardPack: RequestAddPacksType) => ({type: 'packs/ADD-PACKS',newCardPack} as const)
 
 // types
 type InitialStateType = typeof initialState
 
-type ActionType = ReturnType<typeof getPacksAC>
+type ActionType = ReturnType<typeof getPacksAC>| ReturnType<typeof addPacksAC>
