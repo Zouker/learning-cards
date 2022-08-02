@@ -1,4 +1,4 @@
-import {CardPacksType, packsAPI} from '../../feautures/packs/packsAPI';
+import {CardPacksType, packsAPI, RequestAddPacksType} from '../../feautures/packs/packsAPI';
 import {AppThunk} from '../store';
 import {AxiosError} from 'axios';
 import {errorUtils} from '../../utils/error-utils';
@@ -19,13 +19,19 @@ const initialState = {
     minCardsCount: 0,
     maxCardsCount: 110,
     token: '',
-    tokenDeathTime: 0
+    tokenDeathTime: 0,
+    modal: false
 }
 
 export const packsReducer = (state: InitialStateType = initialState, action: ActionType) => {
     switch (action.type) {
         case 'packs/GET-PACKS':
             return {...state, cardPacks: action.packs}
+        case 'packs/ADD-PACKS':
+        //return {cardPacks: action.newCardPack, ...state}
+        case 'packs/OPEN-MODAL':
+            //return {...state, modal:action.}
+
         default:
             return state
     }
@@ -46,11 +52,33 @@ export const getPacksTC = (): AppThunk => (dispatch, getState) => {
             dispatch(setAppStatusAC('idle'))
         })
 }
+export const addPacksTC = (): AppThunk => (dispatch) => {
+    dispatch(setAppStatusAC('loading'))
+    packsAPI.addPacks('Hello')
+        .then((res) => {
+            dispatch(getPacksTC())
+            dispatch(setAppStatusAC('succeeded'))
+        })
+}
+export const deletePacksTC = (id: string): AppThunk => (dispatch) => {
+    dispatch(setAppStatusAC('loading'))
+    packsAPI.deletePacks(id)
+        .then((res) => {
+            dispatch(getPacksTC())
+            dispatch(setAppStatusAC('succeeded'))
+        })
+        .catch((error: AxiosError<{ error: string }>) => {
+            errorUtils(error, dispatch)
+            dispatch(setAppStatusAC('failed'))
+        })
+}
 
 // actions
 const getPacksAC = (packs: CardPacksType[]) => ({type: 'packs/GET-PACKS', packs} as const)
+const addPacksAC = (newCardPack: RequestAddPacksType) => ({type: 'packs/ADD-PACKS', newCardPack} as const)
+const openModalDialogAC = (isOpen: boolean) => ({type: 'packs/OPEN-MODAL', isOpen} as const)
 
 // types
 type InitialStateType = typeof initialState
 
-type ActionType = ReturnType<typeof getPacksAC>
+type ActionType = ReturnType<typeof getPacksAC> | ReturnType<typeof addPacksAC> | ReturnType<typeof openModalDialogAC>

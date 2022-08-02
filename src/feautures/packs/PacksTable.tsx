@@ -14,8 +14,11 @@ import FirstPageIcon from '@mui/icons-material/FirstPage';
 import KeyboardArrowLeft from '@mui/icons-material/KeyboardArrowLeft';
 import KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight';
 import LastPageIcon from '@mui/icons-material/LastPage';
-import {useAppSelector} from '../../bll/store';
-import {TableHead} from '@mui/material';
+import {useAppDispatch, useAppSelector} from '../../bll/store';
+import {Button, TableHead} from '@mui/material';
+import DeleteIcon from '@mui/icons-material/Delete';
+import { addPacksTC, deletePacksTC } from '../../bll/reducers/packs-reducer';
+import CreateIcon from '@mui/icons-material/Create';
 
 interface TablePaginationActionsProps {
     count: number;
@@ -84,8 +87,9 @@ function TablePaginationActions(props: TablePaginationActionsProps) {
 }
 
 export const PacksTable = () => {
+    const dispatch = useAppDispatch()
     const packs = useAppSelector(state => state.packs.cardPacks)
-    console.log(packs)
+    //console.log(packs)
     const [page, setPage] = React.useState(0);
     const [packsPerPage, setPacksPerPage] = React.useState(5);
 
@@ -106,9 +110,13 @@ export const PacksTable = () => {
         setPacksPerPage(parseInt(event.target.value, 10));
         setPage(0);
     };
+    const deletePack=(packId:string)=>{
+        dispatch(deletePacksTC(packId))
+    }
 
     return (
         <TableContainer component={Paper}>
+            <Button variant="contained" onClick={()=>dispatch(addPacksTC())}>Add new pack</Button>
             <Table sx={{minWidth: 500}} aria-label="custom pagination table">
                 <TableHead>
                     <TableRow>
@@ -116,6 +124,7 @@ export const PacksTable = () => {
                         <TableCell align="right">Cards</TableCell>
                         <TableCell align="right">Created By</TableCell>
                         <TableCell align="right">Updated</TableCell>
+                        <TableCell align="right">Actions</TableCell>
                     </TableRow>
                 </TableHead>
                 <TableBody>
@@ -135,6 +144,14 @@ export const PacksTable = () => {
                             </TableCell>
                             <TableCell style={{width: 160}} align="right">
                                 {pack.updated}
+                            </TableCell>
+                            <TableCell style={{width: 160}} align="right">
+                                <IconButton aria-label="delete" onClick={()=>deletePack(pack._id)}>
+                                    <DeleteIcon />
+                                </IconButton>
+                                <IconButton aria-label="delete" onClick={()=>deletePack(pack._id)}>
+                                    <CreateIcon />
+                                </IconButton>
                             </TableCell>
                         </TableRow>
                     ))}
