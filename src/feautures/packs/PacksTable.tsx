@@ -17,7 +17,7 @@ import LastPageIcon from '@mui/icons-material/LastPage';
 import {useAppDispatch, useAppSelector} from '../../bll/store';
 import {Button, TableHead} from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
-import { addPacksTC } from '../../bll/reducers/packs-reducer';
+import { addPacksTC, deletePacksTC } from '../../bll/reducers/packs-reducer';
 
 interface TablePaginationActionsProps {
     count: number;
@@ -140,7 +140,7 @@ export const PacksTable = () => {
                             <TableCell style={{width: 160}} align="right">
                                 {pack.updated}
                                 <div>
-                                    <IconButton aria-label="delete">
+                                    <IconButton aria-label="delete" onClick={()=>dispatch(deletePacksTC('62e92a3ce4941d0004b2438f'))}>
                                         <DeleteIcon />
                                     </IconButton>
                                 </div>
