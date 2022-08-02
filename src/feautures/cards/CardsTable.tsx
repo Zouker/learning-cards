@@ -123,7 +123,6 @@ export const CardsTable = () => {
         cardsPack_id && dispatch(updateCardTC(cardsPack_id, cardId, question, answer))
     }
 
-
     return (
         <TableContainer component={Paper}>
             <Table sx={{minWidth: 500}} aria-label="custom pagination table">

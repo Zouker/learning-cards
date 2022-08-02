@@ -17,7 +17,7 @@ import LastPageIcon from '@mui/icons-material/LastPage';
 import {useAppDispatch, useAppSelector} from '../../bll/store';
 import {Button, TableHead} from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
-import { addPacksTC, deletePacksTC } from '../../bll/reducers/packs-reducer';
+import {addPacksTC, deletePacksTC} from '../../bll/reducers/packs-reducer';
 import CreateIcon from '@mui/icons-material/Create';
 import {NavLink} from 'react-router-dom';
 
@@ -110,13 +110,14 @@ export const PacksTable = () => {
         setPacksPerPage(parseInt(event.target.value, 10));
         setPage(0);
     };
-    const deletePack=(packId:string)=>{
+
+    const deletePack = (packId: string) => {
         dispatch(deletePacksTC(packId))
     }
 
     return (
         <TableContainer component={Paper}>
-            <Button variant="contained" onClick={()=>dispatch(addPacksTC())}>Add new pack</Button>
+            <Button variant="contained" onClick={() => dispatch(addPacksTC())}>Add new pack</Button>
             <Table sx={{minWidth: 500}} aria-label="custom pagination table">
                 <TableHead>
                     <TableRow>
@@ -148,11 +149,11 @@ export const PacksTable = () => {
                                 {pack.updated}
                             </TableCell>
                             <TableCell style={{width: 160}} align="right">
-                                <IconButton aria-label="delete" onClick={()=>deletePack(pack._id)}>
-                                    <DeleteIcon />
+                                <IconButton aria-label="delete" onClick={() => deletePack(pack._id)}>
+                                    <DeleteIcon/>
                                 </IconButton>
-                                <IconButton aria-label="delete" onClick={()=>deletePack(pack._id)}>
-                                    <CreateIcon />
+                                <IconButton aria-label="delete" onClick={() => deletePack(pack._id)}>
+                                    <CreateIcon/>
                                 </IconButton>
                             </TableCell>
                         </TableRow>
