@@ -15,11 +15,11 @@ import KeyboardArrowLeft from '@mui/icons-material/KeyboardArrowLeft';
 import KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight';
 import LastPageIcon from '@mui/icons-material/LastPage';
 import {useAppDispatch, useAppSelector} from '../../bll/store';
-import {Button, TableHead} from '@mui/material';
+import {TableHead} from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
-import { addPacksTC, deletePacksTC } from '../../bll/reducers/packs-reducer';
 import CreateIcon from '@mui/icons-material/Create';
-import {NavLink} from 'react-router-dom';
+import {deleteCardTC, updateCardTC} from '../../bll/reducers/cards-reducer';
+import {useParams} from 'react-router-dom';
 
 interface TablePaginationActionsProps {
     count: number;
@@ -87,15 +87,17 @@ function TablePaginationActions(props: TablePaginationActionsProps) {
     );
 }
 
-export const PacksTable = () => {
+export const CardsTable = () => {
     const dispatch = useAppDispatch()
-    const packs = useAppSelector(state => state.packs.cardPacks)
+    const {cardsPack_id} = useParams()
+    const cards = useAppSelector(state => state.cards.cards)
+
     const [page, setPage] = React.useState(0);
     const [packsPerPage, setPacksPerPage] = React.useState(5);
 
     // Avoid a layout jump when reaching the last page with empty rows.
     const emptyPacks =
-        page > 0 ? Math.max(0, (1 + page) * packsPerPage - packs.length) : 0;
+        page > 0 ? Math.max(0, (1 + page) * packsPerPage - cards.length) : 0;
 
     const handleChangePage = (
         event: React.MouseEvent<HTMLButtonElement> | null,
@@ -110,49 +112,54 @@ export const PacksTable = () => {
         setPacksPerPage(parseInt(event.target.value, 10));
         setPage(0);
     };
-    const deletePack=(packId:string)=>{
-        dispatch(deletePacksTC(packId))
+
+    const deleteCard = (cardId: string) => {
+        cardsPack_id && dispatch(deleteCardTC(cardsPack_id, cardId))
     }
+
+    const updateCard = (cardId: string) => {
+        const question = 'UPDATE QUESTION'
+        const answer = 'UPDATE ANSWER'
+        cardsPack_id && dispatch(updateCardTC(cardsPack_id, cardId, question, answer))
+    }
+
 
     return (
         <TableContainer component={Paper}>
-            <Button variant="contained" onClick={()=>dispatch(addPacksTC())}>Add new pack</Button>
             <Table sx={{minWidth: 500}} aria-label="custom pagination table">
                 <TableHead>
                     <TableRow>
-                        <TableCell>Name</TableCell>
-                        <TableCell align="right">Cards</TableCell>
-                        <TableCell align="right">Created By</TableCell>
-                        <TableCell align="right">Updated</TableCell>
+                        <TableCell>Question</TableCell>
+                        <TableCell align="right">Answer</TableCell>
+                        <TableCell align="right">Last Updated</TableCell>
+                        <TableCell align="right">Grade</TableCell>
                         <TableCell align="right">Actions</TableCell>
                     </TableRow>
                 </TableHead>
                 <TableBody>
                     {(packsPerPage > 0
-                            ? packs.slice(page * packsPerPage, page * packsPerPage + packsPerPage)
-                            : packs
-                    ).map((pack) => (
-                        <TableRow key={pack._id}>
+                            ? cards.slice(page * packsPerPage, page * packsPerPage + packsPerPage)
+                            : cards
+                    ).map((card) => (
+                        <TableRow key={card._id}>
                             <TableCell component="th" scope="row">
-                                <NavLink to={`/cards/${pack._id}`}>
-                                    {pack.name}
-                                </NavLink>
+                                {card.question}
                             </TableCell>
                             <TableCell style={{width: 160}} align="right">
-                                {pack.cardsCount}
+                                {card.answer}
                             </TableCell>
                             <TableCell style={{width: 160}} align="right">
-                                {pack.user_name}
+                                {card.updated}
                             </TableCell>
                             <TableCell style={{width: 160}} align="right">
-                                {pack.updated}
+                                {card.grade}
                             </TableCell>
                             <TableCell style={{width: 160}} align="right">
-                                <IconButton aria-label="delete" onClick={()=>deletePack(pack._id)}>
-                                    <DeleteIcon />
+                                <IconButton>
+                                    <CreateIcon onClick={() => updateCard(card._id)}/>
                                 </IconButton>
-                                <IconButton aria-label="delete" onClick={()=>deletePack(pack._id)}>
-                                    <CreateIcon />
+                                <IconButton>
+                                    <DeleteIcon onClick={() => deleteCard(card._id)}/>
                                 </IconButton>
                             </TableCell>
                         </TableRow>
@@ -168,7 +175,7 @@ export const PacksTable = () => {
                         <TablePagination
                             rowsPerPageOptions={[5, 10, 25, 50]}
                             colSpan={3}
-                            count={packs.length}
+                            count={cards.length}
                             rowsPerPage={packsPerPage}
                             page={page}
                             SelectProps={{
