@@ -21,9 +21,9 @@ export default function FormDialog() {
 
     return (
         <div>
-            <Button variant="outlined" onClick={handleClickOpen}>
-                Open form dialog
-            </Button>
+            {/*<Button variant="outlined" onClick={handleClickOpen}>*/}
+            {/*    Open form dialog*/}
+            {/*</Button>*/}
             <Dialog open={open} onClose={handleClose}>
                 <DialogTitle>Add new pack</DialogTitle>
                 <DialogContent>

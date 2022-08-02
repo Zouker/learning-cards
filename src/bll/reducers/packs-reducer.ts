@@ -27,10 +27,10 @@ export const packsReducer = (state: InitialStateType = initialState, action: Act
     switch (action.type) {
         case 'packs/GET-PACKS':
             return {...state, cardPacks: action.packs}
-        case "packs/ADD-PACKS":
+        case 'packs/ADD-PACKS':
         //return {cardPacks: action.newCardPack, ...state}
-        case "packs/OPEN-MODAL":
-            //return {...state, modal: a}
+        case 'packs/OPEN-MODAL':
+            //return {...state, modal:action.}
 
         default:
             return state
@@ -56,7 +56,6 @@ export const addPacksTC = (): AppThunk => (dispatch) => {
     dispatch(setAppStatusAC('loading'))
     packsAPI.addPacks('Hello')
         .then((res) => {
-            console.log('AddPack')
             dispatch(getPacksTC())
             dispatch(setAppStatusAC('succeeded'))
         })
@@ -65,8 +64,7 @@ export const deletePacksTC = (id: string): AppThunk => (dispatch) => {
     dispatch(setAppStatusAC('loading'))
     packsAPI.deletePacks(id)
         .then((res) => {
-            console.log('deletePack')
-            //dispatch(getPacksTC())
+            dispatch(getPacksTC())
             dispatch(setAppStatusAC('succeeded'))
         })
         .catch((error: AxiosError<{ error: string }>) => {

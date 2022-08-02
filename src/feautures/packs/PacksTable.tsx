@@ -18,6 +18,7 @@ import {useAppDispatch, useAppSelector} from '../../bll/store';
 import {Button, TableHead} from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { addPacksTC, deletePacksTC } from '../../bll/reducers/packs-reducer';
+import CreateIcon from '@mui/icons-material/Create';
 
 interface TablePaginationActionsProps {
     count: number;
@@ -109,6 +110,9 @@ export const PacksTable = () => {
         setPacksPerPage(parseInt(event.target.value, 10));
         setPage(0);
     };
+    const deletePack=(packId:string)=>{
+        dispatch(deletePacksTC(packId))
+    }
 
     return (
         <TableContainer component={Paper}>
@@ -120,6 +124,7 @@ export const PacksTable = () => {
                         <TableCell align="right">Cards</TableCell>
                         <TableCell align="right">Created By</TableCell>
                         <TableCell align="right">Updated</TableCell>
+                        <TableCell align="right">Actions</TableCell>
                     </TableRow>
                 </TableHead>
                 <TableBody>
@@ -139,11 +144,14 @@ export const PacksTable = () => {
                             </TableCell>
                             <TableCell style={{width: 160}} align="right">
                                 {pack.updated}
-                                <div>
-                                    <IconButton aria-label="delete" onClick={()=>dispatch(deletePacksTC('62e92a3ce4941d0004b2438f'))}>
-                                        <DeleteIcon />
-                                    </IconButton>
-                                </div>
+                            </TableCell>
+                            <TableCell style={{width: 160}} align="right">
+                                <IconButton aria-label="delete" onClick={()=>deletePack(pack._id)}>
+                                    <DeleteIcon />
+                                </IconButton>
+                                <IconButton aria-label="delete" onClick={()=>deletePack(pack._id)}>
+                                    <CreateIcon />
+                                </IconButton>
                             </TableCell>
                         </TableRow>
                     ))}

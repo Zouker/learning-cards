@@ -9,7 +9,7 @@ export const packsAPI = {
         return instance.post<RequestAddPacksType,AxiosResponse<RespondAddNewCardsPackType>>('/cards/pack',{cardsPack:{name}})
     },
     deletePacks(id:string){
-        return instance.post<RequestAddPacksType,AxiosResponse<RespondAddNewCardsPackType>>('/cards/pack',id)
+        return instance.post<RequestAddPacksType,AxiosResponse<RespondAddNewCardsPackType>>('/cards/pack',{cardsPack_id:id})
     }
 }
 
