@@ -15,7 +15,8 @@ import KeyboardArrowLeft from '@mui/icons-material/KeyboardArrowLeft';
 import KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight';
 import LastPageIcon from '@mui/icons-material/LastPage';
 import {useAppSelector} from '../../bll/store';
-import {TableHead} from '@mui/material';
+import {Button, TableHead} from '@mui/material';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 interface TablePaginationActionsProps {
     count: number;
@@ -109,6 +110,7 @@ export const PacksTable = () => {
 
     return (
         <TableContainer component={Paper}>
+            <Button  variant="contained">Add new pack</Button>
             <Table sx={{minWidth: 500}} aria-label="custom pagination table">
                 <TableHead>
                     <TableRow>
@@ -135,6 +137,11 @@ export const PacksTable = () => {
                             </TableCell>
                             <TableCell style={{width: 160}} align="right">
                                 {pack.updated}
+                                <div>
+                                    <IconButton aria-label="delete">
+                                        <DeleteIcon />
+                                    </IconButton>
+                                </div>
                             </TableCell>
                         </TableRow>
                     ))}

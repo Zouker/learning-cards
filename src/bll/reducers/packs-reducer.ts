@@ -47,6 +47,7 @@ export const getPacksTC = (): AppThunk => (dispatch, getState) => {
         })
 }
 
+
 // actions
 const getPacksAC = (packs: CardPacksType[]) => ({type: 'packs/GET-PACKS', packs} as const)
 
