@@ -17,7 +17,7 @@ import LastPageIcon from '@mui/icons-material/LastPage';
 import {useAppDispatch, useAppSelector} from '../../bll/store';
 import {Button, TableHead} from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
-import {addPacksTC, deletePacksTC} from '../../bll/reducers/packs-reducer';
+import {addPacksTC, deletePacksTC, updatePacksTC} from '../../bll/reducers/packs-reducer';
 import CreateIcon from '@mui/icons-material/Create';
 import {NavLink} from 'react-router-dom';
 
@@ -114,6 +114,9 @@ export const PacksTable = () => {
     const deletePack = (packId: string) => {
         dispatch(deletePacksTC(packId))
     }
+    // const deletePack = (packId: string) => {
+    //     cardsPack_id && dispatch(deleteCardTC(cardsPack_id, cardId))
+    // }
 
     return (
         <TableContainer component={Paper}>
@@ -152,7 +155,8 @@ export const PacksTable = () => {
                                 <IconButton aria-label="delete" onClick={() => deletePack(pack._id)}>
                                     <DeleteIcon/>
                                 </IconButton>
-                                <IconButton aria-label="delete" onClick={() => deletePack(pack._id)}>
+                                <IconButton aria-label="delete"
+                                            onClick={() => dispatch(updatePacksTC(pack._id, 'One'))}>
                                     <CreateIcon/>
                                 </IconButton>
                             </TableCell>

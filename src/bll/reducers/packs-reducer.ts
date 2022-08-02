@@ -73,6 +73,18 @@ export const deletePacksTC = (id: string): AppThunk => (dispatch) => {
             dispatch(setAppStatusAC('failed'))
         })
 }
+export const updatePacksTC = (id: string, name:string): AppThunk => (dispatch) => {
+    dispatch(setAppStatusAC('loading'))
+    packsAPI.updatePacks(id, name)
+        .then((res) => {
+            dispatch(getPacksTC())
+            dispatch(setAppStatusAC('succeeded'))
+        })
+        .catch((error: AxiosError<{ error: string }>) => {
+            errorUtils(error, dispatch)
+            dispatch(setAppStatusAC('failed'))
+        })
+}
 
 // actions
 const getPacksAC = (packs: CardPacksType[]) => ({type: 'packs/GET-PACKS', packs} as const)
