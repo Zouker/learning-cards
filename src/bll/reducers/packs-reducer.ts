@@ -60,6 +60,7 @@ export const addPacksTC = (): AppThunk => (dispatch) => {
             dispatch(setAppStatusAC('succeeded'))
         })
 }
+
 export const deletePacksTC = (id: string): AppThunk => (dispatch) => {
     dispatch(setAppStatusAC('loading'))
     packsAPI.deletePacks(id)
