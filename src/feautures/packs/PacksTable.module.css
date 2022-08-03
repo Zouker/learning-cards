@@ -1,0 +1,8 @@
+.openPack {
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.openPack:hover {
+    color: #1976d2;
+}
