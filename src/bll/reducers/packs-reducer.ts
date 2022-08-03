@@ -23,7 +23,7 @@ const initialState = {
     modal: false
 }
 
-export const packsReducer = (state: InitialStateType = initialState, action: ActionType) => {
+export const packsReducer = (state: InitialStateType = initialState, action: ActionType): InitialStateType => {
     switch (action.type) {
         case 'packs/GET-PACKS':
             return {...state, cardPacks: action.packs}

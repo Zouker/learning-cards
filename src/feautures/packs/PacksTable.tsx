@@ -19,7 +19,8 @@ import {Button, TableHead} from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 import {addPacksTC, deletePacksTC} from '../../bll/reducers/packs-reducer';
 import CreateIcon from '@mui/icons-material/Create';
-import {NavLink} from 'react-router-dom';
+import {useNavigate} from 'react-router-dom';
+import styles from './PacksTable.module.css'
 
 interface TablePaginationActionsProps {
     count: number;
@@ -88,6 +89,7 @@ function TablePaginationActions(props: TablePaginationActionsProps) {
 }
 
 export const PacksTable = () => {
+    const navigate = useNavigate()
     const dispatch = useAppDispatch()
     const packs = useAppSelector(state => state.packs.cardPacks)
     const [page, setPage] = React.useState(0);
@@ -115,6 +117,10 @@ export const PacksTable = () => {
         dispatch(deletePacksTC(packId))
     }
 
+    const openCards = (packId: string, packName: string) => {
+        navigate(`/cards/${packName}~${packId}`)
+    }
+
     return (
         <TableContainer component={Paper}>
             <Button variant="contained" onClick={() => dispatch(addPacksTC())}>Add new pack</Button>
@@ -122,10 +128,10 @@ export const PacksTable = () => {
                 <TableHead>
                     <TableRow>
                         <TableCell>Name</TableCell>
-                        <TableCell align="right">Cards</TableCell>
-                        <TableCell align="right">Created By</TableCell>
-                        <TableCell align="right">Updated</TableCell>
-                        <TableCell align="right">Actions</TableCell>
+                        <TableCell align="center">Cards</TableCell>
+                        <TableCell align="center">Created By</TableCell>
+                        <TableCell align="center">Updated</TableCell>
+                        <TableCell align="center">Actions</TableCell>
                     </TableRow>
                 </TableHead>
                 <TableBody>
@@ -135,20 +141,20 @@ export const PacksTable = () => {
                     ).map((pack) => (
                         <TableRow key={pack._id}>
                             <TableCell component="th" scope="row">
-                                <NavLink to={`/cards/${pack._id}`}>
+                                <div onClick={() => openCards(pack._id, pack.name)} className={styles.openPack}>
                                     {pack.name}
-                                </NavLink>
+                                </div>
                             </TableCell>
-                            <TableCell style={{width: 160}} align="right">
+                            <TableCell align="center">
                                 {pack.cardsCount}
                             </TableCell>
-                            <TableCell style={{width: 160}} align="right">
+                            <TableCell align="center">
                                 {pack.user_name}
                             </TableCell>
-                            <TableCell style={{width: 160}} align="right">
+                            <TableCell align="center">
                                 {pack.updated}
                             </TableCell>
-                            <TableCell style={{width: 160}} align="right">
+                            <TableCell align="center">
                                 <IconButton aria-label="delete" onClick={() => deletePack(pack._id)}>
                                     <DeleteIcon/>
                                 </IconButton>
