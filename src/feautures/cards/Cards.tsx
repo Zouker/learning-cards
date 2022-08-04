@@ -3,8 +3,10 @@ import {useAppDispatch, useAppSelector} from '../../bll/store';
 import {addCardTC, getCardsTC, searchQuestionAC, setPackIdAC, setPackNameAC} from '../../bll/reducers/cards-reducer';
 import {useNavigate, useParams} from 'react-router-dom';
 import {CardsTable} from './CardsTable';
-import {Button} from '@mui/material';
+import {Button, TextField} from '@mui/material';
 import styles from './Cards.module.css'
+import {useDebounce} from '../../hooks/useDebounce';
+import SearchIcon from '@mui/icons-material/Search';
 
 export const Cards = () => {
     const dispatch = useAppDispatch()
@@ -15,11 +17,12 @@ export const Cards = () => {
     const packName = useAppSelector(state => state.cards.packName)
     const userId = useAppSelector(state => state.profile._id)
     const packUserId = useAppSelector(state => state.cards.packUserId)
-    const question = useAppSelector(state => state.cards.params.cardQuestion)
     const [name, id] = cardsPack?.split('~') as string[]
     const navigate = useNavigate()
 
     const [value, setValue] = useState('')
+
+    const debouncedValue = useDebounce(value, 1000)
 
     const addCard = () => {
         const question = 'HARDCODE QUESTION'
@@ -39,7 +42,7 @@ export const Cards = () => {
             dispatch(setPackNameAC(name))
             dispatch(getCardsTC())
         }
-    }, [dispatch, id, name, page, pageCount, packUserId, packs, question])
+    }, [dispatch, id, name, page, pageCount, packUserId, packs, debouncedValue])
 
     return (
         <div>
@@ -55,11 +58,18 @@ export const Cards = () => {
                     <Button variant={'contained'} onClick={addCard}>Add new card</Button>
                 </div>
                 : <></>}
-            <input type={'search'} value={value}
-                   onChange={(e) => {
-                       setValue(e.currentTarget.value)
-                       dispatch(searchQuestionAC(e.currentTarget.value))
-                   }}/>
+            <div className={styles.search}>
+                <SearchIcon/>
+                <TextField
+                    variant="standard"
+                    type={'search'}
+                    placeholder={'Search...'}
+                    value={value}
+                    onChange={(e) => {
+                        setValue(e.currentTarget.value)
+                        dispatch(searchQuestionAC(e.currentTarget.value))
+                    }}/>
+            </div>
             <CardsTable/>
         </div>
     );
