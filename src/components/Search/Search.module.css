@@ -1,0 +1,22 @@
+.search {
+    position: relative;
+}
+
+.icon {
+    width: 24px;
+    height: 24px;
+    opacity: 0.5;
+    position: absolute;
+    left: 5px;
+    top: 6px;
+}
+
+.input {
+    padding: 12px 35px;
+    width: 463px;
+    height: 36px;
+    background: #FFFFFF;
+    border: 1px solid #D9D9D9;
+    border-radius: 2px;
+    font-size: 16px;
+}
