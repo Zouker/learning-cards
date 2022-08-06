@@ -16,11 +16,11 @@ import {deleteCardTC, setCardPageAC, setCardPageCountAC, updateCardTC} from '../
 import {formatDate} from '../../common/format-date/formatDate';
 
 export const CardsTable = () => {
+    const dispatch = useAppDispatch()
+    const cards = useAppSelector(state => state.cards.cards)
     const page = useAppSelector(state => state.cards.params.page)
     const pageCount = useAppSelector(state => state.cards.params.pageCount)
     const cardsTotalCount = useAppSelector(state => state.cards.cardsTotalCount)
-    const dispatch = useAppDispatch()
-    const cards = useAppSelector(state => state.cards.cards)
 
     const handleChangePage = (
         event: React.MouseEvent<HTMLButtonElement> | null,

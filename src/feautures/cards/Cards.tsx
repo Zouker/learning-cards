@@ -1,12 +1,12 @@
-import React, {useEffect, useState} from 'react';
+import React, {ChangeEvent, useEffect, useState} from 'react';
 import {useAppDispatch, useAppSelector} from '../../bll/store';
 import {addCardTC, getCardsTC, searchQuestionAC, setPackIdAC, setPackNameAC} from '../../bll/reducers/cards-reducer';
 import {useNavigate, useParams} from 'react-router-dom';
 import {CardsTable} from './CardsTable';
-import {Button, TextField} from '@mui/material';
+import {Button} from '@mui/material';
 import styles from './Cards.module.css'
 import {useDebounce} from '../../hooks/useDebounce';
-import SearchIcon from '@mui/icons-material/Search';
+import {Search} from '../../components/Search/Search';
 
 export const Cards = () => {
     const dispatch = useAppDispatch()
@@ -32,6 +32,11 @@ export const Cards = () => {
         }
     }
 
+    const searchQuestionHandler = (e: ChangeEvent<HTMLInputElement>) => {
+        setValue(e.currentTarget.value)
+        dispatch(searchQuestionAC(e.currentTarget.value))
+    }
+
     const onClickBackHandler = () => {
         navigate(-1)
     }
@@ -45,32 +50,28 @@ export const Cards = () => {
     }, [dispatch, id, name, page, pageCount, packUserId, packs, debouncedValue])
 
     return (
-        <div>
+        <div className={styles.wrapper}>
             <div onClick={onClickBackHandler} className={styles.backButton}>
                 <svg width="16" height="11" viewBox="0 0 16 11" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M16 5.5H2M2 5.5L6.66667 1M2 5.5L6.66667 10" stroke="black" strokeWidth="2"/>
                 </svg>
                 <div className={styles.back}>Back to Packs List</div>
             </div>
-            <div className={styles.packName}>{packName}</div>
             {userId === packUserId
-                ? <div className={styles.addCardButton}>
-                    <Button variant={'contained'} onClick={addCard}>Add new card</Button>
+                ? <div className={styles.header}>
+                    <div>{packName}</div>
+                    <div>
+                        <Button variant={'contained'} onClick={addCard}>Add new card</Button>
+                    </div>
                 </div>
-                : <></>}
+                : <div className={styles.packName}>{packName}</div>}
             <div className={styles.search}>
-                <SearchIcon/>
-                <TextField
-                    variant="standard"
-                    type={'search'}
-                    placeholder={'Search...'}
-                    value={value}
-                    onChange={(e) => {
-                        setValue(e.currentTarget.value)
-                        dispatch(searchQuestionAC(e.currentTarget.value))
-                    }}/>
+                <div>Search</div>
+                <Search value={value} onChange={searchQuestionHandler}/>
             </div>
-            <CardsTable/>
+            <div className={styles.table}>
+                <CardsTable/>
+            </div>
         </div>
     );
 };
