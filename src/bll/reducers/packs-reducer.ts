@@ -1,4 +1,4 @@
-import {CardPacksType, packsAPI, RequestAddPacksType} from '../../feautures/packs/packsAPI';
+import {CardPacksType, packsAPI} from '../../feautures/packs/packsAPI';
 import {AppThunk} from '../store';
 import {AxiosError} from 'axios';
 import {errorUtils} from '../../utils/error-utils';
@@ -9,7 +9,7 @@ const initialState = {
     params: {
         packName: '',
         min: 0,
-        max: 0,
+        max: 110,
         sortPacks: '',
         page: 0,
         pageCount: 10,
@@ -27,11 +27,18 @@ export const packsReducer = (state: InitialStateType = initialState, action: Act
     switch (action.type) {
         case 'packs/GET-PACKS':
             return {...state, cardPacks: action.packs}
-        case 'packs/ADD-PACKS':
-        //return {cardPacks: action.newCardPack, ...state}
-        case 'packs/OPEN-MODAL':
-            //return {...state, modal:action.}
-
+        case 'packs/SET-PACK-PAGE':
+            return {...state, params: {...state.params, page: action.page}}
+        case 'packs/SET-PACK-PAGE-COUNT':
+            return {...state, params: {...state.params, pageCount: action.pageCount}}
+        case 'packs/SET-PACKS-TOTAL-COUNT':
+            return {...state, cardPacksTotalCount: action.cardPacksTotalCount}
+        case 'packs/SEARCH-PACK-NAME':
+            return {...state, params: {...state.params, packName: action.packName}}
+        case 'packs/SET-MIN-MAX':
+            return {...state, params: {...state.params, min: action.value[0], max: action.value[1]}}
+        case 'packs/SORT-PACKS':
+            return {...state, params: {...state.params, sortPacks: action.sortPacks}}
         default:
             return state
     }
@@ -44,6 +51,9 @@ export const getPacksTC = (): AppThunk => (dispatch, getState) => {
     packsAPI.getPacks(params)
         .then((res) => {
             dispatch(getPacksAC(res.data.cardPacks))
+            dispatch(setPackPageAC(res.data.page))
+            dispatch(setPackPageCountAC(res.data.pageCount))
+            dispatch(setPacksTotalCountAC(res.data.cardPacksTotalCount))
         })
         .catch((error: AxiosError<{ error: string }>) => {
             errorUtils(error, dispatch)
@@ -52,33 +62,71 @@ export const getPacksTC = (): AppThunk => (dispatch, getState) => {
             dispatch(setAppStatusAC('idle'))
         })
 }
-export const addPacksTC = (): AppThunk => (dispatch) => {
+export const addPackTC = (packName: string): AppThunk => (dispatch) => {
     dispatch(setAppStatusAC('loading'))
-    packsAPI.addPacks('Hello')
+    packsAPI.addPack(packName)
         .then((res) => {
             dispatch(getPacksTC())
-            dispatch(setAppStatusAC('succeeded'))
-        })
-}
-export const deletePacksTC = (id: string): AppThunk => (dispatch) => {
-    dispatch(setAppStatusAC('loading'))
-    packsAPI.deletePacks(id)
-        .then((res) => {
-            dispatch(getPacksTC())
-            dispatch(setAppStatusAC('succeeded'))
         })
         .catch((error: AxiosError<{ error: string }>) => {
             errorUtils(error, dispatch)
-            dispatch(setAppStatusAC('failed'))
+        })
+        .finally(() => {
+            dispatch(setAppStatusAC('idle'))
+        })
+}
+export const deletePackTC = (id: string): AppThunk => (dispatch) => {
+    dispatch(setAppStatusAC('loading'))
+    packsAPI.deletePack(id)
+        .then((res) => {
+            dispatch(getPacksTC())
+        })
+        .catch((error: AxiosError<{ error: string }>) => {
+            errorUtils(error, dispatch)
+        })
+        .finally(() => {
+            dispatch(setAppStatusAC('idle'))
+        })
+}
+
+export const updatePackTC = (_id: string, name: string, deckCover: string): AppThunk => (dispatch) => {
+    dispatch(setAppStatusAC('loading'))
+    packsAPI.updatePack(_id, name, deckCover)
+        .then((res) => {
+            dispatch(getPacksTC())
+        })
+        .catch((error: AxiosError<{ error: string }>) => {
+            errorUtils(error, dispatch)
+        })
+        .finally(() => {
+            dispatch(setAppStatusAC('idle'))
         })
 }
 
 // actions
 const getPacksAC = (packs: CardPacksType[]) => ({type: 'packs/GET-PACKS', packs} as const)
-const addPacksAC = (newCardPack: RequestAddPacksType) => ({type: 'packs/ADD-PACKS', newCardPack} as const)
-const openModalDialogAC = (isOpen: boolean) => ({type: 'packs/OPEN-MODAL', isOpen} as const)
+export const setPackPageAC = (page: number) => ({type: 'packs/SET-PACK-PAGE', page} as const)
+export const setPackPageCountAC = (pageCount: number) => ({type: 'packs/SET-PACK-PAGE-COUNT', pageCount} as const)
+export const setPacksTotalCountAC = (cardPacksTotalCount: number) => ({
+    type: 'packs/SET-PACKS-TOTAL-COUNT',
+    cardPacksTotalCount
+} as const)
+export const searchPackNameAC = (packName: string) => ({type: 'packs/SEARCH-PACK-NAME', packName} as const)
+export const sortPacksAC = (sortPacks: string) => ({type: 'packs/SORT-PACKS', sortPacks} as const)
+
+export const setMinMaxAC = (value: Array<number>) => ({
+    type: 'packs/SET-MIN-MAX',
+    value
+} as const)
 
 // types
 type InitialStateType = typeof initialState
 
-type ActionType = ReturnType<typeof getPacksAC> | ReturnType<typeof addPacksAC> | ReturnType<typeof openModalDialogAC>
+type ActionType =
+    ReturnType<typeof getPacksAC>
+    | ReturnType<typeof setPackPageAC>
+    | ReturnType<typeof setPackPageCountAC>
+    | ReturnType<typeof setPacksTotalCountAC>
+    | ReturnType<typeof searchPackNameAC>
+    | ReturnType<typeof setMinMaxAC>
+    | ReturnType<typeof sortPacksAC>
