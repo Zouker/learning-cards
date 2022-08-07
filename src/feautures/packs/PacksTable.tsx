@@ -15,6 +15,7 @@ import {deletePackTC, setPackPageAC, setPackPageCountAC, updatePackTC} from '../
 import CreateIcon from '@mui/icons-material/Create';
 import {useNavigate} from 'react-router-dom';
 import styles from './PacksTable.module.css'
+import {formatDate} from '../../common/format-date/formatDate';
 
 export const PacksTable = () => {
     const navigate = useNavigate()
@@ -79,7 +80,7 @@ export const PacksTable = () => {
                                 {pack.user_name}
                             </TableCell>
                             <TableCell align="center">
-                                {pack.updated}
+                                {formatDate(pack.updated)}
                             </TableCell>
                             <TableCell align="center">
                                 <IconButton onClick={() => updatePack(pack._id)}>
