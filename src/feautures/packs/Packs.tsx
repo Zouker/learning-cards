@@ -1,7 +1,7 @@
 import React, {ChangeEvent, useEffect, useState} from 'react';
 import {PacksTable} from './PacksTable';
 import {useAppDispatch, useAppSelector} from '../../bll/store';
-import {addPackTC, getPacksTC, searchPackNameAC, setMinMaxAC} from '../../bll/reducers/packs-reducer';
+import {addPackTC, getPacksTC, searchPackNameAC, setMinMaxAC, setMyAllPacksAC} from '../../bll/reducers/packs-reducer';
 import {Button, Slider} from '@mui/material';
 import styles from './Packs.module.css'
 import {useDebounce} from '../../hooks/useDebounce';
@@ -18,6 +18,7 @@ export const Packs = () => {
     const page = useAppSelector(state => state.packs.params.page)
     const pageCount = useAppSelector(state => state.packs.params.pageCount)
     const isLoggedIn = useAppSelector(state => state.login.isLoggedIn)
+    const isMyPack = useAppSelector(state => state.packs.isMyPack)
 
     const [value, setValue] = React.useState<number[]>([min, max]);
     const [searchValue, setSearchValue] = useState('')
@@ -44,9 +45,17 @@ export const Packs = () => {
         dispatch(searchPackNameAC(e.currentTarget.value))
     }
 
+    const myPacksHandler = () => {
+        dispatch(setMyAllPacksAC(true))
+    }
+
+    const allPacksHandler = () => {
+        dispatch(setMyAllPacksAC(false))
+    }
+
     useEffect(() => {
         dispatch(getPacksTC())
-    }, [dispatch, min, max, page, pageCount, debouncedValue])
+    }, [dispatch, min, max, page, pageCount, debouncedValue, isMyPack])
 
 
     if (!isLoggedIn) {
@@ -70,8 +79,10 @@ export const Packs = () => {
                     <div>
                         Show packs cards
                     </div>
-                    <Button className={styles.buttonMyAll} variant={'contained'}>My</Button>
-                    <Button className={styles.buttonMyAll} variant={'outlined'}>All</Button>
+                    <Button className={styles.buttonMyAll} variant={isMyPack ? 'contained' : 'outlined'}
+                            onClick={myPacksHandler}>My</Button>
+                    <Button className={styles.buttonMyAll} variant={!isMyPack ? 'contained' : 'outlined'}
+                            onClick={allPacksHandler}>All</Button>
                 </div>
                 <div className={styles.sliderContainer}>
                     <div>
