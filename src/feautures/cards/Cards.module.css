@@ -1,0 +1,65 @@
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: #F9F9FA;
+    font-family: Montserrat, serif;
+}
+
+.backButton {
+    cursor: pointer;
+    display: flex;
+
+    justify-content: flex-start;
+    align-items: center;
+    padding: 0 20px;
+    width: 1008px;
+}
+
+.back {
+    padding: 10px;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    width: 1008px;
+
+    padding: 20px;
+    text-align: start;
+    font-weight: 600;
+    font-size: 22px;
+    color: #000;
+}
+
+.packName {
+    display: flex;
+    justify-content: flex-start;
+    width: 1008px;
+
+    padding: 20px;
+    text-align: start;
+    font-weight: 600;
+    font-size: 22px;
+    color: #000;
+}
+
+.addCardButton {
+    padding: 0 20px 20px 0;
+    text-align: end;
+}
+
+.search {
+    text-align: start;
+    width: 1008px;
+    padding: 20px;
+}
+
+input {
+    width: 1008px;
+}
+
+.table {
+    width: 1008px;
+}

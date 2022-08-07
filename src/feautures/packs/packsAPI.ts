@@ -5,19 +5,30 @@ export const packsAPI = {
     getPacks(params: RequestGetPacksType) {
         return instance.get<RequestGetPacksType, AxiosResponse<ResponseCardPacksType>>('/cards/pack', {params});
     },
-    addPacks(name: string) {
-        return instance.post<RequestAddPacksType, AxiosResponse<RespondAddNewCardsPackType>>('/cards/pack', {cardsPack: {name}})
+    addPack(name: string, deckCover?: string, isPrivate?: boolean) {
+        return instance.post<AddPackType, AxiosResponse<CardPacksType>>('/cards/pack', {
+            cardsPack: {
+                name,
+                deckCover,
+                private: isPrivate
+            }
+        })
     },
-    deletePacks(_id: string) {
-        return instance.post<any, AxiosResponse<any>>('/cards/pack', {params: {_id}})
+    deletePack(id: string) {
+        return instance.delete<'', AxiosResponse<CardPacksType>>('/cards/pack', {params: {id}})
     },
-    updatePacks(_id: string, name: string) {
-        return instance.post<any, AxiosResponse<any>>('/cards/pack', {params: {_id, name}})
+    updatePack(_id: string, name: string, deckCover: string) {
+        return instance.put<UpdatePackType, AxiosResponse<CardPacksType>>('cards/pack', {
+            cardsPack: {
+                _id,
+                name,
+                deckCover
+            }
+        })
     }
 }
 
-//types
-//Requests
+// types
 export type RequestGetPacksType = {
     packName?: string
     min?: number
@@ -27,32 +38,18 @@ export type RequestGetPacksType = {
     pageCount?: number
     user_id?: string
 }
-export type RequestAddPacksType = {
+type AddPackType = {
     name?: string
     deckCover?: string
     private?: boolean
 }
 
-//Responds
-export type RespondAddNewCardsPackType = {
-    cardsCount: number
-    created: string
-    grade: number
-    more_id: string
-    name: string
-    path: string
-    private: boolean
-    rating: number
-    shots: number
-    type: string
-    updated: string
-    user_id: string
-    user_name: string
-    __v: number
+type UpdatePackType = {
     _id: string
-    token: string
-    tokenDeathTime: number
+    name?: string
+    deckCover?: string
 }
+
 type ResponseCardPacksType = {
     cardPacks: CardPacksType[]
     page: number

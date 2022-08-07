@@ -1,0 +1,22 @@
+.openPack {
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.openPack:hover {
+    color: #1976d2;
+}
+
+.sortUp:hover {
+    cursor: pointer;
+    background-image: url("../../assets/img/up.svg");
+    background-repeat: no-repeat;
+    background-position: 100%;;
+}
+
+.sortDown:hover {
+    cursor: pointer;
+    background-image: url("../../assets/img/down.svg");
+    background-repeat: no-repeat;
+    background-position: 100%;
+}

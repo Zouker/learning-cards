@@ -28,7 +28,7 @@ export const RoutesPage = () => {
                 <Route path={'/forgotPassword'} element={<div>Forgot Password</div>}/>
                 <Route path={'/recoverPassword'} element={<div>Recover Password</div>}/>
                 <Route path={'/packs'} element={<Packs/>}/>
-                <Route path={'/cards/:cardsPack_id'} element={<Cards/>}/>
+                <Route path={'/cards/:cardsPack'} element={<Cards/>}/>
                 <Route path={'/404'} element={<Error404/>}/>
                 <Route path={'*'} element={<Navigate to={'/404'}/>}/>
             </Routes>
