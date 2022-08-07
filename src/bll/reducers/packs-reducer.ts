@@ -20,7 +20,7 @@ const initialState = {
     maxCardsCount: 110,
     token: '',
     tokenDeathTime: 0,
-    modal: false
+    isMyPack: false
 }
 
 export const packsReducer = (state: InitialStateType = initialState, action: ActionType): InitialStateType => {
@@ -39,6 +39,8 @@ export const packsReducer = (state: InitialStateType = initialState, action: Act
             return {...state, params: {...state.params, min: action.value[0], max: action.value[1]}}
         case 'packs/SORT-PACKS':
             return {...state, params: {...state.params, sortPacks: action.sortPacks}}
+        case 'packs/SET-MY-ALL-PACK':
+            return {...state, isMyPack: action.isMyPack}
         default:
             return state
     }
@@ -46,9 +48,13 @@ export const packsReducer = (state: InitialStateType = initialState, action: Act
 
 // thunks
 export const getPacksTC = (): AppThunk => (dispatch, getState) => {
-    const {params} = getState().packs
+    const {isMyPack, params} = getState().packs
+    const userId = getState().profile._id
     dispatch(setAppStatusAC('loading'))
-    packsAPI.getPacks(params)
+    packsAPI.getPacks({
+        ...params,
+        user_id: isMyPack ? userId : '',
+    })
         .then((res) => {
             dispatch(getPacksAC(res.data.cardPacks))
             dispatch(setPackPageAC(res.data.page))
@@ -103,6 +109,11 @@ export const updatePackTC = (_id: string, name: string, deckCover: string): AppT
         })
 }
 
+export const sortPacksTC = (sortParams: string): AppThunk => (dispatch) => {
+    dispatch(sortPacksAC(sortParams))
+    dispatch(getPacksTC())
+}
+
 // actions
 const getPacksAC = (packs: CardPacksType[]) => ({type: 'packs/GET-PACKS', packs} as const)
 export const setPackPageAC = (page: number) => ({type: 'packs/SET-PACK-PAGE', page} as const)
@@ -113,11 +124,8 @@ export const setPacksTotalCountAC = (cardPacksTotalCount: number) => ({
 } as const)
 export const searchPackNameAC = (packName: string) => ({type: 'packs/SEARCH-PACK-NAME', packName} as const)
 export const sortPacksAC = (sortPacks: string) => ({type: 'packs/SORT-PACKS', sortPacks} as const)
-
-export const setMinMaxAC = (value: Array<number>) => ({
-    type: 'packs/SET-MIN-MAX',
-    value
-} as const)
+export const setMinMaxAC = (value: Array<number>) => ({type: 'packs/SET-MIN-MAX', value} as const)
+export const setMyAllPacksAC = (isMyPack: boolean) => ({type: 'packs/SET-MY-ALL-PACK', isMyPack} as const)
 
 // types
 type InitialStateType = typeof initialState
@@ -130,3 +138,4 @@ type ActionType =
     | ReturnType<typeof searchPackNameAC>
     | ReturnType<typeof setMinMaxAC>
     | ReturnType<typeof sortPacksAC>
+    | ReturnType<typeof setMyAllPacksAC>

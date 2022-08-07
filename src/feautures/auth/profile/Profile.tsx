@@ -39,7 +39,6 @@ export const Profile: React.FC<ProfilePropsType> = () => {
         }
 
     const changeUserName = (name: string) => {
-        console.log(name)
         dispatch(updateUserDataTC({
             publicCardPacksCount: publicCardPacksCount,
             _id: userId,
@@ -51,7 +50,6 @@ export const Profile: React.FC<ProfilePropsType> = () => {
     if (!isLoggedIn) {
         return <Navigate to={'/login'}/>
     }
-
 
     return (
         <div className={style.profileWrapper}>
