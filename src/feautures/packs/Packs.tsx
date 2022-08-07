@@ -6,6 +6,7 @@ import {Button, Slider} from '@mui/material';
 import styles from './Packs.module.css'
 import {useDebounce} from '../../hooks/useDebounce';
 import {Search} from '../../components/Search/Search';
+import {Navigate} from 'react-router-dom';
 
 
 export const Packs = () => {
@@ -16,6 +17,7 @@ export const Packs = () => {
     const max = useAppSelector(state => state.packs.params.max)
     const page = useAppSelector(state => state.packs.params.page)
     const pageCount = useAppSelector(state => state.packs.params.pageCount)
+    const isLoggedIn = useAppSelector(state => state.login.isLoggedIn)
 
     const [value, setValue] = React.useState<number[]>([min, max]);
     const [searchValue, setSearchValue] = useState('')
@@ -45,6 +47,11 @@ export const Packs = () => {
     useEffect(() => {
         dispatch(getPacksTC())
     }, [dispatch, min, max, page, pageCount, debouncedValue])
+
+
+    if (!isLoggedIn) {
+        return <Navigate to={'/login'}/>
+    }
 
     return (
         <div className={styles.wrapper}>
