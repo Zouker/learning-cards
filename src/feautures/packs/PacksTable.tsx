@@ -31,6 +31,7 @@ export const PacksTable = () => {
     const pageCount = useAppSelector(state => state.packs.params.pageCount)
     const cardPacksTotalCount = useAppSelector(state => state.packs.cardPacksTotalCount)
     const sortPacks = useAppSelector(state => state.packs.params.sortPacks)
+    const userId = useAppSelector(state => state.profile._id)
 
     const handleChangePage = (
         event: React.MouseEvent<HTMLButtonElement> | null,
@@ -101,10 +102,10 @@ export const PacksTable = () => {
                                     {formatDate(pack.updated)}
                                 </TableCell>
                                 <TableCell align="center">
-                                    <IconButton onClick={() => updatePack(pack._id)}>
+                                    <IconButton disabled={userId !== pack.user_id} onClick={() => updatePack(pack._id)}>
                                         <CreateIcon/>
                                     </IconButton>
-                                    <IconButton onClick={() => deletePack(pack._id)}>
+                                    <IconButton disabled={userId !== pack.user_id} onClick={() => deletePack(pack._id)}>
                                         <DeleteIcon/>
                                     </IconButton>
                                 </TableCell>

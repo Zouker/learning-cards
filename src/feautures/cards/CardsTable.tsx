@@ -21,6 +21,7 @@ export const CardsTable = () => {
     const page = useAppSelector(state => state.cards.params.page)
     const pageCount = useAppSelector(state => state.cards.params.pageCount)
     const cardsTotalCount = useAppSelector(state => state.cards.cardsTotalCount)
+    const userId = useAppSelector(state => state.profile._id)
 
     const handleChangePage = (
         event: React.MouseEvent<HTMLButtonElement> | null,
@@ -74,10 +75,10 @@ export const CardsTable = () => {
                                     <Rating name="read-only" value={card.grade} readOnly/>
                                 </TableCell>
                                 <TableCell align="center">
-                                    <IconButton onClick={() => updateCard(card._id)}>
+                                    <IconButton disabled={userId !== card.user_id} onClick={() => updateCard(card._id)}>
                                         <CreateIcon/>
                                     </IconButton>
-                                    <IconButton onClick={() => deleteCard(card._id)}>
+                                    <IconButton disabled={userId !== card.user_id} onClick={() => deleteCard(card._id)}>
                                         <DeleteIcon/>
                                     </IconButton>
                                 </TableCell>
