@@ -66,32 +66,33 @@ export const PacksTable = () => {
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    {packs.map((pack) => (
-                        <TableRow key={pack._id}>
-                            <TableCell component="th" scope="row">
-                                <div onClick={() => openCards(pack._id, pack.name)} className={styles.openPack}>
-                                    {pack.name}
-                                </div>
-                            </TableCell>
-                            <TableCell align="center">
-                                {pack.cardsCount}
-                            </TableCell>
-                            <TableCell align="center">
-                                {pack.user_name}
-                            </TableCell>
-                            <TableCell align="center">
-                                {formatDate(pack.updated)}
-                            </TableCell>
-                            <TableCell align="center">
-                                <IconButton onClick={() => updatePack(pack._id)}>
-                                    <CreateIcon/>
-                                </IconButton>
-                                <IconButton onClick={() => deletePack(pack._id)}>
-                                    <DeleteIcon/>
-                                </IconButton>
-                            </TableCell>
-                        </TableRow>
-                    ))}
+                    {packs.length ? packs.map((pack) => (
+                            <TableRow key={pack._id}>
+                                <TableCell component="th" scope="row">
+                                    <div onClick={() => openCards(pack._id, pack.name)} className={styles.openPack}>
+                                        {pack.name}
+                                    </div>
+                                </TableCell>
+                                <TableCell align="center">
+                                    {pack.cardsCount}
+                                </TableCell>
+                                <TableCell align="center">
+                                    {pack.user_name}
+                                </TableCell>
+                                <TableCell align="center">
+                                    {formatDate(pack.updated)}
+                                </TableCell>
+                                <TableCell align="center">
+                                    <IconButton onClick={() => updatePack(pack._id)}>
+                                        <CreateIcon/>
+                                    </IconButton>
+                                    <IconButton onClick={() => deletePack(pack._id)}>
+                                        <DeleteIcon/>
+                                    </IconButton>
+                                </TableCell>
+                            </TableRow>
+                        ))
+                        : <TableCell>PACKS NOT FOUND</TableCell>}
                 </TableBody>
                 <TableFooter>
                     <TableRow>
