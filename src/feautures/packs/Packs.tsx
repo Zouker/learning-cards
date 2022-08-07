@@ -8,7 +8,6 @@ import {useDebounce} from '../../hooks/useDebounce';
 import {Search} from '../../components/Search/Search';
 import {Navigate} from 'react-router-dom';
 
-
 export const Packs = () => {
     const dispatch = useAppDispatch()
     const minCardsCount = useAppSelector(state => state.packs.minCardsCount)
@@ -19,6 +18,7 @@ export const Packs = () => {
     const pageCount = useAppSelector(state => state.packs.params.pageCount)
     const isLoggedIn = useAppSelector(state => state.login.isLoggedIn)
     const isMyPack = useAppSelector(state => state.packs.isMyPack)
+    const sortPacks = useAppSelector(state => state.packs.params.sortPacks)
 
     const [value, setValue] = React.useState<number[]>([min, max]);
     const [searchValue, setSearchValue] = useState('')
@@ -55,7 +55,7 @@ export const Packs = () => {
 
     useEffect(() => {
         dispatch(getPacksTC())
-    }, [dispatch, min, max, page, pageCount, debouncedValue, isMyPack])
+    }, [dispatch, min, max, page, pageCount, debouncedValue, isMyPack, sortPacks])
 
 
     if (!isLoggedIn) {

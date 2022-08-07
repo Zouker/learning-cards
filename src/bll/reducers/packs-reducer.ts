@@ -109,6 +109,11 @@ export const updatePackTC = (_id: string, name: string, deckCover: string): AppT
         })
 }
 
+export const sortPacksTC = (sortParams: string): AppThunk => (dispatch) => {
+    dispatch(sortPacksAC(sortParams))
+    dispatch(getPacksTC())
+}
+
 // actions
 const getPacksAC = (packs: CardPacksType[]) => ({type: 'packs/GET-PACKS', packs} as const)
 export const setPackPageAC = (page: number) => ({type: 'packs/SET-PACK-PAGE', page} as const)

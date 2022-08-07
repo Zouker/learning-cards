@@ -11,7 +11,13 @@ import IconButton from '@mui/material/IconButton';
 import {useAppDispatch, useAppSelector} from '../../bll/store';
 import {TableHead} from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
-import {deletePackTC, setPackPageAC, setPackPageCountAC, updatePackTC} from '../../bll/reducers/packs-reducer';
+import {
+    deletePackTC,
+    setPackPageAC,
+    setPackPageCountAC,
+    sortPacksTC,
+    updatePackTC
+} from '../../bll/reducers/packs-reducer';
 import CreateIcon from '@mui/icons-material/Create';
 import {useNavigate} from 'react-router-dom';
 import styles from './PacksTable.module.css'
@@ -24,6 +30,7 @@ export const PacksTable = () => {
     const page = useAppSelector(state => state.packs.params.page)
     const pageCount = useAppSelector(state => state.packs.params.pageCount)
     const cardPacksTotalCount = useAppSelector(state => state.packs.cardPacksTotalCount)
+    const sortPacks = useAppSelector(state => state.packs.params.sortPacks)
 
     const handleChangePage = (
         event: React.MouseEvent<HTMLButtonElement> | null,
@@ -49,6 +56,10 @@ export const PacksTable = () => {
         dispatch(deletePackTC(packId))
     }
 
+    const sort = (sortParams: string) => {
+        return sortPacks === `1${sortParams}` ? dispatch(sortPacksTC(`0${sortParams}`)) : dispatch(sortPacksTC(`1${sortParams}`))
+    }
+
     const openCards = (packId: string, packName: string) => {
         navigate(`/cards/${packName}~${packId}`)
     }
@@ -58,20 +69,27 @@ export const PacksTable = () => {
             <Table sx={{minWidth: 500}} aria-label="custom pagination table">
                 <TableHead>
                     <TableRow>
-                        <TableCell>Name</TableCell>
-                        <TableCell align="center">Cards</TableCell>
-                        <TableCell align="center">Created By</TableCell>
-                        <TableCell align="center">Updated</TableCell>
+                        <TableCell className={sortPacks === '0name' ? styles.sortUp : styles.sortDown}
+                                   onClick={() => sort('name')}>Name</TableCell>
+                        <TableCell align="center"
+                                   className={sortPacks === '0cardsCount' ? styles.sortUp : styles.sortDown}
+                                   onClick={() => sort('cardsCount')}>Cards</TableCell>
+                        <TableCell align="center"
+                                   className={sortPacks === '0user_name' ? styles.sortUp : styles.sortDown}
+                                   onClick={() => sort('user_name')}>Created
+                            By</TableCell>
+                        <TableCell align="center"
+                                   className={sortPacks === '0updated' ? styles.sortUp : styles.sortDown}
+                                   onClick={() => sort('updated')}>Updated</TableCell>
                         <TableCell align="center">Actions</TableCell>
                     </TableRow>
                 </TableHead>
                 <TableBody>
                     {packs.length ? packs.map((pack) => (
                             <TableRow key={pack._id}>
-                                <TableCell component="th" scope="row">
-                                    <div onClick={() => openCards(pack._id, pack.name)} className={styles.openPack}>
-                                        {pack.name}
-                                    </div>
+                                <TableCell component="th" scope="row" onClick={() => openCards(pack._id, pack.name)}
+                                           className={styles.openPack}>
+                                    {pack.name}
                                 </TableCell>
                                 <TableCell align="center">
                                     {pack.cardsCount}
