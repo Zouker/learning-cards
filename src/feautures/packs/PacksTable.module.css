@@ -9,14 +9,14 @@
 
 .sortUp:hover {
     cursor: pointer;
-    background-image: url("../../assets/img/up.svg");
+    /*background-image: url("../../assets/img/up.svg");*/
     background-repeat: no-repeat;
     background-position: 100%;;
 }
 
 .sortDown:hover {
     cursor: pointer;
-    background-image: url("../../assets/img/down.svg");
+    /*background-image: url("../../assets/img/down.svg");*/
     background-repeat: no-repeat;
     background-position: 100%;
 }

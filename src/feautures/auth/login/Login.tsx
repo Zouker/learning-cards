@@ -15,7 +15,8 @@ import styles from '../register/Register.module.css';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import Visibility from '@mui/icons-material/Visibility';
 import {useAppDispatch, useAppSelector} from '../../../bll/store';
-import {Navigate} from 'react-router-dom';
+import {Navigate, NavLink} from 'react-router-dom';
+import style from '../../../routes/RoutesPage.module.css'
 
 export const Login = () => {
 
@@ -107,7 +108,17 @@ export const Login = () => {
                                 checked={formik.values.rememberMe}
                             />}
                         />
-                        <Button type={'submit'} variant={'contained'} color={'primary'}>Login</Button>
+                        <div >
+                            <NavLink to={'/forgotPassword'}
+                                     className={({isActive}) => isActive ? style.active : styles.recovery}> Forgot
+                                Password?</NavLink>
+
+                            <Button className={styles.btnlogin} type={'submit'} variant={'contained'} color={'primary'}>Sign
+                                In</Button>
+
+                            <div className={styles.haveAc}>Already have an account?</div>
+                            <NavLink to={'/register'} className={({isActive}) => isActive ? style.active : ''}> Sign Up</NavLink>
+                        </div>
                         {/*</FormGroup>*/}
                     </div>
                 </form>

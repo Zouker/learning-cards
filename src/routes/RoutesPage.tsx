@@ -7,6 +7,7 @@ import {Profile} from '../feautures/auth/profile/Profile';
 import {Packs} from '../feautures/packs/Packs';
 import style from './RoutesPage.module.css'
 import {Cards} from '../feautures/cards/Cards';
+import { ForgotPass } from '../feautures/auth/forgotPass/ForgotPass';
 
 export const RoutesPage = () => {
     return (
@@ -25,7 +26,7 @@ export const RoutesPage = () => {
                 <Route path={'/login'} element={<Login/>}/>
                 <Route path={'/register'} element={<Register/>}/>
                 <Route path={'/profile'} element={<Profile/>}/>
-                <Route path={'/forgotPassword'} element={<div>Forgot Password</div>}/>
+                <Route path={'/forgotPassword'} element={<div><ForgotPass/></div>}/>
                 <Route path={'/recoverPassword'} element={<div>Recover Password</div>}/>
                 <Route path={'/packs'} element={<Packs/>}/>
                 <Route path={'/cards/:cardsPack'} element={<Cards/>}/>
