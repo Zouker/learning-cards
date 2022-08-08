@@ -1,13 +1,15 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import './App.css';
 import {RoutesPage} from './routes/RoutesPage';
 import {ErrorSnackbar} from './components/ErrorSnackbar/ErrorSnackbar';
 import {Button, CircularProgress, LinearProgress} from '@mui/material';
 import {useAppDispatch, useAppSelector} from './bll/store';
 import {initializeAppTC} from './feautures/auth/login/login-reducer';
+import {DeletePackModal} from "./feautures/modals/modals-packs/DeletePackModal";
 
 
 function App() {
+    const[isDeletePackModalOpen, setIsDeletePackModalOpen] = useState<boolean>(false)
     const dispatch = useAppDispatch()
     const isInitialized = useAppSelector(state => state.login.isInitialized)
     const status = useAppSelector(state => state.app.status)
@@ -26,6 +28,11 @@ function App() {
     }
 
 
+    const deleteModalHandler = () => {
+        setIsDeletePackModalOpen(!isDeletePackModalOpen)
+    }
+
+
     return (
         <div className="App">
             <div>
@@ -34,11 +41,13 @@ function App() {
                 <RoutesPage/>
             </div>
             <div className="controls">
-                <Button variant="contained">Open first modal</Button>
+                <Button variant="contained" onClick={deleteModalHandler}>Open first modal</Button>
                 <Button variant="contained">Open second modal</Button>
                 <Button variant="contained">Open third modal</Button>
             </div>
+           <DeletePackModal isModalOpen={isDeletePackModalOpen} setIsModalOpen={deleteModalHandler}/>
         </div>
+
     );
 }
 
