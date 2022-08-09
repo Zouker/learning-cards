@@ -37,14 +37,14 @@ export const CardsTable = () => {
         dispatch(setCardPageAC(1))
     };
 
-    const deleteCard = (cardId: string) => {
-        dispatch(deleteCardTC(cardId))
+    const deleteCard = (packId: string, cardId: string) => {
+        dispatch(deleteCardTC(packId, cardId))
     }
 
-    const updateCard = (cardId: string) => {
+    const updateCard = (packId: string, cardId: string) => {
         const question = 'UPDATE QUESTION'
         const answer = 'UPDATE ANSWER'
-        dispatch(updateCardTC(cardId, question, answer))
+        dispatch(updateCardTC(packId, cardId, question, answer))
     }
 
     return (
@@ -75,10 +75,12 @@ export const CardsTable = () => {
                                     <Rating name="read-only" value={card.grade} readOnly/>
                                 </TableCell>
                                 <TableCell align="center">
-                                    <IconButton disabled={userId !== card.user_id} onClick={() => updateCard(card._id)}>
+                                    <IconButton disabled={userId !== card.user_id}
+                                                onClick={() => updateCard(card.cardsPack_id, card._id)}>
                                         <CreateIcon/>
                                     </IconButton>
-                                    <IconButton disabled={userId !== card.user_id} onClick={() => deleteCard(card._id)}>
+                                    <IconButton disabled={userId !== card.user_id}
+                                                onClick={() => deleteCard(card.cardsPack_id, card._id)}>
                                         <DeleteIcon/>
                                     </IconButton>
                                 </TableCell>
