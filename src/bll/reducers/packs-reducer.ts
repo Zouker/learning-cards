@@ -68,9 +68,9 @@ export const getPacksTC = (): AppThunk => (dispatch, getState) => {
             dispatch(setAppStatusAC('idle'))
         })
 }
-export const addPackTC = (packName: string): AppThunk => (dispatch) => {
+export const addPackTC = (packName: string, deckCover: string, isPrivate: boolean): AppThunk => (dispatch) => {
     dispatch(setAppStatusAC('loading'))
-    packsAPI.addPack(packName)
+    packsAPI.addPack(packName, deckCover, isPrivate)
         .then((res) => {
             dispatch(getPacksTC())
         })
