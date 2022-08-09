@@ -18,7 +18,7 @@ export const CreatePackModal: FC<CreatePackModalPropsType> = memo(({
     // const navigate = useNavigate();
 
     const addCardPack = () => {
-        // dispatch(addCardTC(packName, isPrivate));
+        // dispatch(addPackTC(packName, isPrivate));
         // setPackName('')
         // setIsModalOpen(false)
         //navigate('/packs')
