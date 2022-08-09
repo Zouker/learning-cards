@@ -9,11 +9,11 @@ type DeletePackModalPropsType = {
 }
 
 export const DeletePackModal: FC<DeletePackModalPropsType> = memo(({
-        isModalOpen,
-        setIsModalOpen,
-        packName,
-        // id
-    }) => {
+                                                                       isModalOpen,
+                                                                       setIsModalOpen,
+                                                                       packName,
+                                                                       // id
+                                                                   }) => {
 
     // const dispatch = useAppDispatch();
 
@@ -31,8 +31,8 @@ export const DeletePackModal: FC<DeletePackModalPropsType> = memo(({
             buttonTitle={'Delete'}
         >
             <div>
-              <p>Do you Do you really want to remove <b>{packName}</b>?</p>
-              <p>All cards will be deleted.</p>
+                <p>Do you Do you really want to remove <b>{packName}</b>?</p>
+                <p>All cards will be deleted.</p>
             </div>
         </CommonModal>
     );
