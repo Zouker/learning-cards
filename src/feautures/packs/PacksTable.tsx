@@ -67,7 +67,7 @@ export const PacksTable = () => {
     }
 
     const openCards = (packId: string, packName: string) => {
-        navigate(`/cards/${packName}~${packId}`)
+        navigate(`/cards/${packId}/${packName}`)
     }
 
     return (
