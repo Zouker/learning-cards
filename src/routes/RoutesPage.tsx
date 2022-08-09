@@ -21,8 +21,7 @@ export const RoutesPage = () => {
                 Password</NavLink> |
             <NavLink to={'/checkEmail'} className={({isActive}) => isActive ? style.active : ''}> Check email
             </NavLink> |
-            <NavLink to={'/recoverPassword'} className={({isActive}) => isActive ? style.active : ''}> Recover
-                Password</NavLink> |
+            {/*<NavLink to={'/set-new-password/'} className={({isActive}) => isActive ? style.active : ''}> CreateNewPass</NavLink> |*/}
             <NavLink to={'/packs'} className={({isActive}) => isActive ? style.active : ''}> Packs</NavLink>
 
             <Routes>
@@ -32,7 +31,7 @@ export const RoutesPage = () => {
                 <Route path={'/profile'} element={<Profile/>}/>
                 <Route path={'/forgotPassword'} element={<ForgotPass/>}/>
                 <Route path={'/checkEmail'} element={<CheckEmail/>}/>
-                <Route path={'/recoverPassword'} element={<CreateNewPass/>}/>
+                <Route path={'/set-new-password/:id'} element={<CreateNewPass/>}/>
                 <Route path={'/packs'} element={<Packs/>}/>
                 <Route path={'/cards/:cardsPack'} element={<Cards/>}/>
                 <Route path={'/404'} element={<Error404/>}/>

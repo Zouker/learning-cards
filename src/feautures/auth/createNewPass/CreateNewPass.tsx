@@ -2,6 +2,9 @@ import {Visibility, VisibilityOff} from '@mui/icons-material';
 import {Button, FormControl, IconButton, Input, InputAdornment, InputLabel, TextField} from '@mui/material';
 import {useFormik} from 'formik';
 import React from 'react';
+import { useParams } from 'react-router-dom';
+import {setNewPassTC } from '../../../bll/reducers/recover-password-reducer';
+import { useAppDispatch } from '../../../bll/store';
 import style from './CreateNewPass.module.css'
 
 type FormikErrorType = {
@@ -10,6 +13,8 @@ type FormikErrorType = {
 }
 
 export const CreateNewPass = () => {
+    const {id} = useParams()
+    const dispatch = useAppDispatch()
 
     const [passwordValues, setPasswordValues] = React.useState({
         password: '',
@@ -27,16 +32,10 @@ export const CreateNewPass = () => {
 
     const formik = useFormik({
         initialValues: {
-            email: '',
             password: '',
         },
         validate: (values) => {
             const errors: FormikErrorType = {};
-            if (!values.email) {
-                errors.email = 'Required';
-            } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
-                errors.email = 'Invalid email address';
-            }
             if (!values.password) {
                 errors.password = 'Required';
             } else if (values.password.length <= 7) {
@@ -49,13 +48,17 @@ export const CreateNewPass = () => {
             // dispatch(registerTC(values))
         },
     });
+    const data={
+        password:'asdasdasd',
+        resetPasswordToken:"b72bf760-1822-11ed-a7b3-171da9e00f6b"
+    }
     return (
         <div className={style.createNewPassWrapper}>
             <div className={style.createNewPassContainer}>
                 <h1>Create new password</h1>
 
                 <FormControl className={style.formControl} sx={{m: 1, width: '40ch'}} variant="standard">
-                    <InputLabel  htmlFor="password">Password</InputLabel>
+                    <InputLabel htmlFor="password">Password</InputLabel>
                     <Input
                         id="password"
                         type={passwordValues.showPassword ? 'text' : 'password'}
@@ -76,7 +79,7 @@ export const CreateNewPass = () => {
                 <div className={style.text}>
                     Create new password and we will send you futher instructions to email
                 </div>
-                <Button variant="contained">Create new password</Button>
+                <Button onClick={()=>dispatch(setNewPassTC(data))} variant="contained">Create new password</Button>
             </div>
         </div>
     );
