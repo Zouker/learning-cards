@@ -9,6 +9,7 @@ import style from './RoutesPage.module.css'
 import {Cards} from '../feautures/cards/Cards';
 import { ForgotPass } from '../feautures/auth/forgotPass/ForgotPass';
 import CheckEmail from '../feautures/auth/checkEmail/CheckEmail';
+import { CreateNewPass } from '../feautures/auth/createNewPass/CreateNewPass';
 
 export const RoutesPage = () => {
     return (
@@ -31,7 +32,7 @@ export const RoutesPage = () => {
                 <Route path={'/profile'} element={<Profile/>}/>
                 <Route path={'/forgotPassword'} element={<ForgotPass/>}/>
                 <Route path={'/checkEmail'} element={<CheckEmail/>}/>
-                <Route path={'/recoverPassword'} element={<div>Recover Password</div>}/>
+                <Route path={'/recoverPassword'} element={<CreateNewPass/>}/>
                 <Route path={'/packs'} element={<Packs/>}/>
                 <Route path={'/cards/:cardsPack'} element={<Cards/>}/>
                 <Route path={'/404'} element={<Error404/>}/>

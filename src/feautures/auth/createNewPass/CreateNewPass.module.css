@@ -1,0 +1,33 @@
+.createNewPassWrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 120px;
+}
+
+.createNewPassContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 413px;
+    height: 410px;
+    background: #FFFFFF;
+    box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1), -1px -1px 2px rgba(0, 0, 0, 0.1);
+    border-radius: 2px;
+}
+.formControl{
+    width: 347px;
+}
+
+.text{
+    padding-top: 25px;
+    padding-bottom: 50px;
+    width: 347px;
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 24px;
+    opacity: 0.5;
+    text-align: center;
+}
