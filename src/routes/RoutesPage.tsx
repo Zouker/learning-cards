@@ -8,6 +8,7 @@ import {Packs} from '../feautures/packs/Packs';
 import style from './RoutesPage.module.css'
 import {Cards} from '../feautures/cards/Cards';
 import { ForgotPass } from '../feautures/auth/forgotPass/ForgotPass';
+import CheckEmail from '../feautures/auth/checkEmail/CheckEmail';
 
 export const RoutesPage = () => {
     return (
@@ -17,6 +18,8 @@ export const RoutesPage = () => {
             <NavLink to={'/profile'} className={({isActive}) => isActive ? style.active : ''}> Profile</NavLink>|
             <NavLink to={'/forgotPassword'} className={({isActive}) => isActive ? style.active : ''}> Forgot
                 Password</NavLink> |
+            <NavLink to={'/checkEmail'} className={({isActive}) => isActive ? style.active : ''}> Check email
+            </NavLink> |
             <NavLink to={'/recoverPassword'} className={({isActive}) => isActive ? style.active : ''}> Recover
                 Password</NavLink> |
             <NavLink to={'/packs'} className={({isActive}) => isActive ? style.active : ''}> Packs</NavLink>
@@ -26,7 +29,8 @@ export const RoutesPage = () => {
                 <Route path={'/login'} element={<Login/>}/>
                 <Route path={'/register'} element={<Register/>}/>
                 <Route path={'/profile'} element={<Profile/>}/>
-                <Route path={'/forgotPassword'} element={<div><ForgotPass/></div>}/>
+                <Route path={'/forgotPassword'} element={<ForgotPass/>}/>
+                <Route path={'/checkEmail'} element={<CheckEmail/>}/>
                 <Route path={'/recoverPassword'} element={<div>Recover Password</div>}/>
                 <Route path={'/packs'} element={<Packs/>}/>
                 <Route path={'/cards/:cardsPack'} element={<Cards/>}/>
