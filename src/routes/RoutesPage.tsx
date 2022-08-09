@@ -7,6 +7,7 @@ import {Profile} from '../feautures/auth/profile/Profile';
 import {Packs} from '../feautures/packs/Packs';
 import style from './RoutesPage.module.css'
 import {Cards} from '../feautures/cards/Cards';
+import {Learn} from '../feautures/learn/Learn';
 import { ForgotPass } from '../feautures/auth/forgotPass/ForgotPass';
 import CheckEmail from '../feautures/auth/checkEmail/CheckEmail';
 import { CreateNewPass } from '../feautures/auth/createNewPass/CreateNewPass';
@@ -19,9 +20,8 @@ export const RoutesPage = () => {
             <NavLink to={'/profile'} className={({isActive}) => isActive ? style.active : ''}> Profile</NavLink>|
             <NavLink to={'/forgotPassword'} className={({isActive}) => isActive ? style.active : ''}> Forgot
                 Password</NavLink> |
-            <NavLink to={'/checkEmail'} className={({isActive}) => isActive ? style.active : ''}> Check email
-            </NavLink> |
-            {/*<NavLink to={'/set-new-password/'} className={({isActive}) => isActive ? style.active : ''}> CreateNewPass</NavLink> |*/}
+            <NavLink to={'/recoverPassword'} className={({isActive}) => isActive ? style.active : ''}> Recover
+                Password</NavLink> |
             <NavLink to={'/packs'} className={({isActive}) => isActive ? style.active : ''}> Packs</NavLink>
 
             <Routes>
@@ -29,9 +29,8 @@ export const RoutesPage = () => {
                 <Route path={'/login'} element={<Login/>}/>
                 <Route path={'/register'} element={<Register/>}/>
                 <Route path={'/profile'} element={<Profile/>}/>
-                <Route path={'/forgotPassword'} element={<ForgotPass/>}/>
-                <Route path={'/checkEmail'} element={<CheckEmail/>}/>
-                <Route path={'/set-new-password/:id'} element={<CreateNewPass/>}/>
+                <Route path={'/forgotPassword'} element={<div>Forgot Password</div>}/>
+                <Route path={'/recoverPassword'} element={<div>Recover Password</div>}/>
                 <Route path={'/packs'} element={<Packs/>}/>
                 <Route path={'/cards/:cardsPack'} element={<Cards/>}/>
                 <Route path={'/404'} element={<Error404/>}/>

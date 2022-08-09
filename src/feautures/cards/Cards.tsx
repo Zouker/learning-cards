@@ -1,6 +1,6 @@
 import React, {ChangeEvent, useEffect, useState} from 'react';
 import {useAppDispatch, useAppSelector} from '../../bll/store';
-import {addCardTC, getCardsTC, searchQuestionAC, setPackIdAC, setPackNameAC} from '../../bll/reducers/cards-reducer';
+import {addCardTC, getCardsTC, searchQuestionAC} from '../../bll/reducers/cards-reducer';
 import {useNavigate, useParams} from 'react-router-dom';
 import {CardsTable} from './CardsTable';
 import {Button} from '@mui/material';
@@ -10,14 +10,12 @@ import {Search} from '../../components/Search/Search';
 
 export const Cards = () => {
     const dispatch = useAppDispatch()
-    const {cardsPack} = useParams()
+    const {packId, packName} = useParams()
     const page = useAppSelector(state => state.cards.params.page)
     const pageCount = useAppSelector(state => state.cards.params.pageCount)
     const packs = useAppSelector(state => state.packs.cardPacks)
-    const packName = useAppSelector(state => state.cards.packName)
     const userId = useAppSelector(state => state.profile._id)
     const packUserId = useAppSelector(state => state.cards.packUserId)
-    const [name, id] = cardsPack?.split('~') as string[]
     const navigate = useNavigate()
 
     const [value, setValue] = useState('')
@@ -27,8 +25,8 @@ export const Cards = () => {
     const addCard = () => {
         const question = 'HARDCODE QUESTION'
         const answer = 'HARDCODE ANSWER'
-        if (id) {
-            dispatch(addCardTC(id, question, answer))
+        if (packId) {
+            dispatch(addCardTC(packId, question, answer))
         }
     }
 
@@ -42,12 +40,10 @@ export const Cards = () => {
     }
 
     useEffect(() => {
-        if (id) {
-            dispatch(setPackIdAC(id))
-            dispatch(setPackNameAC(name))
-            dispatch(getCardsTC())
+        if (packId) {
+            dispatch(getCardsTC(packId))
         }
-    }, [dispatch, id, name, page, pageCount, packUserId, packs, debouncedValue])
+    }, [dispatch, packId, packName, page, pageCount, packUserId, packs, debouncedValue])
 
     return (
         <div className={styles.wrapper}>

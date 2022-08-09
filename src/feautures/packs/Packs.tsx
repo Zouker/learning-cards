@@ -27,7 +27,9 @@ export const Packs = () => {
 
     const addPack = () => {
         const newPackName = 'HELLO'
-        dispatch(addPackTC(newPackName))
+        const deckCover = ''
+        const isPrivate = false
+        dispatch(addPackTC(newPackName, deckCover, isPrivate))
     }
 
     const handleChange = (event: Event, newValue: number | number[]) => {

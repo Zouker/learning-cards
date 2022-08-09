@@ -3,8 +3,9 @@ import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import CloseIcon from '@mui/icons-material/Close';
 import Modal from '@mui/material/Modal';
-import {IconButton} from "@mui/material";
+import {createTheme, IconButton, useColorScheme} from "@mui/material";
 import styles from './CommonModal.module.css'
+import {purple} from "@mui/material/colors";
 
 const style = {
     position: 'absolute' as 'absolute',
@@ -18,11 +19,12 @@ const style = {
     p: 4,
 };
 
+
 type CommonModalPropsType = {
     isModalOpen: boolean
     setIsModalOpen: (value: boolean) => void
     handleCloseOperation?: () => void
-    handleOperetion: () => void
+    handleOperation: () => void
     modalTitle: string
     children: ReactNode
     buttonTitle: string
@@ -33,7 +35,7 @@ export const CommonModal: FC<CommonModalPropsType> = memo(({
                                                                isModalOpen,
                                                                setIsModalOpen,
                                                                handleCloseOperation,
-                                                               handleOperetion,
+                                                               handleOperation,
                                                                modalTitle,
                                                                children,
                                                                buttonTitle
@@ -41,36 +43,36 @@ export const CommonModal: FC<CommonModalPropsType> = memo(({
 
     const handleModalClose = () => {
         setIsModalOpen(false);
-        handleCloseOperation && handleCloseOperation()
+        // handleCloseOperation && handleCloseOperation()
     }
 
     const onClickHandler = () => {
-        handleOperetion()
-        setIsModalOpen(false)
+        handleOperation()
+        // setIsModalOpen(false)
     }
 
 
     return (
-            <Modal
-                open={isModalOpen}
-                onClose={handleModalClose}
-            >
-                <Box sx={style}>
-                    <div className={styles.modalHeader}>
-                        {modalTitle}
-                        <IconButton aria-label="close" onClick={handleModalClose}>
-                            <CloseIcon/>
-                        </IconButton>
-                    </div>
-                    <hr/>
-                    <div>
-                        {children}
-                    </div>
-                    <div className={styles.buttonsBar}>
-                        <Button variant="outlined" onClick={handleModalClose}>Cancel</Button>
-                        <Button variant="contained" onClick={onClickHandler}>{buttonTitle}</Button>
-                    </div>
-                </Box>
-            </Modal>
+        <Modal
+            open={isModalOpen}
+            onClose={handleModalClose}
+        >
+            <Box sx={style}>
+                <div className={styles.modalHeader}>
+                    <h2>{modalTitle}</h2>
+                    <IconButton aria-label="close" onClick={handleModalClose}>
+                        <CloseIcon/>
+                    </IconButton>
+                </div>
+                <hr/>
+                <div>
+                    {children}
+                </div>
+                <div className={styles.buttonsBar}>
+                    <Button variant="outlined" onClick={handleModalClose}>Cancel</Button>
+                    <Button variant="contained" onClick={onClickHandler}>{buttonTitle}</Button>
+                </div>
+            </Box>
+        </Modal>
     );
 })
