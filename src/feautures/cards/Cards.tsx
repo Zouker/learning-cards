@@ -45,7 +45,7 @@ export const Cards = () => {
         if (id) {
             dispatch(setPackIdAC(id))
             dispatch(setPackNameAC(name))
-            dispatch(getCardsTC())
+            dispatch(getCardsTC(id))
         }
     }, [dispatch, id, name, page, pageCount, packUserId, packs, debouncedValue])
 

@@ -7,10 +7,11 @@ import TableFooter from '@mui/material/TableFooter';
 import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-import IconButton from '@mui/material/IconButton';
 import {useAppDispatch, useAppSelector} from '../../bll/store';
 import {TableHead} from '@mui/material';
+import IconButton from '@mui/material/IconButton';
 import DeleteIcon from '@mui/icons-material/Delete';
+import SchoolIcon from '@mui/icons-material/School';
 import {
     deletePackTC,
     setPackPageAC,
@@ -55,6 +56,10 @@ export const PacksTable = () => {
 
     const deletePack = (packId: string) => {
         dispatch(deletePackTC(packId))
+    }
+
+    const openLearnPage = (packId: string, packName: string) => {
+        navigate(`/learn/${packId}/${packName}`)
     }
 
     const sort = (sortParams: string) => {
@@ -107,6 +112,9 @@ export const PacksTable = () => {
                                     </IconButton>
                                     <IconButton disabled={userId !== pack.user_id} onClick={() => deletePack(pack._id)}>
                                         <DeleteIcon/>
+                                    </IconButton>
+                                    <IconButton onClick={() => openLearnPage(pack._id, pack.name)}>
+                                        <SchoolIcon/>
                                     </IconButton>
                                 </TableCell>
                             </TableRow>

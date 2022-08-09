@@ -44,16 +44,20 @@ export const cardsReducer = (state: InitialStateType = initialState, action: Act
             return {...state, params: {...state.params, cardsPack_id: action.cardsPack_id}}
         case 'cards/SEARCH-QUESTION':
             return {...state, params: {...state.params, cardQuestion: action.cardQuestion}}
+        case 'cards/SET-CARD-GRADE':
+            return {
+                ...state,
+                cards: state.cards.map(card => card._id === action.card_id ? {...card, grade: action.grade} : card)
+            }
         default:
             return state
     }
 }
 
 // thunks
-export const getCardsTC = (): AppThunk => (dispatch, getState) => {
+export const getCardsTC = (cardsPack_id: string): AppThunk => (dispatch) => {
     dispatch(setAppStatusAC('loading'))
-    const params = getState().cards.params
-    cardsAPI.getCards(params)
+    cardsAPI.getCards(cardsPack_id)
         .then((res) => {
             dispatch(getCardsAC(res.data.cards))
             dispatch(setPackUserIdAC(res.data.packUserId))
@@ -73,7 +77,7 @@ export const addCardTC = (cardsPack_id: string, cardQuestion?: string, cardAnswe
     dispatch(setAppStatusAC('loading'))
     cardsAPI.addCard(cardsPack_id, cardQuestion, cardAnswer)
         .then((res) => {
-            dispatch(getCardsTC())
+            dispatch(getCardsTC(cardsPack_id))
         })
         .catch((error: AxiosError<{ error: string }>) => {
             errorUtils(error, dispatch)
@@ -83,11 +87,11 @@ export const addCardTC = (cardsPack_id: string, cardQuestion?: string, cardAnswe
         })
 }
 
-export const deleteCardTC = (_id: string): AppThunk => (dispatch) => {
+export const deleteCardTC = (cardsPack_id: string, _id: string): AppThunk => (dispatch) => {
     dispatch(setAppStatusAC('loading'))
     cardsAPI.deleteCard(_id)
         .then((res) => {
-            dispatch(getCardsTC())
+            dispatch(getCardsTC(cardsPack_id))
         })
         .catch((error: AxiosError<{ error: string }>) => {
             errorUtils(error, dispatch)
@@ -97,11 +101,25 @@ export const deleteCardTC = (_id: string): AppThunk => (dispatch) => {
         })
 }
 
-export const updateCardTC = (_id: string, question?: string, answer?: string): AppThunk => (dispatch) => {
+export const updateCardTC = (cardsPack_id: string, _id: string, question?: string, answer?: string): AppThunk => (dispatch) => {
     dispatch(setAppStatusAC('loading'))
     cardsAPI.updateCard(_id, question, answer)
         .then((res) => {
-            dispatch(getCardsTC())
+            dispatch(getCardsTC(cardsPack_id))
+        })
+        .catch((error: AxiosError<{ error: string }>) => {
+            errorUtils(error, dispatch)
+        })
+        .finally(() => {
+            dispatch(setAppStatusAC('idle'))
+        })
+}
+
+export const updateCardGradeTC = (card_id: string, grade: number): AppThunk => (dispatch) => {
+    dispatch(setAppStatusAC('loading'))
+    cardsAPI.updateCardGrade(card_id, grade)
+        .then((res) => {
+            dispatch(updateCardGradeAC(res.data._id, res.data.grade))
         })
         .catch((error: AxiosError<{ error: string }>) => {
             errorUtils(error, dispatch)
@@ -123,6 +141,11 @@ export const setCardsTotalCountAC = (cardsTotalCount: number) => ({
     cardsTotalCount
 } as const)
 export const searchQuestionAC = (cardQuestion: string) => ({type: 'cards/SEARCH-QUESTION', cardQuestion} as const)
+export const updateCardGradeAC = (card_id: string, grade: number) => ({
+    type: 'cards/SET-CARD-GRADE',
+    card_id,
+    grade
+} as const)
 
 // types
 type InitialStateType = typeof initialState
@@ -136,3 +159,4 @@ type ActionType =
     | ReturnType<typeof setPackNameAC>
     | ReturnType<typeof setPackIdAC>
     | ReturnType<typeof searchQuestionAC>
+    | ReturnType<typeof updateCardGradeAC>
