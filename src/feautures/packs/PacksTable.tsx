@@ -113,7 +113,8 @@ export const PacksTable = () => {
                                     <IconButton disabled={userId !== pack.user_id} onClick={() => deletePack(pack._id)}>
                                         <DeleteIcon/>
                                     </IconButton>
-                                    <IconButton onClick={() => openLearnPage(pack._id, pack.name)}>
+                                    <IconButton disabled={pack.cardsCount === 0}
+                                                onClick={() => openLearnPage(pack._id, pack.name)}>
                                         <SchoolIcon/>
                                     </IconButton>
                                 </TableCell>
