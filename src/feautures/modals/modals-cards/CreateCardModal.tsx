@@ -13,7 +13,7 @@ export const CreateCardModal: FC<CreateCardModalPropsType> = memo(({
                                                                        setIsModalOpen
                                                                    }) => {
     const [cardQuestion, setCardQuestion] = useState<string>('');
-    const [cardAnswer, setCardAnswer] = useState<string>('')
+    const [cardAnswer, setCardAnswer] = useState<string>('');
 
     // const dispatch = useAppDispatch();
     // const {cardsPack_id} = useParams<'cardsPack_id'>();
