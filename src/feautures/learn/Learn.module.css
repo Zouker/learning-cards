@@ -31,10 +31,8 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-    /*align-items: center;*/
     width: 439px;
     min-height: 204px;
-    max-height: 492px;
     padding: 20px 0;
 
     background: #FFF;
