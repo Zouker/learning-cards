@@ -13,7 +13,6 @@ export const Cards = () => {
     const {packId, packName} = useParams()
     const page = useAppSelector(state => state.cards.params.page)
     const pageCount = useAppSelector(state => state.cards.params.pageCount)
-    const packs = useAppSelector(state => state.packs.cardPacks)
     const userId = useAppSelector(state => state.profile._id)
     const packUserId = useAppSelector(state => state.cards.packUserId)
     const navigate = useNavigate()
@@ -43,7 +42,7 @@ export const Cards = () => {
         if (packId) {
             dispatch(getCardsTC(packId))
         }
-    }, [dispatch, packId, packName, page, pageCount, packUserId, packs, debouncedValue])
+    }, [dispatch, packId, packName, page, pageCount, debouncedValue])
 
     return (
         <div className={styles.wrapper}>

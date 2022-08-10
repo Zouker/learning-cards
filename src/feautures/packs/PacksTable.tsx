@@ -82,8 +82,7 @@ export const PacksTable = () => {
                                    onClick={() => sort('cardsCount')}>Cards</TableCell>
                         <TableCell align="center"
                                    className={sortPacks === '0user_name' ? styles.sortUp : styles.sortDown}
-                                   onClick={() => sort('user_name')}>Created
-                            By</TableCell>
+                                   onClick={() => sort('user_name')}>Created By</TableCell>
                         <TableCell align="center"
                                    className={sortPacks === '0updated' ? styles.sortUp : styles.sortDown}
                                    onClick={() => sort('updated')}>Updated</TableCell>

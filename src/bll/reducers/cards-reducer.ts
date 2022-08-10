@@ -10,7 +10,6 @@ const initialState = {
     params: {
         cardAnswer: '',
         cardQuestion: '',
-        cardsPack_id: '',
         min: 0,
         max: 0,
         sortCards: '',
@@ -50,9 +49,10 @@ export const cardsReducer = (state: InitialStateType = initialState, action: Act
 }
 
 // thunks
-export const getCardsTC = (cardsPack_id: string): AppThunk => (dispatch) => {
+export const getCardsTC = (cardsPack_id: string): AppThunk => (dispatch, getState) => {
     dispatch(setAppStatusAC('loading'))
-    cardsAPI.getCards(cardsPack_id)
+    const {params} = getState().cards
+    cardsAPI.getCards(cardsPack_id, params)
         .then((res) => {
             dispatch(getCardsAC(res.data.cards))
             dispatch(setPackUserIdAC(res.data.packUserId))

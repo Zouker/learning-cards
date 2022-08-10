@@ -11,7 +11,7 @@ const initialState = {
         min: 0,
         max: 110,
         sortPacks: '',
-        page: 0,
+        page: 1,
         pageCount: 10,
         user_id: ''
     },
@@ -111,7 +111,6 @@ export const updatePackTC = (_id: string, name: string, deckCover: string): AppT
 
 export const sortPacksTC = (sortParams: string): AppThunk => (dispatch) => {
     dispatch(sortPacksAC(sortParams))
-    dispatch(getPacksTC())
 }
 
 // actions
