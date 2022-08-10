@@ -2,8 +2,8 @@ import {AxiosResponse} from 'axios';
 import {instance} from '../../instance/instance';
 
 export const cardsAPI = {
-    getCards(cardsPack_id: string) {
-        return instance.get<RequestGetCardsType, AxiosResponse<ResponseCardsType>>(`/cards/card?cardsPack_id=${cardsPack_id}`);
+    getCards(cardsPack_id: string, params: RequestGetCardsType) {
+        return instance.get<RequestGetCardsType, AxiosResponse<ResponseCardsType>>(`/cards/card?cardsPack_id=${cardsPack_id}`, {params});
     },
     addCard(cardsPack_id: string, cardQuestion?: string, cardAnswer?: string) {
         return instance.post('/cards/card', {card: {cardsPack_id, question: cardQuestion, answer: cardAnswer}})
@@ -23,7 +23,7 @@ export const cardsAPI = {
 export type RequestGetCardsType = {
     cardAnswer?: string
     cardQuestion?: string
-    cardsPack_id: string
+    cardsPack_id?: string
     min?: number
     max?: number
     sortCards?: string
