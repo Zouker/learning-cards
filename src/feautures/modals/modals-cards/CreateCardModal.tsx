@@ -1,67 +1,72 @@
 import React, {FC, memo, useState} from 'react';
 import {CommonModal} from "../CommonModal";
-import {FormControl, InputLabel, MenuItem, Select, TextField} from "@mui/material";
-// import {useParams} from "react-router-dom";
+import {FormControl, InputLabel, NativeSelect, TextField} from "@mui/material";
+import {useAppDispatch} from "../../../bll/store";
+import {useParams} from "react-router-dom";
+import {addCardTC} from "../../../bll/reducers/cards-reducer";
 
-type CreateCardModalPropsType = {
+type AddNewCardType = {
     isModalOpen: boolean
     setIsModalOpen: (value: boolean) => void
 }
 
-export const CreateCardModal: FC<CreateCardModalPropsType> = memo(({
-                                                                       isModalOpen,
-                                                                       setIsModalOpen
-                                                                   }) => {
-    const [cardQuestion, setCardQuestion] = useState<string>('');
-    const [cardAnswer, setCardAnswer] = useState<string>('');
+export const CreateCardModal: FC<AddNewCardType> = memo(({isModalOpen, setIsModalOpen}) => {
+    const [newCardQuestion, setNewCardQuestion] = useState('')
+    const [newCardAnswer, setNewCardAnswer] = useState('')
+    const dispatch = useAppDispatch()
+    const {packId} = useParams();
 
-    // const dispatch = useAppDispatch();
-    // const {cardsPack_id} = useParams<'cardsPack_id'>();
-
-
-    const addCard = () => {
-        // if (cardsPack_id) {
-        //     dispatch(addCardTC({cardsPack_id: cardsPack_id, cardQuestion: cardQuestion, cardAnswer: cardAnswer}))
-        //     setCardQuestion('')
-        //     setCardAnswer('')
-        // }
+    const addNewCard = () => {
+        if (packId) {
+            dispatch(addCardTC(packId, newCardQuestion, newCardAnswer));
+            setNewCardQuestion('');
+            setNewCardAnswer('');
+        }
+        setIsModalOpen(false);
     }
+
 
     return (
         <CommonModal
             modalTitle={'Add New Card'}
             isModalOpen={isModalOpen}
             setIsModalOpen={setIsModalOpen}
-            handleOperation={addCard}
+            handleOperation={addNewCard}
             buttonTitle={'Save'}
         >
             <div>
                 <FormControl fullWidth>
-                    <InputLabel id="demo-simple-select-label">Age</InputLabel>
-                    <Select
-                        labelId="demo-simple-select-label"
-                        id="demo-simple-select"
-                        value={"Choose a question format"}
-                        label="Choose a question format"
-                        // onChange={handleChange}
+                    <InputLabel variant="standard" htmlFor="uncontrolled-native">
+                        Choose card format
+                    </InputLabel>
+                    <NativeSelect
+                        defaultValue={'Text'}
+                        inputProps={{
+                        }}
                     >
-                        <MenuItem value={'Text'}>Text</MenuItem>
-                        <MenuItem value={'Image'}>Image</MenuItem>
-                    </Select>
+                        <option value={'Text'}>Text</option>
+                        <option value={'Image'}>Image</option>
+                    </NativeSelect>
                 </FormControl>
-                <TextField id="standard-basic"
-                           label="Enter Question"
-                           variant="standard"
-                           value={cardQuestion}
-                           onChange={(e) => setCardQuestion(e.currentTarget.value)}
-                />
-                <TextField id="standard-basic"
-                           label="Enter Answer"
-                           variant="standard"
-                           value={cardAnswer}
-                           onChange={(e) => setCardAnswer(e.currentTarget.value)}
-                />
             </div>
+                <div>
+                    <TextField id="standard-basic"
+                               fullWidth
+                               label="Enter Question"
+                               variant="standard"
+                               value={newCardQuestion}
+                               onChange={(e) => setNewCardQuestion(e.currentTarget.value)}
+                    />
+                </div>
+                <div>
+                    <TextField id="standard-basic"
+                               fullWidth
+                               label="Enter Answer"
+                               variant="standard"
+                               value={newCardAnswer}
+                               onChange={(e) => setNewCardAnswer(e.currentTarget.value)}
+                    />
+                </div>
         </CommonModal>
     );
 })

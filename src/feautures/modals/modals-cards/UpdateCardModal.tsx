@@ -1,6 +1,8 @@
 import React, {FC, memo, useState} from 'react';
 import {CommonModal} from "../CommonModal";
-import {FormControl, InputLabel, MenuItem, Select, TextField} from "@mui/material";
+import {FormControl, InputLabel, NativeSelect, TextField} from "@mui/material";
+import {useAppDispatch} from "../../../bll/store";
+import {updateCardTC} from "../../../bll/reducers/cards-reducer";
 
 
 type UpdateCardModalPropsType = {
@@ -23,14 +25,15 @@ export const UpdateCardModal: FC<UpdateCardModalPropsType> = memo(({
     const [newCardQuestion, setNewCardQuestion] = useState(answer);
     const [newCardAnswer, setNewCardAnswer] = useState(question);
 
-    // const dispatch = useAppDispatch();
+    const dispatch = useAppDispatch();
 
 
 
     const updateCard = () => {
-        // if (cardsPack_id) {
-        //     dispatch(updateCardTC({_id: _id, question: newCardQuestion, answer: newCardAnswer}, cardsPack_id))
-        // }
+        if (cardsPack_id) {
+            dispatch(updateCardTC(cardsPack_id, _id, newCardQuestion, newCardAnswer))
+        }
+        setIsModalOpen(false);
     }
 
     return (
@@ -43,26 +46,32 @@ export const UpdateCardModal: FC<UpdateCardModalPropsType> = memo(({
         >
             <div>
                 <FormControl fullWidth>
-                    <InputLabel id="demo-simple-select-label">Age</InputLabel>
-                    <Select
-                        labelId="demo-simple-select-label"
-                        id="demo-simple-select"
-                        value={"Choose a question format"}
-                        label="Choose a question format"
-                        // onChange={handleChange}
+                    <InputLabel variant="standard" htmlFor="uncontrolled-native">
+                        Choose card format
+                    </InputLabel>
+                    <NativeSelect
+                        defaultValue={'Text'}
+                        inputProps={{
+                        }}
                     >
-                        <MenuItem value={'Text'}>Text</MenuItem>
-                        <MenuItem value={'Image'}>Image</MenuItem>
-                    </Select>
+                        <option value={'Text'}>Text</option>
+                        <option value={'Image'}>Image</option>
+                    </NativeSelect>
                 </FormControl>
+            </div>
+            <div>
                 <TextField id="standard-basic"
-                           label="Enter New Question"
+                           fullWidth
+                           label="Enter Question"
                            variant="standard"
                            value={newCardQuestion}
                            onChange={(e) => setNewCardQuestion(e.currentTarget.value)}
                 />
+            </div>
+            <div>
                 <TextField id="standard-basic"
-                           label="Enter New Answer"
+                           fullWidth
+                           label="Enter Answer"
                            variant="standard"
                            value={newCardAnswer}
                            onChange={(e) => setNewCardAnswer(e.currentTarget.value)}

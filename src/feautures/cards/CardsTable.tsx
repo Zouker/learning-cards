@@ -12,10 +12,11 @@ import {useAppDispatch, useAppSelector} from '../../bll/store';
 import {Rating, TableHead} from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 import CreateIcon from '@mui/icons-material/Create';
-import {setCardPageAC, setCardPageCountAC, updateCardTC} from '../../bll/reducers/cards-reducer';
+import {setCardPageAC, setCardPageCountAC} from '../../bll/reducers/cards-reducer';
 import {formatDate} from '../../common/format-date/formatDate';
 import {CardsType} from "./cardsAPI";
 import {DeleteCardModal} from "../modals/modals-cards/DeleteCardModal";
+import {UpdateCardModal} from "../modals/modals-cards/UpdateCardModal";
 
 export const CardsTable = () => {
     const dispatch = useAppDispatch()
@@ -28,8 +29,8 @@ export const CardsTable = () => {
     const [deleteCardData, setDeleteCardData] = useState<CardsType | null>(null);
     const [isOpenCardDeleteModal, setIsOpenCardDeleteModal] = useState(false);
 
-    // const [updateCardData, setUpdateCardData] = useState<CardsType | null>(null);
-    // const [isOpenCardUpdateModal, setIsOpenCardUpdateModal] = useState(false);
+    const [updateCardData, setUpdateCardData] = useState<CardsType | null>(null);
+    const [isOpenCardUpdateModal, setIsOpenCardUpdateModal] = useState(false);
 
 
     const handleChangePage = (
@@ -51,10 +52,9 @@ export const CardsTable = () => {
         setDeleteCardData(card);
     }
 
-    const updateCard = (packId: string, cardId: string) => {
-        const question = 'UPDATE QUESTION'
-        const answer = 'UPDATE ANSWER'
-        dispatch(updateCardTC(packId, cardId, question, answer))
+    const openModalUpdateCard = (card: CardsType) => {
+        setIsOpenCardUpdateModal(true);
+        setUpdateCardData(card);
     }
 
     return (
@@ -87,7 +87,7 @@ export const CardsTable = () => {
                                     </TableCell>
                                     <TableCell align="center">
                                         <IconButton disabled={userId !== card.user_id}
-                                                    onClick={() => updateCard(card.cardsPack_id, card._id)}>
+                                                    onClick={() => openModalUpdateCard(card)}>
                                             <CreateIcon/>
                                         </IconButton>
                                         <IconButton disabled={userId !== card.user_id}
@@ -115,11 +115,22 @@ export const CardsTable = () => {
                     </TableFooter>
                 </Table>
             </TableContainer>
+            {updateCardData && <UpdateCardModal
+                isModalOpen={isOpenCardUpdateModal}
+                setIsModalOpen={setIsOpenCardUpdateModal}
+                _id={updateCardData._id}
+                cardsPack_id={updateCardData.cardsPack_id}
+                question={updateCardData.question}
+                answer={updateCardData.answer}
+            />
+            }
             {deleteCardData && <DeleteCardModal
                 isModalOpen={isOpenCardDeleteModal}
                 setIsModalOpen={setIsOpenCardDeleteModal}
                 _id={deleteCardData._id}
                 cardsPack_id={deleteCardData.cardsPack_id}
+                question={deleteCardData.question}
+
             />
             }
         </>

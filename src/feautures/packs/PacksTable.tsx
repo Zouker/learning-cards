@@ -152,6 +152,7 @@ export const PacksTable = () => {
                                                  setIsModalOpen={setIsDeleteModalOpen}
                                                  packName={deletePacksData && deletePacksData.name}
                                                  _id={deletePacksData && deletePacksData._id}
+                                                 
             />}
         </>
     );
