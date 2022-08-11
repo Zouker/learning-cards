@@ -1,12 +1,13 @@
 import React, {ChangeEvent, useEffect, useState} from 'react';
 import {PacksTable} from './PacksTable';
 import {useAppDispatch, useAppSelector} from '../../bll/store';
-import {addPackTC, getPacksTC, searchPackNameAC, setMinMaxAC, setMyAllPacksAC} from '../../bll/reducers/packs-reducer';
+import {getPacksTC, searchPackNameAC, setMinMaxAC, setMyAllPacksAC} from '../../bll/reducers/packs-reducer';
 import {Button, Slider} from '@mui/material';
 import styles from './Packs.module.css'
 import {useDebounce} from '../../hooks/useDebounce';
 import {Search} from '../../components/Search/Search';
 import {Navigate} from 'react-router-dom';
+import {CreatePackModal} from "../modals/modals-packs/CreatePackModal";
 
 export const Packs = () => {
     const dispatch = useAppDispatch()
@@ -22,14 +23,13 @@ export const Packs = () => {
 
     const [value, setValue] = React.useState<number[]>([min, max]);
     const [searchValue, setSearchValue] = useState('')
+    const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
 
     const debouncedValue = useDebounce(searchValue, 1000)
 
-    const addPack = () => {
-        const newPackName = 'HELLO'
-        const deckCover = ''
-        const isPrivate = false
-        dispatch(addPackTC(newPackName, deckCover, isPrivate))
+    const openCreatePackModal = () => {
+        setIsCreateModalOpen(true);
+
     }
 
     const handleChange = (event: Event, newValue: number | number[]) => {
@@ -70,7 +70,7 @@ export const Packs = () => {
                 <div className={styles.title}>
                     Packs List
                 </div>
-                <Button variant={'contained'} onClick={addPack}>Add new pack</Button>
+                <Button variant={'contained'} onClick={() => openCreatePackModal()}>Add new pack</Button>
             </div>
             <div className={styles.settings}>
                 <div className={styles.search}>
@@ -109,6 +109,11 @@ export const Packs = () => {
             <div className={styles.table}>
                 <PacksTable/>
             </div>
+            <>
+                {<CreatePackModal isModalOpen={isCreateModalOpen}
+                                  setIsModalOpen={setIsCreateModalOpen}
+                />}
+            </>
         </div>
     );
 };

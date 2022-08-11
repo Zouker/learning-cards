@@ -1,12 +1,13 @@
 import React, {ChangeEvent, useEffect, useState} from 'react';
 import {useAppDispatch, useAppSelector} from '../../bll/store';
-import {addCardTC, getCardsTC, searchQuestionAC} from '../../bll/reducers/cards-reducer';
+import {getCardsTC, searchQuestionAC} from '../../bll/reducers/cards-reducer';
 import {useNavigate, useParams} from 'react-router-dom';
 import {CardsTable} from './CardsTable';
 import {Button} from '@mui/material';
 import styles from './Cards.module.css'
 import {useDebounce} from '../../hooks/useDebounce';
 import {Search} from '../../components/Search/Search';
+import {CreateCardModal} from "../modals/modals-cards/CreateCardModal";
 
 export const Cards = () => {
     const dispatch = useAppDispatch()
@@ -19,14 +20,12 @@ export const Cards = () => {
 
     const [value, setValue] = useState('')
 
+    const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
+
     const debouncedValue = useDebounce(value, 1000)
 
-    const addCard = () => {
-        const question = 'HARDCODE QUESTION'
-        const answer = 'HARDCODE ANSWER'
-        if (packId) {
-            dispatch(addCardTC(packId, question, answer))
-        }
+    const addCardModalOpen = () => {
+        setIsCreateModalOpen(true);
     }
 
     const searchQuestionHandler = (e: ChangeEvent<HTMLInputElement>) => {
@@ -56,7 +55,7 @@ export const Cards = () => {
                 ? <div className={styles.header}>
                     <div>{packName}</div>
                     <div>
-                        <Button variant={'contained'} onClick={addCard}>Add new card</Button>
+                        <Button variant={'contained'} onClick={() => addCardModalOpen()}>Add new card</Button>
                     </div>
                 </div>
                 : <div className={styles.packName}>{packName}</div>}
@@ -67,6 +66,10 @@ export const Cards = () => {
             <div className={styles.table}>
                 <CardsTable/>
             </div>
+            <>
+                {<CreateCardModal isModalOpen={isCreateModalOpen}
+                                  setIsModalOpen={setIsCreateModalOpen}/>}
+            </>
         </div>
     );
 };
