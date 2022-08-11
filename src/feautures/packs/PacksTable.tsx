@@ -13,7 +13,6 @@ import IconButton from '@mui/material/IconButton';
 import DeleteIcon from '@mui/icons-material/Delete';
 import SchoolIcon from '@mui/icons-material/School';
 import {
-    deletePackTC,
     setPackPageAC,
     setPackPageCountAC,
     sortPacksTC,
@@ -24,6 +23,7 @@ import styles from './PacksTable.module.css'
 import {formatDate} from '../../common/format-date/formatDate';
 import {CardPacksType} from "./packsAPI";
 import {UpdatePackModal} from "../modals/modals-packs/UpdatePackModal";
+import {DeletePackModal} from "../modals/modals-packs/DeletePackModal";
 
 export const PacksTable = () => {
     const navigate = useNavigate()
@@ -37,6 +37,9 @@ export const PacksTable = () => {
 
     const [isUpdateModalOpen, setIsUpdateModalOpen] = useState(false);
     const [updatePacksData, setUpdatePacksData] = useState<CardPacksType | null>(null);
+
+    const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+    const [deletePacksData, setDeletePacksData] = useState<CardPacksType | null>(null);
 
     const handleChangePage = (
         event: React.MouseEvent<HTMLButtonElement> | null,
@@ -57,8 +60,9 @@ export const PacksTable = () => {
         setUpdatePacksData(pack);
     }
 
-    const deletePack = (packId: string) => {
-        dispatch(deletePackTC(packId))
+    const openDeletePackModal = (pack: CardPacksType) => {
+        setIsDeleteModalOpen(true);
+        setDeletePacksData(pack);
     }
 
     const openLearnPage = (packId: string, packName: string) => {
@@ -113,7 +117,7 @@ export const PacksTable = () => {
                                         <IconButton disabled={userId !== pack.user_id} onClick={() => openUpdatePackModal(pack)}>
                                             <CreateIcon/>
                                         </IconButton>
-                                        <IconButton disabled={userId !== pack.user_id} onClick={() => deletePack(pack._id)}>
+                                        <IconButton disabled={userId !== pack.user_id} onClick={() => openDeletePackModal(pack)}>
                                             <DeleteIcon/>
                                         </IconButton>
                                         <IconButton disabled={pack.cardsCount === 0}
@@ -142,8 +146,13 @@ export const PacksTable = () => {
             </TableContainer>
             {updatePacksData && <UpdatePackModal isModalOpen={isUpdateModalOpen}
                                                 setIsModalOpen={setIsUpdateModalOpen}
-                                                cardsPack={updatePacksData}/>
-            }
+                                                cardsPack={updatePacksData}
+            />}
+            {deletePacksData && <DeletePackModal isModalOpen={isDeleteModalOpen}
+                                                 setIsModalOpen={setIsDeleteModalOpen}
+                                                 packName={deletePacksData && deletePacksData.name}
+                                                 _id={deletePacksData && deletePacksData._id}
+            />}
         </>
     );
 }

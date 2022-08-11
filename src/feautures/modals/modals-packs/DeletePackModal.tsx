@@ -1,25 +1,27 @@
 import React, {FC, memo} from 'react';
 import {CommonModal} from "../CommonModal";
+import {useAppDispatch} from "../../../bll/store";
+import {deletePackTC} from "../../../bll/reducers/packs-reducer";
 
 type DeletePackModalPropsType = {
     isModalOpen: boolean
     setIsModalOpen: (value: boolean) => void
     packName?: string
-    id?: string
+    _id: string
 }
 
 export const DeletePackModal: FC<DeletePackModalPropsType> = memo(({
                                                                        isModalOpen,
                                                                        setIsModalOpen,
                                                                        packName,
-                                                                       // id
+                                                                       _id
                                                                    }) => {
 
-    // const dispatch = useAppDispatch();
+    const dispatch = useAppDispatch();
 
     const deleteCardPack = () => {
-        // dispatch(deletePackTC(id));
-        // setIsModalOpen(false)
+        dispatch(deletePackTC(_id));
+        setIsModalOpen(false)
     }
 
     return (
