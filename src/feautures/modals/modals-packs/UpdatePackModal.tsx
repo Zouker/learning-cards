@@ -1,12 +1,14 @@
-import React, {FC, memo, useState} from 'react';
+import React, {FC, memo, useEffect, useState} from 'react';
 import {CommonModal} from "../CommonModal";
 import {TextField} from "@mui/material";
-import {UpdatePackType} from "../../packs/packsAPI";
+import {CardPacksType} from "../../packs/packsAPI";
+import {useAppDispatch} from "../../../bll/store";
+import {updatePackTC} from "../../../bll/reducers/packs-reducer";
 
 type UpdatePackModalPropsType = {
     isModalOpen: boolean
     setIsModalOpen: (value: boolean) => void
-    cardsPack: UpdatePackType | null
+    cardsPack: CardPacksType | null
 }
 
 export const UpdatePackModal: FC<UpdatePackModalPropsType> = memo(({
@@ -14,18 +16,18 @@ export const UpdatePackModal: FC<UpdatePackModalPropsType> = memo(({
                                                                        setIsModalOpen,
                                                                        cardsPack
                                                                    }) => {
-    const [newPackName, setNewPackName] = useState(cardsPack ? cardsPack.name : '');
+    const [newPackName, setNewPackName] = useState<string>(cardsPack? cardsPack.name : '');
 
-    // const dispatch = useAppDispatch();
+    const dispatch = useAppDispatch();
 
-    // useEffect(() => {
-    //     cardsPack && setNewPackName(cardsPack.name)
-    // }, [cardsPack])
+    useEffect(() => {
+        cardsPack && setNewPackName(cardsPack.name)
+    }, [cardsPack])
 
     const updateCardPack = () => {
-        // cardsPack && dispatch(updatePackTC(cardsPack._id, newPackName, pack.deckCover));
-        // setNewPackName(newPackName)
-        // setIsModalOpen(false)
+        cardsPack && dispatch(updatePackTC(cardsPack._id, newPackName, cardsPack.deckCover));
+        setNewPackName(newPackName)
+        setIsModalOpen(false)
     }
 
     return (
