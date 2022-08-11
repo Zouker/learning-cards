@@ -75,7 +75,9 @@ export const Packs = () => {
             <div className={styles.settings}>
                 <div className={styles.search}>
                     <div>Search</div>
-                    <Search value={searchValue} onChange={onChangeSearchHandler}/>
+                    <div className={styles.searchLine}>
+                        <Search value={searchValue} onChange={onChangeSearchHandler}/>
+                    </div>
                 </div>
                 <div>
                     <div>

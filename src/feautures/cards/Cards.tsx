@@ -62,7 +62,9 @@ export const Cards = () => {
                 : <div className={styles.packName}>{packName}</div>}
             <div className={styles.search}>
                 <div>Search</div>
-                <Search value={value} onChange={searchQuestionHandler}/>
+                <div className={styles.searchLine}>
+                    <Search value={value} onChange={searchQuestionHandler}/>
+                </div>
             </div>
             <div className={styles.table}>
                 <CardsTable/>
