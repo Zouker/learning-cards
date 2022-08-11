@@ -56,6 +56,10 @@
     padding: 20px;
 }
 
+.searchLine {
+    max-width: 1008px;
+}
+
 input {
     width: 1008px;
 }

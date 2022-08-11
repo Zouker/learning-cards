@@ -35,6 +35,10 @@
     text-align: start;
 }
 
+.searchLine {
+    width: 463px;
+}
+
 .buttonMyAll {
     width: 96px;
     height: 36px;
