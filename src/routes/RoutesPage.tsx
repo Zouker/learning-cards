@@ -8,8 +8,8 @@ import {Packs} from '../feautures/packs/Packs';
 import style from './RoutesPage.module.css'
 import {Cards} from '../feautures/cards/Cards';
 import {Learn} from '../feautures/learn/Learn';
-import { ForgotPass } from '../feautures/auth/forgotPass/ForgotPass';
-import { CreateNewPass } from '../feautures/auth/createNewPass/CreateNewPass';
+import {ForgotPass} from '../feautures/auth/forgotPass/ForgotPass';
+import {CreateNewPass} from '../feautures/auth/createNewPass/CreateNewPass';
 
 export const RoutesPage = () => {
     return (
@@ -29,7 +29,7 @@ export const RoutesPage = () => {
                 <Route path={'/register'} element={<Register/>}/>
                 <Route path={'/profile'} element={<Profile/>}/>
                 <Route path={'/forgotPassword'} element={<ForgotPass/>}/>
-                <Route path={'/recoverPassword'} element={<CreateNewPass/>}/>
+                <Route path={'/set-new-password/:token'} element={<CreateNewPass/>}/>
                 <Route path={'/packs'} element={<Packs/>}/>
                 <Route path={'/cards/:packId/:packName'} element={<Cards/>}/>
                 <Route path={'/learn/:packId/:packName'} element={<Learn/>}/>
