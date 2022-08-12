@@ -9,7 +9,7 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { useAppDispatch, useAppSelector} from "../../../bll/store";
 import {EditableSpan} from "./EditableSpan";
 import {updateUserDataTC} from "../../../bll/reducers/profile-reducer";
-import {Navigate} from "react-router-dom";
+import {Navigate, useNavigate} from "react-router-dom";
 import {logoutTC} from "../login/login-reducer";
 
 type ProfilePropsType = {
@@ -27,6 +27,8 @@ export const Profile: React.FC<ProfilePropsType> = () => {
     const userId = useAppSelector(state => state.profile._id)
     const email = useAppSelector(state => state.profile.email)
     const userAvatar = useAppSelector(state => state.profile.avatar)
+
+    const navigate = useNavigate();
 
     const dispatch = useAppDispatch()
 
@@ -53,7 +55,7 @@ export const Profile: React.FC<ProfilePropsType> = () => {
 
     return (
         <div className={style.profileWrapper}>
-            <div className={style.profileBackTo}><ArrowBackIcon/><span>{"Back to Packs List"}</span></div>
+            <div className={style.profileBackTo}><ArrowBackIcon onClick={() => navigate('/packs')}/><span>{"Back to Packs List"}</span></div>
             <div className={style.profileContainer}>
                 <div className={style.profileHeader}><h2>Personal Infornation</h2></div>
                 <Badge

@@ -16,9 +16,9 @@ export const CreatePackModal: FC<CreatePackModalPropsType> = memo(({
                                                                        setIsModalOpen,
 
                                                                    }) => {
-    const[packName, setPackName] = useState<string>('');
+    const [packName, setPackName] = useState<string>('');
     const [deckCover, setDeckCover] = useState('')
-    const[isPrivate, setIsPrivate] = useState<boolean>(false)
+    const [isPrivate, setIsPrivate] = useState<boolean>(false)
 
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
@@ -38,17 +38,21 @@ export const CreatePackModal: FC<CreatePackModalPropsType> = memo(({
             handleOperation={addCardPack}
             buttonTitle={'Save'}
         >
+            <div>
                 <TextField id="standard-basic"
+                           fullWidth
                            label="Enter Pack Title"
                            variant="standard"
                            value={packName}
                            onChange={(e) => setPackName(e.currentTarget.value)}
                 />
-
+            </div>
+            <div>
                 <FormControlLabel control={<Checkbox
                     checked={isPrivate}
                     onChange={(e) => setIsPrivate(e.currentTarget.checked)}
-                />} label="Private pack" />
+                />} label="Private pack"/>
+            </div>
         </CommonModal>
     );
 })
