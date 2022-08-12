@@ -1,7 +1,7 @@
 import {Button, TextField} from '@mui/material';
 import React from 'react';
 import {Navigate, NavLink} from 'react-router-dom';
-import {forgotPassTC} from '../../../bll/reducers/forgot-password-reducer';
+import { forgotPassTC } from '../../../bll/reducers/forgot-password-reducer';
 import {useAppDispatch, useAppSelector} from '../../../bll/store';
 import style from './ForgotPass.module.css'
 
