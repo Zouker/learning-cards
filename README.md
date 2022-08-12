@@ -1,46 +1,56 @@
-# Getting Started with Create React App
+# Learning Cards
+___
+*This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).*
+___
+## Technology stack
+* TypeScript
+* React
+* Redux
+* React-Redux
+* Redux-Thunk
+* React-Router-dom
+* Axios
+* Material UI
+* Formik
+* HTML
+* CSS
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## About
+Learning cards for online training  using the question-answer system
+with the ability to create your own training modules (card decks),
+as well as their expansion (creating new cards), editing and privacy
+settings. The project also implemented a learning process with a rating
+system for assessing the knowledge of the material covered and a counter
+for passing training cards. The project has the ability to search for
+educational cards, as well as two-level filtering.
 
-## Available Scripts
+## Documentation
+1. When logging into the project, the user will be taken to the deck page.
+2. If the user is not authorized, he will be redirected to the login page.
+3. If the user is logged in, by clicking on the link site up the user can register in the form that opens.
+4. After registration, the user will be redirected to the login page.
+5. If the user is logged in successfully, he will be redirected to the page with the study cards.
+6. In order to stay in the system for a long period of time the user should click in the checkbox "remember me".
+7. To search for the desired deck or card, start typing in the Serch line the name of the deck or card you are looking for.
+8. To switch to the tab of your decks, click on the My button. To sort the decks by number of cards, move the slider bars to the left and right.
+9. To sort the values in the tables by the desired parameter, hover over the table header and click on the arrow that appears.
+10. To create a new deck, click on the "Add New Pack" button. In the modal window that appears, enter the name of the deck and use the checkbox to set its privacy.
+11. To edit a deck, click on the "Pencil" icon in the deck table. Make changes in the window that appears.
+12. To delete a deck, click on the "Trash" icon in the deck table and confirm the deletion in the modal window that appears.
+13. To go into teaching mode, click on the "square academic cap" icon.
+14. In training mode, the name of the training module, a box with a question and the answer Promsoter button will appear at the top.
 
-In the project directory, you can run:
+## Distribute
+In order to gain access to educational resources, please follow this 
+[link](https://zouker.github.io/learning-cards/#/login) and [register](https://zouker.github.io/learning-cards/#/register).
 
-### `yarn start`
+## Developers
+* [Denis Shubin](https://github.com/Zouker)
+* [Yury Zhykharka](https://github.com/YuryHouse)
+* [Anatoly Rack](https://github.com/RackAnatoly)
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
-
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
-
-### `yarn test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `yarn build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `yarn eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+## In Progress
+* Sending a letter with the restoration of access to an account using a token
+* Advanced Navigation
+* Change avatar
+* Password recovery form
