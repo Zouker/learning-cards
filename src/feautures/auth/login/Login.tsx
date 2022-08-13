@@ -1,5 +1,5 @@
 import {useFormik} from 'formik';
-import React from 'react';
+import React, {useState} from 'react';
 import {
     Button,
     Checkbox,
@@ -11,18 +11,22 @@ import {
     InputLabel
 } from '@mui/material'
 import {loginTC} from './login-reducer';
-import styles from '../register/Register.module.css';
+import styles from './Login.module.css';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import Visibility from '@mui/icons-material/Visibility';
 import {useAppDispatch, useAppSelector} from '../../../bll/store';
 import {Navigate, NavLink} from 'react-router-dom';
-import style from '../../../routes/RoutesPage.module.css'
 
 export const Login = () => {
 
     const isLoggedIn = useAppSelector(state => state.login.isLoggedIn)
     const dispatch = useAppDispatch()
     const formik = useFormik({
+        initialValues: {
+            email: '',
+            password: '',
+            rememberMe: false
+        },
         validate: (values) => {
             const errors: FormikErrorType = {};
             if (!values.email) {
@@ -35,17 +39,13 @@ export const Login = () => {
             } else if (values.password.length <= 7) {
                 errors.password = 'Password must be more than 7 characters...';
             }
-        },
-        initialValues: {
-            email: '',
-            password: '',
-            rememberMe: false
+            return errors;
         },
         onSubmit: values => {
             dispatch(loginTC(values));
         },
     })
-    const [passwordValues, setPasswordValues] = React.useState({
+    const [passwordValues, setPasswordValues] = useState({
         password: '',
         showPassword: false,
     });
@@ -79,8 +79,8 @@ export const Login = () => {
                                 {...formik.getFieldProps('email')}
                             />
                         </FormControl>
-                        {formik.errors.email ?
-                            <div className={styles.error}>{formik.errors.email}</div> : null}
+                        {formik.errors.email && formik.touched.email &&
+                            <div className={styles.error}>{formik.errors.email}</div>}
                         <FormControl sx={{m: 1, width: '40ch'}} variant="standard">
                             <InputLabel htmlFor="password">Password</InputLabel>
                             <Input
@@ -99,27 +99,27 @@ export const Login = () => {
                                 }
                             />
                         </FormControl>
-                        {formik.errors.password ?
-                            <div className={styles.error}>{formik.errors.password}</div> : null}
+                        {formik.errors.password && formik.touched.password &&
+                            <div className={styles.error}>{formik.errors.password}</div>}
                         <FormControlLabel
+                            className={styles.rememberMe}
                             label={'Remember me'}
                             control={<Checkbox
                                 {...formik.getFieldProps('rememberMe')}
                                 checked={formik.values.rememberMe}
                             />}
                         />
-                        <div >
-                            <NavLink to={'/forgotPassword'}
-                                     className={({isActive}) => isActive ? style.active : styles.recovery}> Forgot
-                                Password?</NavLink>
-
-                            <Button className={styles.btnlogin} type={'submit'} variant={'contained'} color={'primary'}>Sign
-                                In</Button>
-
-                            <div className={styles.haveAc}>Already have an account?</div>
-                            <NavLink to={'/register'} className={({isActive}) => isActive ? style.active : ''}> Sign Up</NavLink>
+                        <div className={styles.forgotPassword}>
+                            <NavLink to={'/forgotPassword'}>Forgot Password?</NavLink>
                         </div>
-                        {/*</FormGroup>*/}
+                        <div className={styles.buttonBlock}>
+                            <Button className={styles.button}
+                                    type={'submit'}
+                                    variant={'contained'}
+                                    color={'primary'}>Sign In</Button>
+                        </div>
+                        <div className={styles.haveAc}>Don't have an account?</div>
+                        <NavLink to={'/register'}>Sign Up</NavLink>
                     </div>
                 </form>
             </div>
@@ -127,7 +127,7 @@ export const Login = () => {
     )
 };
 
-//types
+// types
 
 type FormikErrorType = {
     email?: string,

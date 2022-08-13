@@ -54,6 +54,10 @@
     align-items: center;
 }
 
+.slider {
+    margin: 0 15px;
+}
+
 .minMaxValue {
     display: flex;
     justify-content: center;
@@ -66,8 +70,11 @@
     border-radius: 2px;
 }
 
-.slider {
-    margin: 0 15px;
+.preloader {
+    position: fixed;
+    top: 30%;
+    text-align: center;
+    width: 100%;
 }
 
 .table {

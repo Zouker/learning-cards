@@ -2,12 +2,12 @@ import React, {ChangeEvent, useEffect, useState} from 'react';
 import {PacksTable} from './PacksTable';
 import {useAppDispatch, useAppSelector} from '../../bll/store';
 import {getPacksTC, searchPackNameAC, setMinMaxAC, setMyAllPacksAC} from '../../bll/reducers/packs-reducer';
-import {Button, Slider} from '@mui/material';
+import {Button, CircularProgress, Slider} from '@mui/material';
 import styles from './Packs.module.css'
 import {useDebounce} from '../../hooks/useDebounce';
 import {Search} from '../../components/Search/Search';
 import {Navigate} from 'react-router-dom';
-import {CreatePackModal} from "../modals/modals-packs/CreatePackModal";
+import {CreatePackModal} from '../modals/modals-packs/CreatePackModal';
 
 export const Packs = () => {
     const dispatch = useAppDispatch()
@@ -20,6 +20,7 @@ export const Packs = () => {
     const isLoggedIn = useAppSelector(state => state.login.isLoggedIn)
     const isMyPack = useAppSelector(state => state.packs.isMyPack)
     const sortPacks = useAppSelector(state => state.packs.params.sortPacks)
+    const status = useAppSelector(state => state.app.status)
 
     const [value, setValue] = React.useState<number[]>([min, max]);
     const [searchValue, setSearchValue] = useState('')
@@ -108,6 +109,7 @@ export const Packs = () => {
                     </div>
                 </div>
             </div>
+            {status === 'loading' && <div className={styles.preloader}><CircularProgress/></div>}
             <div className={styles.table}>
                 <PacksTable/>
             </div>

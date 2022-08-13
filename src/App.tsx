@@ -1,11 +1,11 @@
 import React, {useEffect} from 'react';
-import './App.css';
+import './App.module.css';
 import {RoutesPage} from './routes/RoutesPage';
 import {ErrorSnackbar} from './components/ErrorSnackbar/ErrorSnackbar';
 import {CircularProgress, LinearProgress} from '@mui/material';
 import {useAppDispatch, useAppSelector} from './bll/store';
 import {initializeAppTC} from './feautures/auth/login/login-reducer';
-
+import styles from './App.module.css'
 
 function App() {
     const dispatch = useAppDispatch()
@@ -16,18 +16,12 @@ function App() {
         dispatch(initializeAppTC())
     }, [])
 
-
-
     if (!isInitialized) {
-        return <div
-            style={{position: 'fixed', top: '30%', textAlign: 'center', width: '100%'}}>
-            <CircularProgress/>
-        </div>
+        return <div className={styles.preloader}><CircularProgress/></div>
     }
 
-
     return (
-        <div className="App">
+        <div className={styles.App}>
             <div>
                 {status === 'loading' && <LinearProgress/>}
                 <ErrorSnackbar/>

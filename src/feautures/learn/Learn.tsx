@@ -5,6 +5,7 @@ import styles from './Learn.module.css';
 import {useNavigate, useParams} from 'react-router-dom';
 import {Button, FormControl, FormControlLabel, FormLabel, Radio, RadioGroup} from '@mui/material';
 import {getCardsTC, updateCardGradeTC} from '../../bll/reducers/cards-reducer';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
 const grades = [
     {value: 1, label: 'Did not know'},
@@ -28,8 +29,8 @@ const getCard = (cards: CardsType[]) => {
 export const Learn = () => {
     const [isChecked, setIsChecked] = useState(false);
     const [first, setFirst] = useState(true);
-    const [value, setValue] = React.useState('');
-    const [grade, setGrade] = React.useState(0);
+    const [value, setValue] = useState('');
+    const [grade, setGrade] = useState(0);
 
     const {packId, packName} = useParams<'packId' | 'packName'>()
 
@@ -85,9 +86,7 @@ export const Learn = () => {
     return (
         <div className={styles.wrapper}>
             <div onClick={onClickBackHandler} className={styles.backButton}>
-                <svg width="16" height="11" viewBox="0 0 16 11" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M16 5.5H2M2 5.5L6.66667 1M2 5.5L6.66667 10" stroke="black" strokeWidth="2"/>
-                </svg>
+                <ArrowBackIcon/>
                 <div className={styles.back}>Back to Packs List</div>
             </div>
             <p className={styles.title}>Learn {packName}</p>
@@ -96,7 +95,7 @@ export const Learn = () => {
                     Question: {card.question}
                 </div>
                 <div className={styles.shots}>
-                    Количество попыток ответов на вопрос: {card.shots}
+                    Number of attempts to answer the question: {card.shots}
                 </div>
                 {isChecked
                     ? <>
@@ -119,7 +118,7 @@ export const Learn = () => {
                                 </RadioGroup>
                             </FormControl>
                         </div>
-                        <div><Button variant={'contained'} onClick={onNext}>next</Button></div>
+                        <div><Button disabled={!value} variant={'contained'} onClick={onNext}>next</Button></div>
                     </>
                     : <div><Button variant={'contained'} onClick={() => setIsChecked(true)}>Show answer</Button></div>
                 }

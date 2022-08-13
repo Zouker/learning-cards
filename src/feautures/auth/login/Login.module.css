@@ -20,6 +20,20 @@
     align-items: center;
 }
 
+.error {
+    color: red;
+}
+
+.rememberMe {
+    align-self: flex-start;
+    padding-left: 33px;
+}
+
+.forgotPassword {
+    align-self: flex-end;
+    padding-right: 38px;
+}
+
 .buttonBlock {
     position: relative;
     margin: 40px 0;
@@ -28,8 +42,4 @@
 .button {
     width: 347px;
     height: 36px;
-}
-
-.error {
-    color: red;
 }

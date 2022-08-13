@@ -37,19 +37,23 @@
 }
 
 .profileBackTo {
-position: absolute;
-width: 150px;
-height: 24px;
-left: 168px;
-top: 84px;
-font-family:  sans-serif, 'Montserrat';
-font-style: normal;
-font-weight: 400;
-font-size: 14px;
-line-height: 24px;
-display: flex;
-align-items: center;
-color: #000000;
+    position: absolute;
+    width: 150px;
+    height: 24px;
+    left: 168px;
+    top: 84px;
+    font-family: sans-serif, 'Montserrat';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 24px;
+    display: flex;
+    align-items: center;
+    color: #000000;
+}
+
+.profileBackTo {
+    cursor: pointer;
 }
 
 .profileBackTo span {
