@@ -36,7 +36,7 @@ export const DeleteCardModal: FC<DeleteCardModalPropsType> = memo(({
             buttonTitle={'Delete'}
         >
             <div>
-                <p>Do you Do you really want to remove <b>{question}</b>?</p>
+                <p>Do you really want to remove <b>{question}</b>?</p>
                 <p>This card will be deleted.</p>
             </div>
         </CommonModal>
