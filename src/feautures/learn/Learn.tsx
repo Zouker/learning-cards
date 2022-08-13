@@ -95,7 +95,7 @@ export const Learn = () => {
                     Question: {card.question}
                 </div>
                 <div className={styles.shots}>
-                    Количество попыток ответов на вопрос: {card.shots}
+                    Number of attempts to answer the question: {card.shots}
                 </div>
                 {isChecked
                     ? <>
