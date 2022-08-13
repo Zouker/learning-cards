@@ -12,18 +12,14 @@ import {TableHead} from '@mui/material';
 import IconButton from '@mui/material/IconButton';
 import DeleteIcon from '@mui/icons-material/Delete';
 import SchoolIcon from '@mui/icons-material/School';
-import {
-    setPackPageAC,
-    setPackPageCountAC,
-    sortPacksTC,
-} from '../../bll/reducers/packs-reducer';
+import {setPackPageAC, setPackPageCountAC, sortPacksTC,} from '../../bll/reducers/packs-reducer';
 import CreateIcon from '@mui/icons-material/Create';
 import {useNavigate} from 'react-router-dom';
 import styles from './PacksTable.module.css'
 import {formatDate} from '../../common/format-date/formatDate';
-import {CardPacksType} from "./packsAPI";
-import {UpdatePackModal} from "../modals/modals-packs/UpdatePackModal";
-import {DeletePackModal} from "../modals/modals-packs/DeletePackModal";
+import {CardPacksType} from './packsAPI';
+import {UpdatePackModal} from '../modals/modals-packs/UpdatePackModal';
+import {DeletePackModal} from '../modals/modals-packs/DeletePackModal';
 
 export const PacksTable = () => {
     const navigate = useNavigate()
@@ -34,6 +30,7 @@ export const PacksTable = () => {
     const cardPacksTotalCount = useAppSelector(state => state.packs.cardPacksTotalCount)
     const sortPacks = useAppSelector(state => state.packs.params.sortPacks)
     const userId = useAppSelector(state => state.profile._id)
+    const status = useAppSelector(state => state.app.status)
 
     const [isUpdateModalOpen, setIsUpdateModalOpen] = useState(false);
     const [updatePacksData, setUpdatePacksData] = useState<CardPacksType | null>(null);
@@ -98,36 +95,38 @@ export const PacksTable = () => {
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {packs.length ? packs.map((pack) => (
-                                <TableRow key={pack._id}>
-                                    <TableCell component="th" scope="row" onClick={() => openCards(pack._id, pack.name)}
-                                               className={styles.openPack}>
-                                        {pack.name}
-                                    </TableCell>
-                                    <TableCell align="center">
-                                        {pack.cardsCount}
-                                    </TableCell>
-                                    <TableCell align="center">
-                                        {pack.user_name}
-                                    </TableCell>
-                                    <TableCell align="center">
-                                        {formatDate(pack.updated)}
-                                    </TableCell>
-                                    <TableCell align="center">
-                                        <IconButton disabled={userId !== pack.user_id} onClick={() => openUpdatePackModal(pack)}>
-                                            <CreateIcon/>
-                                        </IconButton>
-                                        <IconButton disabled={userId !== pack.user_id} onClick={() => openDeletePackModal(pack)}>
-                                            <DeleteIcon/>
-                                        </IconButton>
-                                        <IconButton disabled={pack.cardsCount === 0}
-                                                    onClick={() => openLearnPage(pack._id, pack.name)}>
-                                            <SchoolIcon/>
-                                        </IconButton>
-                                    </TableCell>
-                                </TableRow>
-                            ))
-                            : <TableCell>PACKS NOT FOUND</TableCell>}
+                        {packs.length ? status !== 'loading' && packs.map((pack) => (
+                            <TableRow key={pack._id}>
+                                <TableCell component="th" scope="row" onClick={() => openCards(pack._id, pack.name)}
+                                           className={styles.openPack}>
+                                    {pack.name}
+                                </TableCell>
+                                <TableCell align="center">
+                                    {pack.cardsCount}
+                                </TableCell>
+                                <TableCell align="center">
+                                    {pack.user_name}
+                                </TableCell>
+                                <TableCell align="center">
+                                    {formatDate(pack.updated)}
+                                </TableCell>
+                                <TableCell align="center">
+                                    <IconButton disabled={userId !== pack.user_id}
+                                                onClick={() => openUpdatePackModal(pack)}>
+                                        <CreateIcon/>
+                                    </IconButton>
+                                    <IconButton disabled={userId !== pack.user_id}
+                                                onClick={() => openDeletePackModal(pack)}>
+                                        <DeleteIcon/>
+                                    </IconButton>
+                                    <IconButton disabled={pack.cardsCount === 0}
+                                                onClick={() => openLearnPage(pack._id, pack.name)}>
+                                        <SchoolIcon/>
+                                    </IconButton>
+                                </TableCell>
+                            </TableRow>
+                        ))
+                            : status !== 'loading' && <TableCell>PACKS NOT FOUND</TableCell>}
                     </TableBody>
                     <TableFooter>
                         <TableRow>
@@ -145,14 +144,14 @@ export const PacksTable = () => {
                 </Table>
             </TableContainer>
             {updatePacksData && <UpdatePackModal isModalOpen={isUpdateModalOpen}
-                                                setIsModalOpen={setIsUpdateModalOpen}
-                                                cardsPack={updatePacksData}
+                                                 setIsModalOpen={setIsUpdateModalOpen}
+                                                 cardsPack={updatePacksData}
             />}
             {deletePacksData && <DeletePackModal isModalOpen={isDeleteModalOpen}
                                                  setIsModalOpen={setIsDeleteModalOpen}
                                                  packName={deletePacksData && deletePacksData.name}
                                                  _id={deletePacksData && deletePacksData._id}
-                                                 
+
             />}
         </>
     );

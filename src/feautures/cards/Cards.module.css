@@ -64,6 +64,13 @@ input {
     width: 1008px;
 }
 
+.preloader {
+    position: fixed;
+    top: 30%;
+    text-align: center;
+    width: 100%;
+}
+
 .table {
     width: 1008px;
 }

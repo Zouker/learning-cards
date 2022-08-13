@@ -14,9 +14,9 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import CreateIcon from '@mui/icons-material/Create';
 import {setCardPageAC, setCardPageCountAC} from '../../bll/reducers/cards-reducer';
 import {formatDate} from '../../common/format-date/formatDate';
-import {CardsType} from "./cardsAPI";
-import {DeleteCardModal} from "../modals/modals-cards/DeleteCardModal";
-import {UpdateCardModal} from "../modals/modals-cards/UpdateCardModal";
+import {CardsType} from './cardsAPI';
+import {DeleteCardModal} from '../modals/modals-cards/DeleteCardModal';
+import {UpdateCardModal} from '../modals/modals-cards/UpdateCardModal';
 
 export const CardsTable = () => {
     const dispatch = useAppDispatch()
@@ -25,6 +25,7 @@ export const CardsTable = () => {
     const pageCount = useAppSelector(state => state.cards.params.pageCount)
     const cardsTotalCount = useAppSelector(state => state.cards.cardsTotalCount)
     const userId = useAppSelector(state => state.profile._id)
+    const status = useAppSelector(state => state.app.status)
 
     const [deleteCardData, setDeleteCardData] = useState<CardsType | null>(null);
     const [isOpenCardDeleteModal, setIsOpenCardDeleteModal] = useState(false);
@@ -71,34 +72,34 @@ export const CardsTable = () => {
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {cards.length ? cards.map((card) => (
-                                <TableRow key={card._id}>
-                                    <TableCell align="center" component="th" scope="row">
-                                        {card.question}
-                                    </TableCell>
-                                    <TableCell align="center">
-                                        {card.answer}
-                                    </TableCell>
-                                    <TableCell align="center">
-                                        {formatDate(card.updated)}
-                                    </TableCell>
-                                    <TableCell align="center">
-                                        <Rating name="read-only" value={card.grade} readOnly/>
-                                    </TableCell>
-                                    <TableCell align="center">
-                                        <IconButton disabled={userId !== card.user_id}
-                                                    onClick={() => openModalUpdateCard(card)}>
-                                            <CreateIcon/>
-                                        </IconButton>
-                                        <IconButton disabled={userId !== card.user_id}
-                                                    onClick={() => openModalDeleteCard(card)}
-                                        >
-                                            <DeleteIcon/>
-                                        </IconButton>
-                                    </TableCell>
-                                </TableRow>
-                            ))
-                            : <TableCell>CARDS NOT FOUND</TableCell>}
+                        {cards.length ? status !== 'loading' && cards.map((card) => (
+                            <TableRow key={card._id}>
+                                <TableCell align="center" component="th" scope="row">
+                                    {card.question}
+                                </TableCell>
+                                <TableCell align="center">
+                                    {card.answer}
+                                </TableCell>
+                                <TableCell align="center">
+                                    {formatDate(card.updated)}
+                                </TableCell>
+                                <TableCell align="center">
+                                    <Rating name="read-only" value={card.grade} readOnly/>
+                                </TableCell>
+                                <TableCell align="center">
+                                    <IconButton disabled={userId !== card.user_id}
+                                                onClick={() => openModalUpdateCard(card)}>
+                                        <CreateIcon/>
+                                    </IconButton>
+                                    <IconButton disabled={userId !== card.user_id}
+                                                onClick={() => openModalDeleteCard(card)}
+                                    >
+                                        <DeleteIcon/>
+                                    </IconButton>
+                                </TableCell>
+                            </TableRow>
+                        ))
+                            : status !== 'loading' && <TableCell>CARDS NOT FOUND</TableCell>}
                     </TableBody>
                     <TableFooter>
                         <TableRow>

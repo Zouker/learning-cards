@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {useFormik} from 'formik';
 import {Navigate, NavLink} from 'react-router-dom';
 import {registerTC} from '../../../bll/reducers/register-reducer';
@@ -43,12 +43,12 @@ export const Register = () => {
     });
 
 
-    const [passwordValues, setPasswordValues] = React.useState<passwordType>({
+    const [passwordValues, setPasswordValues] = useState<passwordType>({
         password: '',
         showPassword: false,
     });
 
-    const [confirmPasswordValues, setConfirmPasswordValues] = React.useState<confirmPasswordType>({
+    const [confirmPasswordValues, setConfirmPasswordValues] = useState<confirmPasswordType>({
         confirmPassword: '',
         showConfirmPassword: false,
     });
@@ -89,7 +89,8 @@ export const Register = () => {
                                 {...formik.getFieldProps('email')}
                             />
                         </FormControl>
-                        {formik.errors.email && <div className={styles.error}>{formik.errors.email}</div>}
+                        {formik.errors.email && formik.touched.email &&
+                            <div className={styles.error}>{formik.errors.email}</div>}
                         <FormControl sx={{m: 1, width: '40ch'}} variant="standard">
                             <InputLabel htmlFor="password">Password</InputLabel>
                             <Input
@@ -108,7 +109,8 @@ export const Register = () => {
                                 }
                             />
                         </FormControl>
-                        {formik.errors.password && <div className={styles.error}>{formik.errors.password}</div>}
+                        {formik.errors.password && formik.touched.password &&
+                            <div className={styles.error}>{formik.errors.password}</div>}
                         <FormControl sx={{m: 1, width: '40ch'}} variant="standard">
                             <InputLabel htmlFor="confirmPassword">Confirm password</InputLabel>
                             <Input
@@ -128,11 +130,13 @@ export const Register = () => {
                                 }
                             />
                         </FormControl>
-                        {formik.errors.confirmPassword &&
+                        {formik.errors.confirmPassword && formik.touched.confirmPassword &&
                             <div className={styles.error}>{formik.errors.confirmPassword}</div>}
                     </div>
                     <div className={styles.buttonBlock}>
-                        <Button variant={'contained'} type="submit" className={styles.button}>Sign Up</Button>
+                        <Button variant={'contained'}
+                                type="submit"
+                                className={styles.button}>Sign Up</Button>
                     </div>
                 </form>
                 Already have an account?
