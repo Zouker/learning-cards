@@ -39,6 +39,7 @@ export const UpdatePackModal: FC<UpdatePackModalPropsType> = memo(({
             buttonTitle={'Save'}
         >
             <TextField id="standard-basic"
+                       fullWidth
                        label="Enter New Pack Title"
                        variant="standard"
                        value={newPackName}
