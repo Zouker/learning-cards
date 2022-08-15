@@ -15,7 +15,7 @@
 
 .profileHeader {
     margin: 25px;
-    font-family: sans-serif, 'Montserrat';
+    font-family: Montserrat, sans-serif;
     font-style: normal;
     font-weight: 600;
     font-size: 22px;
@@ -26,7 +26,7 @@
 
 .profileEmail {
     margin: 25px;
-    font-family: sans-serif, 'Montserrat';
+    font-family: Montserrat, sans-serif;
     font-style: normal;
     font-weight: 400;
     font-size: 14px;
@@ -42,7 +42,7 @@
     height: 24px;
     left: 168px;
     top: 84px;
-    font-family: sans-serif, 'Montserrat';
+    font-family: Montserrat, sans-serif;
     font-style: normal;
     font-weight: 400;
     font-size: 14px;
@@ -54,6 +54,9 @@
 
 .profileBackTo {
     cursor: pointer;
+    display: flex;
+    justify-content: center;
+    width: 50%;
 }
 
 .profileBackTo span {
