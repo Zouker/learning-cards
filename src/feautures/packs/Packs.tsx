@@ -2,12 +2,13 @@ import React, {ChangeEvent, useEffect, useState} from 'react';
 import {PacksTable} from './PacksTable';
 import {useAppDispatch, useAppSelector} from '../../bll/store';
 import {getPacksTC, searchPackNameAC, setMinMaxAC, setMyAllPacksAC} from '../../bll/reducers/packs-reducer';
-import {Button, CircularProgress, Slider} from '@mui/material';
+import {Button, CircularProgress, IconButton, Slider} from '@mui/material';
 import styles from './Packs.module.css'
 import {useDebounce} from '../../hooks/useDebounce';
 import {Search} from '../../components/Search/Search';
 import {Navigate} from 'react-router-dom';
 import {CreatePackModal} from '../modals/modals-packs/CreatePackModal';
+import FilterAltOffIcon from '@mui/icons-material/FilterAltOff';
 
 export const Packs = () => {
     const dispatch = useAppDispatch()
@@ -30,7 +31,6 @@ export const Packs = () => {
 
     const openCreatePackModal = () => {
         setIsCreateModalOpen(true);
-
     }
 
     const handleChange = (event: Event, newValue: number | number[]) => {
@@ -54,6 +54,11 @@ export const Packs = () => {
 
     const allPacksHandler = () => {
         dispatch(setMyAllPacksAC(false))
+    }
+
+    const filterOffHandler = () => {
+        setValue([0, 110]);
+        dispatch(setMinMaxAC([0, 110]))
     }
 
     useEffect(() => {
@@ -107,6 +112,11 @@ export const Packs = () => {
                         />
                         <div className={styles.minMaxValue}>{max}</div>
                     </div>
+                </div>
+                <div className={styles.filterOff}>
+                    <IconButton color={'primary'} onClick={filterOffHandler}>
+                        <FilterAltOffIcon/>
+                    </IconButton>
                 </div>
             </div>
             {status === 'loading' && <div className={styles.preloader}><CircularProgress/></div>}
