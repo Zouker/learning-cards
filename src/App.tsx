@@ -6,7 +6,7 @@ import {CircularProgress, LinearProgress} from '@mui/material';
 import {useAppDispatch, useAppSelector} from './bll/store';
 import {initializeAppTC} from './feautures/auth/login/login-reducer';
 import styles from './App.module.css'
-import {Navbar} from './navbar/Navbar';
+import {Navbar} from './feautures/navbar/Navbar';
 
 function App() {
     const dispatch = useAppDispatch()
@@ -25,7 +25,9 @@ function App() {
         <div className={styles.App}>
             <div>
                 <Navbar/>
-                {status === 'loading' && <LinearProgress/>}
+                <div className={styles.linearProgress}>
+                    {status === 'loading' && <LinearProgress/>}
+                </div>
                 <ErrorSnackbar/>
                 <RoutesPage/>
             </div>

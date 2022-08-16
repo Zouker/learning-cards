@@ -8,3 +8,7 @@
     text-align: center;
     width: 100%;
 }
+
+.linearProgress {
+    height: 4px;
+}

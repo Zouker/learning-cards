@@ -11,12 +11,16 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import StyleIcon from '@mui/icons-material/Style';
 import {useNavigate} from 'react-router-dom';
-import {logoutTC} from '../feautures/auth/login/login-reducer';
-import {useAppDispatch} from '../bll/store';
+import {logoutTC} from '../auth/login/login-reducer';
+import {useAppDispatch, useAppSelector} from '../../bll/store';
+import profile from '../../assets/img/profile.svg'
+import logout from '../../assets/img/logout.svg'
+import styles from './Navbar.module.css'
 
 export const Navbar = () => {
     const navigate = useNavigate()
     const dispatch = useAppDispatch()
+    const isLoggedIn = useAppSelector(state => state.login.isLoggedIn)
     const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
 
     const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
@@ -77,7 +81,7 @@ export const Navbar = () => {
                     </Typography>
                     <Box sx={{flexGrow: 1, display: {xs: 'none', md: 'flex'}}}/>
 
-                    <Box sx={{flexGrow: 0}}>
+                    {isLoggedIn && <Box sx={{flexGrow: 0}}>
                         <Tooltip title="Open settings">
                             <IconButton onClick={handleOpenUserMenu} sx={{p: 0}}>
                                 <Avatar alt={'avatar'} src="/static/images/avatar/2.jpg"/>
@@ -100,13 +104,29 @@ export const Navbar = () => {
                             onClose={handleCloseUserMenu}
                         >
                             <MenuItem onClick={handleCloseUserMenu}>
-                                <Typography textAlign="center" onClick={profileHandler}>Profile</Typography>
+                                <Typography textAlign="center"
+                                            onClick={profileHandler}
+                                            className={styles.menu}
+                                >
+                                    <img src={profile}
+                                         alt={'profile'}
+                                         className={styles.icon}
+                                    />
+                                    <span>Profile</span></Typography>
                             </MenuItem>
                             <MenuItem onClick={handleCloseUserMenu}>
-                                <Typography textAlign="center" onClick={logoutHandler}>Logout</Typography>
+                                <Typography textAlign="center"
+                                            onClick={logoutHandler}
+                                            className={styles.menu}
+                                >
+                                    <img src={logout}
+                                         alt={'logout'}
+                                         className={styles.icon}
+                                    />
+                                    <span>Logout</span></Typography>
                             </MenuItem>
                         </Menu>
-                    </Box>
+                    </Box>}
                 </Toolbar>
             </Container>
         </AppBar>
