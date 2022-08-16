@@ -6,12 +6,13 @@ import {Button, CircularProgress, IconButton, Slider} from '@mui/material';
 import styles from './Packs.module.css'
 import {useDebounce} from '../../hooks/useDebounce';
 import {Search} from '../../components/Search/Search';
-import {Navigate} from 'react-router-dom';
+import {useNavigate} from 'react-router-dom';
 import {CreatePackModal} from '../modals/modals-packs/CreatePackModal';
 import FilterAltOffIcon from '@mui/icons-material/FilterAltOff';
 
 export const Packs = () => {
     const dispatch = useAppDispatch()
+    const navigate = useNavigate()
     const minCardsCount = useAppSelector(state => state.packs.minCardsCount)
     const maxCardsCount = useAppSelector(state => state.packs.maxCardsCount)
     const min = useAppSelector(state => state.packs.params.min)
@@ -67,7 +68,7 @@ export const Packs = () => {
 
 
     if (!isLoggedIn) {
-        return <Navigate to={'/login'}/>
+        navigate('/login')
     }
 
     return (

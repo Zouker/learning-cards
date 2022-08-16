@@ -9,7 +9,7 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import {useAppDispatch, useAppSelector} from '../../../bll/store';
 import {EditableSpan} from './EditableSpan';
 import {updateUserDataTC} from '../../../bll/reducers/profile-reducer';
-import {Navigate, useNavigate} from 'react-router-dom';
+import {useNavigate} from 'react-router-dom';
 import {logoutTC} from '../login/login-reducer';
 
 type ProfilePropsType = {
@@ -18,7 +18,6 @@ type ProfilePropsType = {
     disabled?: boolean
     activateEditMode?: () => void
 }
-
 
 export const Profile: React.FC<ProfilePropsType> = () => {
     const publicCardPacksCount = useAppSelector(state => state.profile.publicCardPacksCount)
@@ -33,7 +32,6 @@ export const Profile: React.FC<ProfilePropsType> = () => {
     const dispatch = useAppDispatch()
 
     let [editMode, setEditMode] = useState(false);
-
 
     const activateEditMode = () => {
         setEditMode(true);
@@ -50,7 +48,7 @@ export const Profile: React.FC<ProfilePropsType> = () => {
     }
 
     if (!isLoggedIn) {
-        return <Navigate to={'/login'}/>
+        navigate('/login')
     }
 
     return (
