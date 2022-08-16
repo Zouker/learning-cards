@@ -99,13 +99,18 @@ export const CardsTable = () => {
                                 </TableCell>
                             </TableRow>
                         ))
-                            : status !== 'loading' && <TableCell>CARDS NOT FOUND</TableCell>}
+                            : status !== 'loading' && <TableRow><TableCell colSpan={5}
+                                                                           sx={{
+                                                                               textAlign: 'center',
+                                                                               fontWeight: 'bold',
+                                                                               color: 'red'
+                                                                           }}>CARDS NOT FOUND</TableCell></TableRow>}
                     </TableBody>
                     <TableFooter>
                         <TableRow>
                             <TablePagination
                                 rowsPerPageOptions={[5, 10, 25]}
-                                colSpan={3}
+                                colSpan={5}
                                 count={cardsTotalCount}
                                 rowsPerPage={pageCount}
                                 page={page - 1}

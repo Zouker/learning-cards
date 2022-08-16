@@ -1,10 +1,26 @@
 .openPack {
     cursor: pointer;
     font-weight: bold;
+
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 150px;
 }
 
 .openPack:hover {
     color: #1976d2;
+}
+
+.createdBy {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 150px;
 }
 
 .sortUp:hover {
@@ -19,4 +35,8 @@
     background-image: url("../../assets/img/down.svg");
     background-repeat: no-repeat;
     background-position: 100%;
+}
+
+.deckCover {
+    width: 100px;
 }

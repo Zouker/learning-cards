@@ -80,7 +80,9 @@ export const PacksTable = () => {
                 <Table sx={{minWidth: 500}} aria-label="custom pagination table">
                     <TableHead>
                         <TableRow>
-                            <TableCell className={sortPacks === '0name' ? styles.sortUp : styles.sortDown}
+                            <TableCell align="center">Cover</TableCell>
+                            <TableCell align="center"
+                                       className={sortPacks === '0name' ? styles.sortUp : styles.sortDown}
                                        onClick={() => sort('name')}>Name</TableCell>
                             <TableCell align="center"
                                        className={sortPacks === '0cardsCount' ? styles.sortUp : styles.sortDown}
@@ -97,14 +99,18 @@ export const PacksTable = () => {
                     <TableBody>
                         {packs.length ? status !== 'loading' && packs.map((pack) => (
                             <TableRow key={pack._id}>
-                                <TableCell component="th" scope="row" onClick={() => openCards(pack._id, pack.name)}
+                                <TableCell align="center" component="th" scope="row">
+                                    {pack.deckCover &&
+                                        <img src={pack.deckCover} alt={'pack cover'} className={styles.deckCover}/>}
+                                </TableCell>
+                                <TableCell align="center" onClick={() => openCards(pack._id, pack.name)}
                                            className={styles.openPack}>
                                     {pack.name}
                                 </TableCell>
                                 <TableCell align="center">
                                     {pack.cardsCount}
                                 </TableCell>
-                                <TableCell align="center">
+                                <TableCell align="center" className={styles.createdBy}>
                                     {pack.user_name}
                                 </TableCell>
                                 <TableCell align="center">
@@ -126,13 +132,18 @@ export const PacksTable = () => {
                                 </TableCell>
                             </TableRow>
                         ))
-                            : status !== 'loading' && <TableCell>PACKS NOT FOUND</TableCell>}
+                            : status !== 'loading' && <TableRow><TableCell colSpan={5}
+                                                                           sx={{
+                                                                               textAlign: 'center',
+                                                                               fontWeight: 'bold',
+                                                                               color: 'red'
+                                                                           }}>PACKS NOT FOUND</TableCell></TableRow>}
                     </TableBody>
                     <TableFooter>
                         <TableRow>
                             <TablePagination
                                 rowsPerPageOptions={[10, 25, 50]}
-                                colSpan={3}
+                                colSpan={6}
                                 count={cardPacksTotalCount}
                                 rowsPerPage={pageCount}
                                 page={page - 1}
