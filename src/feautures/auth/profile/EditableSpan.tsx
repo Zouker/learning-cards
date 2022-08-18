@@ -7,63 +7,59 @@ import InputAdornment from "@mui/material/InputAdornment";
 import SaveIcon from "@mui/icons-material/Save";
 import style from "./Profile.module.css";
 import EditIcon from "@mui/icons-material/Edit";
-import {useAppSelector} from "../../../bll/store";
 
 type EditableSpanPropsType = {
-    title: string
-    editMode: boolean
-    changeTitle: (title: string) => void
-    setEditMode: (editMode: boolean) => void
+    value: string
+    onChangeTitle: (newValue: string) => void
 }
 
 
 export const EditableSpan = ({
-                                 title,
-                                 changeTitle,
-                                 editMode,
-                                 setEditMode,
+                                 value,
+                                 onChangeTitle,
                              }: EditableSpanPropsType) => {
-    const userName = useAppSelector(state => state.profile.name)
-    const [localName, setLocalName] = useState(userName)
+
+    const[editMode, setEditMode] = useState<boolean>(false);
+    const[title, setTitle] = useState(value)
+
+    const activateEditMode = () => {
+        setEditMode(true);
+        setTitle(value);
+    }
 
     const activateViewMode = () => {
-        changeTitle(localName)
-        setEditMode(false)
+        setEditMode(false);
+        onChangeTitle(title);
     }
 
-    const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
-        setLocalName(e.currentTarget.value)
-    }
-
-    const onKeyPressHandler = (e: React.KeyboardEvent<HTMLDivElement>) => {
-        if (e.key === 'Enter') {
-            activateViewMode()
-        }
+    const changeTitle = (e: ChangeEvent<HTMLInputElement>) => {
+        setTitle(e.currentTarget.value);
     }
 
     return editMode
         ? <Box sx={{'& > :not(style)': {m: 1}}}
                onBlur={activateViewMode}
-               onKeyDown={onKeyPressHandler}
-        >
+               onKeyDown={(e) => {if(e.key === 'Enter') {activateViewMode()}}}>
             <FormControl variant="standard">
                 <InputLabel htmlFor="nickname">
                     Nickname
                 </InputLabel>
                 <Input
-                    value={localName}
-                    onChange={onChangeHandler}
-                    id="input-with-icon-nickname"
+                    value={title}
+                    onChange={changeTitle}
                     autoFocus
                     startAdornment={
-                        <InputAdornment position="start" onClick={activateViewMode}>
+                        <InputAdornment position="start"
+                                        onClick={activateViewMode}>
                             <SaveIcon color={"primary"}/>
                         </InputAdornment>
                     }
                 />
             </FormControl>
         </Box> : <div className={style.editableSpan}>
-            <span onDoubleClick={() => setEditMode(true)}><EditIcon color={"primary"} onClick={() => setEditMode(true)}/>{title}</span>
+            <span onDoubleClick={activateEditMode}>
+                <EditIcon color={"primary"} onClick={activateEditMode}/>{value}
+            </span>
         </div>
 }
 

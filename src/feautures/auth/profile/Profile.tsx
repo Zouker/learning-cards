@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import style from './Profile.module.css'
 import Badge from '@mui/material/Badge';
 import Avatar from '@mui/material/Avatar';
@@ -31,11 +31,6 @@ export const Profile: React.FC<ProfilePropsType> = () => {
 
     const dispatch = useAppDispatch()
 
-    let [editMode, setEditMode] = useState(false);
-
-    const activateEditMode = () => {
-        setEditMode(true);
-    }
 
     const changeUserName = (name: string) => {
         dispatch(updateUserDataTC({
@@ -66,16 +61,12 @@ export const Profile: React.FC<ProfilePropsType> = () => {
                 >
                     <Avatar alt="User"
                             src="/"
-                            sx={{width: 96, height: 96}}/>
+                            sx={{width: 96, height: 96, marginBottom: '20px'}}/>
                 </Badge>
-                <div className={style.editableSpan}>
                     <EditableSpan
-                        title={userName}
-                        changeTitle={changeUserName}
-                        editMode={editMode}
-                        setEditMode={activateEditMode}
+                        value={userName}
+                        onChangeTitle={changeUserName}
                     />
-                </div>
                 <div className={style.profileEmail}>{email}</div>
                 <Button variant="outlined" startIcon={<LogoutIcon/>} onClick={() => dispatch(logoutTC())}>
                     Log out

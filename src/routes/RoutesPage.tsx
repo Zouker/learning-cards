@@ -24,7 +24,7 @@ export const RoutesPage = () => {
             <NavLink to={'/packs'} className={({isActive}) => isActive ? style.active : ''}> Packs</NavLink>
 
             <Routes>
-                <Route path={'/'} element={<Navigate to={'/profile'}/>}/>
+                <Route path={'/'} element={<Navigate to={'/packs'}/>}/>
                 <Route path={'/login'} element={<Login/>}/>
                 <Route path={'/register'} element={<Register/>}/>
                 <Route path={'/profile'} element={<Profile/>}/>
