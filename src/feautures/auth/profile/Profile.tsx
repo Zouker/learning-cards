@@ -51,7 +51,7 @@ export const Profile: React.FC<ProfilePropsType> = () => {
             <div onClick={() => navigate('/packs')} className={style.profileBackTo}>
                 <ArrowBackIcon/><span>{'Back to Packs List'}</span></div>
             <div className={style.profileContainer}>
-                <div className={style.profileHeader}><h2>Personal Infornation</h2></div>
+                <div className={style.profileHeader}><h2>Personal Information</h2></div>
                 <Badge
                     overlap="circular"
                     anchorOrigin={{vertical: 'bottom', horizontal: 'right'}}
