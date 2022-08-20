@@ -9,6 +9,7 @@ import {useDebounce} from '../../hooks/useDebounce';
 import {Search} from '../../components/Search/Search';
 import {CreateCardModal} from '../modals/modals-cards/CreateCardModal';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import noImage from '../../assets/img/no-image.svg';
 
 export const Cards = () => {
     const dispatch = useAppDispatch()
@@ -18,6 +19,7 @@ export const Cards = () => {
     const userId = useAppSelector(state => state.profile._id)
     const packUserId = useAppSelector(state => state.cards.packUserId)
     const status = useAppSelector(state => state.app.status)
+    const packDeckCover = useAppSelector(state => state.cards.packDeckCover)
     const navigate = useNavigate()
 
     const [value, setValue] = useState('')
@@ -43,7 +45,7 @@ export const Cards = () => {
         if (packId) {
             dispatch(getCardsTC(packId))
         }
-    }, [dispatch, packId, packName, page, pageCount, debouncedValue])
+    }, [dispatch, packId, packName, page, pageCount, debouncedValue, packDeckCover])
 
     return (
         <div className={styles.wrapper}>
@@ -59,6 +61,7 @@ export const Cards = () => {
                     </div>
                 </div>
                 : <div className={styles.packName}>{packName}</div>}
+            <div className={styles.deckCover}><img src={packDeckCover? packDeckCover : noImage} alt={'deck cover img'} className={styles.packDeckCover}/></div>
             <div className={styles.search}>
                 <div>Search</div>
                 <div className={styles.searchLine}>
@@ -69,10 +72,7 @@ export const Cards = () => {
             <div className={styles.table}>
                 <CardsTable/>
             </div>
-            <>
-                {<CreateCardModal isModalOpen={isCreateModalOpen}
-                                  setIsModalOpen={setIsCreateModalOpen}/>}
-            </>
+            <CreateCardModal isModalOpen={isCreateModalOpen} setIsModalOpen={setIsCreateModalOpen}/>
         </div>
     );
 };

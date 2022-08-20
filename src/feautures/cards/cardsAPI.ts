@@ -5,8 +5,8 @@ export const cardsAPI = {
     getCards(cardsPack_id: string, params: RequestGetCardsType) {
         return instance.get<RequestGetCardsType, AxiosResponse<ResponseCardsType>>(`/cards/card?cardsPack_id=${cardsPack_id}`, {params});
     },
-    addCard(cardsPack_id: string, cardQuestion?: string, cardAnswer?: string) {
-        return instance.post('/cards/card', {card: {cardsPack_id, question: cardQuestion, answer: cardAnswer}})
+    addCard(cardsPack_id: string, cardQuestion?: string, cardAnswer?: string, questionImg?: string) {
+        return instance.post('/cards/card', {card: {cardsPack_id, question: cardQuestion, answer: cardAnswer, questionImg}})
     },
     deleteCard(cardId: string) {
         return instance.delete('/cards/card', {params: {id: cardId}})
@@ -39,6 +39,9 @@ export type ResponseCardsType = {
     cardsTotalCount: number
     minGrade: number
     maxGrade: number
+    packDeckCover: string
+    packName: string
+    packPrivate: boolean
     token: string
     tokenDeathTime: number
 }
@@ -58,4 +61,8 @@ export type CardsType = {
     created: string
     updated: string
     __v: number
+    answerImg: string
+    answerVideo: string
+    questionImg: string
+    questionVideo: string
 }

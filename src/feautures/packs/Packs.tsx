@@ -124,11 +124,7 @@ export const Packs = () => {
             <div className={styles.table}>
                 <PacksTable/>
             </div>
-            <>
-                {<CreatePackModal isModalOpen={isCreateModalOpen}
-                                  setIsModalOpen={setIsCreateModalOpen}
-                />}
-            </>
+            <CreatePackModal isModalOpen={isCreateModalOpen} setIsModalOpen={setIsCreateModalOpen}/>
         </div>
     );
 };

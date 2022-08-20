@@ -20,6 +20,7 @@ import {formatDate} from '../../common/format-date/formatDate';
 import {CardPacksType} from './packsAPI';
 import {UpdatePackModal} from '../modals/modals-packs/UpdatePackModal';
 import {DeletePackModal} from '../modals/modals-packs/DeletePackModal';
+import noImage from '../../assets/img/no-image.svg';
 
 export const PacksTable = () => {
     const navigate = useNavigate()
@@ -100,8 +101,8 @@ export const PacksTable = () => {
                         {packs.length ? status !== 'loading' && packs.map((pack) => (
                             <TableRow key={pack._id}>
                                 <TableCell align="center" component="th" scope="row">
-                                    {pack.deckCover &&
-                                        <img src={pack.deckCover} alt={'pack cover'} className={styles.deckCover}/>}
+                                    <img src={pack.deckCover ? pack.deckCover : noImage} alt={'pack cover'}
+                                         className={styles.deckCover}/>
                                 </TableCell>
                                 <TableCell align="center" onClick={() => openCards(pack._id, pack.name)}
                                            className={styles.openPack}>
@@ -142,7 +143,7 @@ export const PacksTable = () => {
                     <TableFooter>
                         <TableRow>
                             <TablePagination
-                                rowsPerPageOptions={[10, 25, 50]}
+                                rowsPerPageOptions={[10, 25, 50, 100]}
                                 colSpan={6}
                                 count={cardPacksTotalCount}
                                 rowsPerPage={pageCount}
