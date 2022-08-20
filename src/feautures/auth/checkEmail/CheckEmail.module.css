@@ -16,22 +16,24 @@
     border-radius: 2px;
 }
 
-h1{
-    font-family: 'Montserrat';
+h1 {
+    font-family: Montserrat, sans-serif;
     font-style: normal;
     font-weight: 600;
     font-size: 26px;
     line-height: 32px;
     padding-top: 20px;
 }
-img{
+
+img {
     width: 150px;
 }
-.text{
+
+.text {
     padding-top: 25px;
     padding-bottom: 50px;
     width: 347px;
-    font-family: 'Montserrat';
+    font-family: Montserrat, sans-serif;
     font-style: normal;
     font-weight: 400;
     font-size: 14px;
