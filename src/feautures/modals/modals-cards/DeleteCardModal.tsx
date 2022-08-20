@@ -1,7 +1,7 @@
 import React, {FC, memo} from 'react';
-import {CommonModal} from "../CommonModal";
-import {deleteCardTC} from "../../../bll/reducers/cards-reducer";
-import {useAppDispatch} from "../../../bll/store";
+import {CommonModal} from '../CommonModal';
+import {deleteCardTC} from '../../../bll/reducers/cards-reducer';
+import {useAppDispatch} from '../../../bll/store';
 
 type DeleteCardModalPropsType = {
     isModalOpen: boolean
@@ -34,9 +34,13 @@ export const DeleteCardModal: FC<DeleteCardModalPropsType> = memo(({
             setIsModalOpen={setIsModalOpen}
             handleOperation={deleteCard}
             buttonTitle={'Delete'}
+            color={'error'}
         >
             <div>
-                <p>Do you really want to remove <b>{question}</b>?</p>
+                <p>Do you really want to remove card with question?</p>
+                {question.slice(0, 10) === 'data:image'
+                    ? <img src={question} alt={'question img'} style={{width: '100px'}}/>
+                    : <b>{question}</b>}
                 <p>This card will be deleted.</p>
             </div>
         </CommonModal>

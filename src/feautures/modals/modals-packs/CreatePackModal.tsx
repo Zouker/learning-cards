@@ -48,6 +48,7 @@ export const CreatePackModal: FC<CreatePackModalPropsType> = memo(({
             handleOperation={addCardPack}
             buttonTitle={'Save'}
             handleCloseOperation={() => setDeckCover(noImage)}
+            color={'primary'}
         >
             <div>
                 <TextField id="standard-basic"

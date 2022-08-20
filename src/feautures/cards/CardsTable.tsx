@@ -75,7 +75,9 @@ export const CardsTable = () => {
                         {cards.length ? status !== 'loading' && cards.map((card) => (
                             <TableRow key={card._id}>
                                 <TableCell align="center" component="th" scope="row">
-                                    {card.question}
+                                    {(card.question.slice(0, 10) === 'data:image')
+                                        ? <img src={card.question} alt={'img question'} style={{width: '100px'}}/>
+                                        : <>{card.question}</>}
                                 </TableCell>
                                 <TableCell align="center">
                                     {card.answer}
