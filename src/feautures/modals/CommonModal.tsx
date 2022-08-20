@@ -34,6 +34,7 @@ export const CommonModal: FC<CommonModalPropsType> = memo(({
                                                                isModalOpen,
                                                                setIsModalOpen,
                                                                handleOperation,
+                                                               handleCloseOperation,
                                                                modalTitle,
                                                                children,
                                                                buttonTitle
@@ -41,6 +42,7 @@ export const CommonModal: FC<CommonModalPropsType> = memo(({
 
     const handleModalClose = () => {
         setIsModalOpen(false);
+        handleCloseOperation && handleCloseOperation()
     }
 
     return (
