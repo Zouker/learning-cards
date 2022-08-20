@@ -27,6 +27,7 @@ type CommonModalPropsType = {
     modalTitle: string
     children: ReactNode
     buttonTitle: string
+    color: 'primary' | 'error'
 }
 
 
@@ -37,7 +38,8 @@ export const CommonModal: FC<CommonModalPropsType> = memo(({
                                                                handleCloseOperation,
                                                                modalTitle,
                                                                children,
-                                                               buttonTitle
+                                                               buttonTitle,
+                                                               color
                                                            }) => {
 
     const handleModalClose = () => {
@@ -63,7 +65,7 @@ export const CommonModal: FC<CommonModalPropsType> = memo(({
                 </div>
                 <div className={styles.buttonsBar}>
                     <Button variant="outlined" onClick={handleModalClose}>Cancel</Button>
-                    <Button variant="contained" onClick={() => handleOperation()}>{buttonTitle}</Button>
+                    <Button variant="contained" color={color} onClick={() => handleOperation()}>{buttonTitle}</Button>
                 </div>
             </Box>
         </Modal>

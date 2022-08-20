@@ -31,6 +31,7 @@ export const DeletePackModal: FC<DeletePackModalPropsType> = memo(({
             setIsModalOpen={setIsModalOpen}
             handleOperation={deleteCardPack}
             buttonTitle={'Delete'}
+            color={'error'}
         >
             <div>
                 <p>Do you really want to remove <b>{packName}</b>?</p>

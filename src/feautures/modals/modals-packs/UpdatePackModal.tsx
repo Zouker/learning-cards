@@ -1,6 +1,6 @@
 import React, {FC, memo, useEffect, useState} from 'react';
 import {CommonModal} from '../CommonModal';
-import {IconButton, TextField} from '@mui/material';
+import {Checkbox, FormControlLabel, IconButton, TextField} from '@mui/material';
 import {CardPacksType} from '../../packs/packsAPI';
 import {useAppDispatch} from '../../../bll/store';
 import {updatePackTC} from '../../../bll/reducers/packs-reducer';
@@ -24,6 +24,7 @@ export const UpdatePackModal: FC<UpdatePackModalPropsType> = memo(({
     const [newPackName, setNewPackName] = useState<string>(cardsPack ? cardsPack.name : '');
     const [deckCover, setDeckCover] = useState(cardsPack ? cardsPack.deckCover : noImage)
     const [isImageBroken, setIsImageBroken] = useState(false)
+    const [isPrivate, setIsPrivate] = useState<boolean>(false)
 
     const dispatch = useAppDispatch();
 
@@ -33,7 +34,7 @@ export const UpdatePackModal: FC<UpdatePackModalPropsType> = memo(({
     }, [cardsPack])
 
     const updateCardPack = () => {
-        cardsPack && dispatch(updatePackTC(cardsPack._id, newPackName, deckCover));
+        cardsPack && dispatch(updatePackTC(cardsPack._id, newPackName, deckCover, isPrivate));
         setNewPackName(newPackName)
         setIsModalOpen(false)
     }
@@ -50,6 +51,7 @@ export const UpdatePackModal: FC<UpdatePackModalPropsType> = memo(({
             setIsModalOpen={setIsModalOpen}
             handleOperation={updateCardPack}
             buttonTitle={'Save'}
+            color={'primary'}
         >
             <TextField id="standard-basic"
                        fullWidth
@@ -58,6 +60,12 @@ export const UpdatePackModal: FC<UpdatePackModalPropsType> = memo(({
                        value={newPackName}
                        onChange={(e) => setNewPackName(e.currentTarget.value)}
             />
+            <div>
+                <FormControlLabel control={<Checkbox
+                    checked={isPrivate}
+                    onChange={(e) => setIsPrivate(e.currentTarget.checked)}
+                />} label="Private pack"/>
+            </div>
             Pack cover preview
             <div className={styles.frame}>
                 {cardsPack?.deckCover

@@ -20,6 +20,9 @@ const initialState = {
     cardsTotalCount: 0,
     minGrade: 0,
     maxGrade: 6,
+    packDeckCover: '',
+    packName: '',
+    packPrivate: true,
     token: '',
     tokenDeathTime: 0
 }
@@ -43,6 +46,8 @@ export const cardsReducer = (state: InitialStateType = initialState, action: Act
                 ...state,
                 cards: state.cards.map(card => card._id === action.card_id ? {...card, grade: action.grade} : card)
             }
+        case 'cards/SET-PACK-DECK-COVER':
+            return {...state, packDeckCover: action.packDeckCover}
         default:
             return state
     }
@@ -59,6 +64,7 @@ export const getCardsTC = (cardsPack_id: string): AppThunk => (dispatch, getStat
             dispatch(setCardPageAC(res.data.page))
             dispatch(setCardPageCountAC(res.data.pageCount))
             dispatch(setCardsTotalCountAC(res.data.cardsTotalCount))
+            dispatch(setPackDeckCover(res.data.packDeckCover))
         })
         .catch((error: AxiosError<{ error: string }>) => {
             errorUtils(error, dispatch)
@@ -68,9 +74,9 @@ export const getCardsTC = (cardsPack_id: string): AppThunk => (dispatch, getStat
         })
 }
 
-export const addCardTC = (cardsPack_id: string, cardQuestion?: string, cardAnswer?: string): AppThunk => (dispatch) => {
+export const addCardTC = (cardsPack_id: string, cardQuestion?: string, cardAnswer?: string, questionImg?: string): AppThunk => (dispatch) => {
     dispatch(setAppStatusAC('loading'))
-    cardsAPI.addCard(cardsPack_id, cardQuestion, cardAnswer)
+    cardsAPI.addCard(cardsPack_id, cardQuestion, cardAnswer, questionImg)
         .then((res) => {
             dispatch(getCardsTC(cardsPack_id))
         })
@@ -139,6 +145,7 @@ export const updateCardGradeAC = (card_id: string, grade: number) => ({
     card_id,
     grade
 } as const)
+export const setPackDeckCover = (packDeckCover: string) => ({type: 'cards/SET-PACK-DECK-COVER', packDeckCover} as const)
 
 // types
 type InitialStateType = typeof initialState
@@ -151,3 +158,4 @@ type ActionType =
     | ReturnType<typeof setCardsTotalCountAC>
     | ReturnType<typeof searchQuestionAC>
     | ReturnType<typeof updateCardGradeAC>
+    | ReturnType<typeof setPackDeckCover>

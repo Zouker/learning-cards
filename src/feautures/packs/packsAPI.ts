@@ -17,12 +17,13 @@ export const packsAPI = {
     deletePack(id: string) {
         return instance.delete<'', AxiosResponse<CardPacksType>>('/cards/pack', {params: {id}})
     },
-    updatePack(_id: string, name: string, deckCover: string) {
+    updatePack(_id: string, name: string, deckCover: string, isPrivate?: boolean) {
         return instance.put<UpdatePackType, AxiosResponse<CardPacksType>>('cards/pack', {
             cardsPack: {
                 _id,
                 name,
-                deckCover
+                deckCover,
+                private: isPrivate
             }
         })
     }
@@ -48,6 +49,7 @@ export type UpdatePackType = {
     _id: string
     name?: string
     deckCover?: string
+    private?: boolean
 }
 
 type ResponseCardPacksType = {

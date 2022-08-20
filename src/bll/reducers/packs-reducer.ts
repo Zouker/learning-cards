@@ -95,9 +95,9 @@ export const deletePackTC = (id: string): AppThunk => (dispatch) => {
         })
 }
 
-export const updatePackTC = (_id: string, name: string, deckCover: string): AppThunk => (dispatch) => {
+export const updatePackTC = (_id: string, name: string, deckCover: string, isPrivate: boolean): AppThunk => (dispatch) => {
     dispatch(setAppStatusAC('loading'))
-    packsAPI.updatePack(_id, name, deckCover)
+    packsAPI.updatePack(_id, name, deckCover, isPrivate)
         .then((res) => {
             dispatch(getPacksTC())
         })
