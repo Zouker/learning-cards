@@ -24,13 +24,12 @@
     color: #000000;
 }
 
-.profileEmail {
-    margin: 25px;
+.profileInfo {
+    margin-bottom: 20px;
     font-family: Montserrat, sans-serif;
     font-style: normal;
     font-weight: 400;
     font-size: 14px;
-    line-height: 24px;
     align-items: center;
     color: #000000;
     opacity: 0.5;
@@ -64,6 +63,5 @@
 }
 
 .editableSpan {
-    margin-top: 30px;
-    margin-bottom: 31px;
+    margin: 25px 0;
 }
