@@ -11,7 +11,7 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import StyleIcon from '@mui/icons-material/Style';
 import {useNavigate} from 'react-router-dom';
-import {logoutTC} from '../auth/login/login-reducer';
+import {logoutTC} from '../../bll/reducers/login-reducer';
 import {useAppDispatch, useAppSelector} from '../../bll/store';
 import profile from '../../assets/img/profile.svg'
 import logout from '../../assets/img/logout.svg'
@@ -40,7 +40,7 @@ export const Navbar = () => {
     }
 
     return (
-        <AppBar position="static">
+        <AppBar position="static" className={styles.wrapper}>
             <Container maxWidth="xl">
                 <Toolbar disableGutters>
                     <StyleIcon sx={{display: {xs: 'none', md: 'flex'}, mr: 1}}/>
@@ -48,7 +48,6 @@ export const Navbar = () => {
                         variant="h6"
                         noWrap
                         component="a"
-                        href="/"
                         sx={{
                             mr: 2,
                             display: {xs: 'none', md: 'flex'},

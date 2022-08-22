@@ -10,7 +10,7 @@ import {
     InputAdornment,
     InputLabel
 } from '@mui/material'
-import {loginTC} from './login-reducer';
+import {loginTC} from '../../../bll/reducers/login-reducer';
 import styles from './Login.module.css';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import Visibility from '@mui/icons-material/Visibility';
@@ -110,7 +110,7 @@ export const Login = () => {
                             />}
                         />
                         <div className={styles.forgotPassword}>
-                            <NavLink to={'/forgotPassword'}>Forgot Password?</NavLink>
+                            <NavLink to={'/forgot-password'}>Forgot Password?</NavLink>
                         </div>
                         <div className={styles.buttonBlock}>
                             <Button className={styles.button}

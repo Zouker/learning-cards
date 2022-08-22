@@ -4,7 +4,7 @@ import {RoutesPage} from './routes/RoutesPage';
 import {ErrorSnackbar} from './components/ErrorSnackbar/ErrorSnackbar';
 import {CircularProgress, LinearProgress} from '@mui/material';
 import {useAppDispatch, useAppSelector} from './bll/store';
-import {initializeAppTC} from './feautures/auth/login/login-reducer';
+import {initializeAppTC} from './bll/reducers/login-reducer';
 import styles from './App.module.css'
 import {Navbar} from './feautures/navbar/Navbar';
 

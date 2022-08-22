@@ -6,7 +6,7 @@ import {registerReducer} from './reducers/register-reducer';
 import {profileReducer} from './reducers/profile-reducer';
 import {forgotPasswordReducer} from './reducers/forgot-password-reducer';
 import {recoverPasswordReducer} from './reducers/recover-password-reducer';
-import {loginReducer} from '../feautures/auth/login/login-reducer';
+import {loginReducer} from './reducers/login-reducer';
 import {packsReducer} from './reducers/packs-reducer';
 import {cardsReducer} from './reducers/cards-reducer';
 
