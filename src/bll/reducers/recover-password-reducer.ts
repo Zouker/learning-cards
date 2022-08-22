@@ -1,43 +1,50 @@
-import { AxiosError } from "axios"
-import {setNewPassAPI, SetNewPassType } from "../../feautures/auth/createNewPass/CreateNewPassAPI"
-import { AppThunk } from "../store"
-import { setAppStatusAC } from "./app-reducer"
+import {AxiosError} from 'axios'
+import {recoverPasswordAPI, recoverPasswordDataType} from '../../feautures/auth/recoverPassword/recoverPasswordAPI'
+import {AppThunk} from '../store'
+import {setAppStatusAC} from './app-reducer'
 import {errorUtils} from '../../utils/error-utils';
 
 const initialState = {
-    isSent: false,
-    email: ''
+    isPasswordChanged: false,
+    newPassword: ''
 }
 
 export const recoverPasswordReducer = (state: InitialStateType = initialState, action: ActionsType): InitialStateType => {
     switch (action.type) {
+        case 'recover/RECOVER-PASSWORD':
+            return {...state, newPassword: action.newPassword}
+        case 'recover/PASSWORD_CHANGED':
+            return {...state, isPasswordChanged: action.isPasswordChanged}
         default:
             return state
     }
 }
 
 // thunks
-export const setNewPassTC = (data: SetNewPassType): AppThunk => {
+export const recoverPasswordTC = (data: recoverPasswordDataType): AppThunk => {
     return (dispatch) => {
         dispatch(setAppStatusAC('loading'))
-        setNewPassAPI.setNewPass(data)
+        recoverPasswordAPI.setNewPass(data)
             .then((res) => {
-                dispatch(setAppStatusAC('loading'))
-
+                dispatch(recoverPasswordAC(res.data.info))
+                dispatch(passwordChangedAC(true))
             })
             .catch((error: AxiosError<{ error: string }>) => {
                 errorUtils(error, dispatch)
             })
             .finally(() => {
                 dispatch(setAppStatusAC('idle'))
-
             })
     }
 }
 
 // actions
-export const setNewPassPassAC = () => ({type: 'setNewPass/SET'} as const)
+export const recoverPasswordAC = (newPassword: string) => ({type: 'recover/RECOVER-PASSWORD', newPassword} as const)
+export const passwordChangedAC = (isPasswordChanged: boolean) => ({
+    type: 'recover/PASSWORD_CHANGED',
+    isPasswordChanged
+} as const)
 
 // types
 type InitialStateType = typeof initialState
-export type ActionsType = ReturnType<typeof setNewPassPassAC>
+export type ActionsType = ReturnType<typeof recoverPasswordAC> | ReturnType<typeof passwordChangedAC>

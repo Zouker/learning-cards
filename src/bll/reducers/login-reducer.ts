@@ -1,9 +1,9 @@
-import {loginAPI, LoginDataType} from './loginAPI';
+import {loginAPI, LoginDataType} from '../../feautures/auth/login/loginAPI';
 import {AxiosError} from 'axios';
-import {errorUtils} from '../../../utils/error-utils';
-import {setAppStatusAC} from '../../../bll/reducers/app-reducer';
-import {AppThunk} from '../../../bll/store';
-import {setUserDataAC} from '../../../bll/reducers/profile-reducer';
+import {errorUtils} from '../../utils/error-utils';
+import {setAppStatusAC} from './app-reducer';
+import {AppThunk} from '../store';
+import {setUserDataAC} from './profile-reducer';
 
 const initialState = {
     isLoggedIn: false,

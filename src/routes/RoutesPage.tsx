@@ -1,35 +1,27 @@
 import React from 'react';
-import {Navigate, NavLink, Route, Routes} from 'react-router-dom';
+import {Navigate, Route, Routes} from 'react-router-dom';
 import {Error404} from '../common/error-page/Error404';
 import {Login} from '../feautures/auth/login/Login';
 import {Register} from '../feautures/auth/register/Register';
 import {Profile} from '../feautures/auth/profile/Profile';
 import {Packs} from '../feautures/packs/Packs';
-import style from './RoutesPage.module.css'
 import {Cards} from '../feautures/cards/Cards';
 import {Learn} from '../feautures/learn/Learn';
 import {ForgotPass} from '../feautures/auth/forgotPass/ForgotPass';
-import {CreateNewPass} from '../feautures/auth/createNewPass/CreateNewPass';
+import {RecoverPassword} from '../feautures/auth/recoverPassword/RecoverPassword';
+import {CheckEmail} from '../feautures/auth/checkEmail/CheckEmail';
 
 export const RoutesPage = () => {
     return (
         <>
-            <NavLink to={'/login'} className={({isActive}) => isActive ? style.active : ''}>Login</NavLink> |
-            <NavLink to={'/register'} className={({isActive}) => isActive ? style.active : ''}> Register</NavLink> |
-            <NavLink to={'/profile'} className={({isActive}) => isActive ? style.active : ''}> Profile</NavLink>|
-            <NavLink to={'/forgotPassword'} className={({isActive}) => isActive ? style.active : ''}> Forgot
-                Password</NavLink> |
-            <NavLink to={'/recoverPassword'} className={({isActive}) => isActive ? style.active : ''}> Recover
-                Password</NavLink> |
-            <NavLink to={'/packs'} className={({isActive}) => isActive ? style.active : ''}> Packs</NavLink>
-
             <Routes>
                 <Route path={'/'} element={<Navigate to={'/packs'}/>}/>
                 <Route path={'/login'} element={<Login/>}/>
                 <Route path={'/register'} element={<Register/>}/>
                 <Route path={'/profile'} element={<Profile/>}/>
-                <Route path={'/forgotPassword'} element={<ForgotPass/>}/>
-                <Route path={'/set-new-password/:token'} element={<CreateNewPass/>}/>
+                <Route path={'/forgot-password'} element={<ForgotPass/>}/>
+                <Route path={'/check-email'} element={<CheckEmail/>}/>
+                <Route path={'/set-new-password/:token'} element={<RecoverPassword/>}/>
                 <Route path={'/packs'} element={<Packs/>}/>
                 <Route path={'/cards/:packId/:packName'} element={<Cards/>}/>
                 <Route path={'/learn/:packId/:packName'} element={<Learn/>}/>

@@ -10,7 +10,7 @@ import {useAppDispatch, useAppSelector} from '../../../bll/store';
 import {EditableSpan} from './EditableSpan';
 import {updateUserDataTC} from '../../../bll/reducers/profile-reducer';
 import {useNavigate} from 'react-router-dom';
-import {logoutTC} from '../login/login-reducer';
+import {logoutTC} from '../../../bll/reducers/login-reducer';
 
 type ProfilePropsType = {
     title?: string
@@ -51,7 +51,7 @@ export const Profile: React.FC<ProfilePropsType> = () => {
             <div onClick={() => navigate('/packs')} className={style.profileBackTo}>
                 <ArrowBackIcon/><span>{'Back to Packs List'}</span></div>
             <div className={style.profileContainer}>
-                <div className={style.profileHeader}><h2>Personal Information</h2></div>
+                <div className={style.profileHeader}>Personal Information</div>
                 <Badge
                     overlap="circular"
                     anchorOrigin={{vertical: 'bottom', horizontal: 'right'}}
@@ -63,11 +63,12 @@ export const Profile: React.FC<ProfilePropsType> = () => {
                             src="/"
                             sx={{width: 96, height: 96, marginBottom: '20px'}}/>
                 </Badge>
-                    <EditableSpan
-                        value={userName}
-                        onChangeTitle={changeUserName}
-                    />
-                <div className={style.profileEmail}>{email}</div>
+                <EditableSpan
+                    value={userName}
+                    onChangeTitle={changeUserName}
+                />
+                <div className={style.profileInfo}>{email}</div>
+                <div className={style.profileInfo}>Number of public packs: {publicCardPacksCount}</div>
                 <Button variant="outlined" startIcon={<LogoutIcon/>} onClick={() => dispatch(logoutTC())}>
                     Log out
                 </Button>

@@ -1,20 +1,16 @@
 import {Visibility, VisibilityOff} from '@mui/icons-material';
-import {Button, FormControl, IconButton, Input, InputAdornment, InputLabel, TextField} from '@mui/material';
+import {Button, FormControl, IconButton, Input, InputAdornment, InputLabel} from '@mui/material';
 import {useFormik} from 'formik';
 import React from 'react';
-import { useParams } from 'react-router-dom';
-import {setNewPassTC } from '../../../bll/reducers/recover-password-reducer';
-import { useAppDispatch } from '../../../bll/store';
-import style from './CreateNewPass.module.css'
+import {useNavigate, useParams} from 'react-router-dom';
+import {recoverPasswordTC} from '../../../bll/reducers/recover-password-reducer';
+import {useAppDispatch} from '../../../bll/store';
+import style from './RecoverPassword.module.css'
 
-type FormikErrorType = {
-    email?: string
-    password?: string
-}
-
-export const CreateNewPass = () => {
-    const {id} = useParams()
+export const RecoverPassword = () => {
+    const {token} = useParams()
     const dispatch = useAppDispatch()
+    const navigate = useNavigate()
 
     const [passwordValues, setPasswordValues] = React.useState({
         password: '',
@@ -45,16 +41,14 @@ export const CreateNewPass = () => {
             return errors;
         },
         onSubmit: values => {
-            // dispatch(registerTC(values))
+            token && dispatch(recoverPasswordTC({password: values.password, resetPasswordToken: token}))
+            navigate('/login')
         },
     });
-    const data={
-        password:'asdasdasd',
-        resetPasswordToken:"b72bf760-1822-11ed-a7b3-171da9e00f6b"
-    }
+
     return (
         <div className={style.createNewPassWrapper}>
-            <div className={style.createNewPassContainer}>
+            <form className={style.createNewPassContainer} onSubmit={formik.handleSubmit}>
                 <h1>Create new password</h1>
 
                 <FormControl className={style.formControl} sx={{m: 1, width: '40ch'}} variant="standard">
@@ -79,8 +73,14 @@ export const CreateNewPass = () => {
                 <div className={style.text}>
                     Create new password and we will send you futher instructions to email
                 </div>
-                <Button onClick={()=>dispatch(setNewPassTC(data))} variant="contained">Create new password</Button>
-            </div>
+                <Button variant="contained" type={'submit'}>Create new password</Button>
+            </form>
         </div>
     );
 };
+
+// types
+type FormikErrorType = {
+    email?: string
+    password?: string
+}
