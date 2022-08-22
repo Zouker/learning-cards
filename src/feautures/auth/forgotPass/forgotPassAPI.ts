@@ -10,7 +10,6 @@ export const forgotPassAPI = {
 // types
 export type ForgotPassDataType = {
     email: string
-    from:string
     message: string
 }
 

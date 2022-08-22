@@ -1,7 +1,7 @@
 import {Button, TextField} from '@mui/material';
 import React from 'react';
 import {Navigate, NavLink} from 'react-router-dom';
-import { forgotPassTC } from '../../../bll/reducers/forgot-password-reducer';
+import {forgotPassTC} from '../../../bll/reducers/forgot-password-reducer';
 import {useAppDispatch, useAppSelector} from '../../../bll/store';
 import style from './ForgotPass.module.css'
 
@@ -12,14 +12,17 @@ export const ForgotPass = () => {
 
     const data = {
         email: email,
-        from: "test-front-admin <ai73a@yandex.by>",
-        message: 'Hello'
+        message: `<div style="background-color: lime; padding: 15px">
+password recovery link: 
+<a href='https://zouker.github.io/learning-cards/#/set-new-password/$token$'>
+link</a>`
+
     }
     const cb = () => {
         dispatch(forgotPassTC(data, email))
     }
     if (isSent) {
-        return <Navigate to={'/checkEmail'}/>
+        return <Navigate to={'/check-email'}/>
     }
 
     const onChangeHandler = (e: any) => {
