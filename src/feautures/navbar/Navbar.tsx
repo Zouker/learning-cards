@@ -10,7 +10,7 @@ import Avatar from '@mui/material/Avatar';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import StyleIcon from '@mui/icons-material/Style';
-import {useNavigate} from 'react-router-dom';
+import {useLocation, useNavigate} from 'react-router-dom';
 import {logoutTC} from '../../bll/reducers/login-reducer';
 import {useAppDispatch, useAppSelector} from '../../bll/store';
 import profile from '../../assets/img/profile.svg'
@@ -22,6 +22,7 @@ export const Navbar = () => {
     const dispatch = useAppDispatch()
     const isLoggedIn = useAppSelector(state => state.login.isLoggedIn)
     const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
+    const location = useLocation()
 
     const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
         setAnchorElUser(event.currentTarget);
@@ -102,7 +103,7 @@ export const Navbar = () => {
                             open={Boolean(anchorElUser)}
                             onClose={handleCloseUserMenu}
                         >
-                            <MenuItem onClick={handleCloseUserMenu}>
+                            {location.pathname !== '/profile' && <MenuItem onClick={handleCloseUserMenu}>
                                 <Typography textAlign="center"
                                             onClick={profileHandler}
                                             className={styles.menu}
@@ -112,7 +113,7 @@ export const Navbar = () => {
                                          className={styles.icon}
                                     />
                                     <span>Profile</span></Typography>
-                            </MenuItem>
+                            </MenuItem>}
                             <MenuItem onClick={handleCloseUserMenu}>
                                 <Typography textAlign="center"
                                             onClick={logoutHandler}
