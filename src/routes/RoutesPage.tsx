@@ -10,12 +10,17 @@ import {Learn} from '../feautures/learn/Learn';
 import {ForgotPass} from '../feautures/auth/forgotPass/ForgotPass';
 import {RecoverPassword} from '../feautures/auth/recoverPassword/RecoverPassword';
 import {CheckEmail} from '../feautures/auth/checkEmail/CheckEmail';
+import {useAppSelector} from '../bll/store';
 
 export const RoutesPage = () => {
+
+    const isLoggedIn = useAppSelector(state => state.login.isLoggedIn)
+
     return (
         <>
             <Routes>
-                <Route path={'/'} element={<Navigate to={'/packs'}/>}/>
+                <Route path={'/'} element={isLoggedIn ? <Navigate to={'/packs'}/> :
+                    <Navigate to={'/login'}/>}/>
                 <Route path={'/login'} element={<Login/>}/>
                 <Route path={'/register'} element={<Register/>}/>
                 <Route path={'/profile'} element={<Profile/>}/>

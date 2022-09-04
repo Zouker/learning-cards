@@ -1,7 +1,12 @@
 import React, {ChangeEvent, useEffect, useState} from 'react';
 import {PacksTable} from './PacksTable';
 import {useAppDispatch, useAppSelector} from '../../bll/store';
-import {getPacksTC, searchPackNameAC, setMinMaxAC, setMyAllPacksAC} from '../../bll/reducers/packs-reducer';
+import {
+    getPacksTC,
+    searchPackNameAC,
+    setMinMaxAC,
+    setMyAllPacksAC
+} from '../../bll/reducers/packs-reducer';
 import {Button, CircularProgress, IconButton, Slider} from '@mui/material';
 import styles from './Packs.module.css'
 import {useDebounce} from '../../hooks/useDebounce';
@@ -77,7 +82,8 @@ export const Packs = () => {
                 <div className={styles.title}>
                     Packs List
                 </div>
-                <Button variant={'contained'} onClick={() => openCreatePackModal()}>Add new pack</Button>
+                <Button variant={'contained'} onClick={() => openCreatePackModal()}>Add
+                    new pack</Button>
             </div>
             <div className={styles.settings}>
                 <div className={styles.search}>
@@ -90,9 +96,11 @@ export const Packs = () => {
                     <div>
                         Show packs cards
                     </div>
-                    <Button className={styles.buttonMyAll} variant={isMyPack ? 'contained' : 'outlined'}
+                    <Button className={styles.buttonMyAll}
+                            variant={isMyPack ? 'contained' : 'outlined'}
                             onClick={myPacksHandler}>My</Button>
-                    <Button className={styles.buttonMyAll} variant={!isMyPack ? 'contained' : 'outlined'}
+                    <Button className={styles.buttonMyAll}
+                            variant={!isMyPack ? 'contained' : 'outlined'}
                             onClick={allPacksHandler}>All</Button>
                 </div>
                 <div className={styles.sliderContainer}>
@@ -120,11 +128,13 @@ export const Packs = () => {
                     </IconButton>
                 </div>
             </div>
-            {status === 'loading' && <div className={styles.preloader}><CircularProgress/></div>}
+            {status === 'loading' &&
+                <div className={styles.preloader}><CircularProgress/></div>}
             <div className={styles.table}>
                 <PacksTable/>
             </div>
-            <CreatePackModal isModalOpen={isCreateModalOpen} setIsModalOpen={setIsCreateModalOpen}/>
+            <CreatePackModal isModalOpen={isCreateModalOpen}
+                             setIsModalOpen={setIsCreateModalOpen}/>
         </div>
     );
 };
