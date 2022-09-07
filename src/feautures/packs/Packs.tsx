@@ -1,12 +1,12 @@
 import React, {ChangeEvent, useEffect, useState} from 'react';
 import {PacksTable} from './PacksTable';
-import {useAppDispatch, useAppSelector} from '../../bll/store';
+import {useAppDispatch, useAppSelector} from '../../redux/store';
 import {
     getPacksTC,
     searchPackNameAC,
     setMinMaxAC,
     setMyAllPacksAC
-} from '../../bll/reducers/packs-reducer';
+} from '../../redux/reducers/packs-reducer';
 import {Button, CircularProgress, IconButton, Slider} from '@mui/material';
 import styles from './Packs.module.css'
 import {useDebounce} from '../../hooks/useDebounce';

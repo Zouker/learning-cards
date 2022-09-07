@@ -3,8 +3,8 @@ import {Button, FormControl, IconButton, Input, InputAdornment, InputLabel} from
 import {useFormik} from 'formik';
 import React from 'react';
 import {useNavigate, useParams} from 'react-router-dom';
-import {recoverPasswordTC} from '../../../bll/reducers/recover-password-reducer';
-import {useAppDispatch} from '../../../bll/store';
+import {recoverPasswordTC} from '../../../redux/reducers/recover-password-reducer';
+import {useAppDispatch} from '../../../redux/store';
 import style from './RecoverPassword.module.css'
 
 export const RecoverPassword = () => {

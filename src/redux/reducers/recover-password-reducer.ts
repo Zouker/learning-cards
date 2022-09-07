@@ -1,5 +1,5 @@
 import {AxiosError} from 'axios'
-import {recoverPasswordAPI, recoverPasswordDataType} from '../../feautures/auth/recoverPassword/recoverPasswordAPI'
+import {recoverPasswordAPI, recoverPasswordDataType} from '../../API/recoverPasswordAPI'
 import {AppThunk} from '../store'
 import {setAppStatusAC} from './app-reducer'
 import {errorUtils} from '../../utils/error-utils';

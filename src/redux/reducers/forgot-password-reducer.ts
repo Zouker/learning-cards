@@ -1,9 +1,8 @@
-import {registerAPI, RegisterDataType} from '../../feautures/auth/register/registerAPI';
 import {AppThunk} from '../store';
 import {setAppStatusAC} from './app-reducer';
 import {errorUtils} from '../../utils/error-utils';
 import {AxiosError} from 'axios';
-import {forgotPassAPI, ForgotPassDataType} from '../../feautures/auth/forgotPass/forgotPassAPI';
+import {forgotPassAPI, ForgotPassDataType} from '../../API/forgotPassAPI';
 
 const initialState = {
     isSent: false,
@@ -38,7 +37,11 @@ export const forgotPassTC = (data: ForgotPassDataType, email: string): AppThunk 
 }
 
 // actions
-export const forgotPassAC = (isSent: boolean, email: string) => ({type: 'forgot/SENT', isSent, email} as const)
+export const forgotPassAC = (isSent: boolean, email: string) => ({
+    type: 'forgot/SENT',
+    isSent,
+    email
+} as const)
 
 // types
 type InitialStateType = typeof initialState

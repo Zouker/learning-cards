@@ -1,8 +1,8 @@
 import React, {useState} from 'react';
 import {useFormik} from 'formik';
 import {Navigate, NavLink} from 'react-router-dom';
-import {registerTC} from '../../../bll/reducers/register-reducer';
-import {useAppDispatch, useAppSelector} from '../../../bll/store';
+import {registerTC} from '../../../redux/reducers/register-reducer';
+import {useAppDispatch, useAppSelector} from '../../../redux/store';
 import {Button, FormControl, IconButton, Input, InputAdornment, InputLabel} from '@mui/material';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';

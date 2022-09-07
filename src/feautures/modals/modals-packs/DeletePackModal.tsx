@@ -1,7 +1,7 @@
 import React, {FC, memo} from 'react';
 import {CommonModal} from "../CommonModal";
-import {useAppDispatch} from "../../../bll/store";
-import {deletePackTC} from "../../../bll/reducers/packs-reducer";
+import {useAppDispatch} from "../../../redux/store";
+import {deletePackTC} from "../../../redux/reducers/packs-reducer";
 
 type DeletePackModalPropsType = {
     isModalOpen: boolean

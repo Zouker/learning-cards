@@ -3,7 +3,7 @@ import styles from './CheckEmail.module.css'
 import Email from '../../../assets/img/email.png'
 import {Button} from '@mui/material';
 import {useNavigate} from 'react-router-dom';
-import {useAppSelector} from '../../../bll/store';
+import {useAppSelector} from '../../../redux/store';
 
 export const CheckEmail = () => {
     const navigate = useNavigate();

@@ -1,4 +1,4 @@
-import {registerAPI, RegisterDataType} from '../../feautures/auth/register/registerAPI';
+import {registerAPI, RegisterDataType} from '../../API/registerAPI';
 import {AppThunk} from '../store';
 import {setAppStatusAC} from './app-reducer';
 import {errorUtils} from '../../utils/error-utils';

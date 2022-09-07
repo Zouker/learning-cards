@@ -1,4 +1,4 @@
-import {instance} from '../../../instance/instance';
+import {instance} from './instance/instance';
 
 export const loginAPI = {
     login(data: LoginDataType) {
