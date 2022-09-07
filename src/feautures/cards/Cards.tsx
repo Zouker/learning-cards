@@ -1,6 +1,6 @@
 import React, {ChangeEvent, useEffect, useState} from 'react';
-import {useAppDispatch, useAppSelector} from '../../bll/store';
-import {getCardsTC, searchQuestionAC} from '../../bll/reducers/cards-reducer';
+import {useAppDispatch, useAppSelector} from '../../redux/store';
+import {getCardsTC, searchQuestionAC} from '../../redux/reducers/cards-reducer';
 import {useNavigate, useParams} from 'react-router-dom';
 import {CardsTable} from './CardsTable';
 import {Button, CircularProgress} from '@mui/material';

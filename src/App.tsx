@@ -3,8 +3,8 @@ import './App.module.css';
 import {RoutesPage} from './routes/RoutesPage';
 import {ErrorSnackbar} from './components/ErrorSnackbar/ErrorSnackbar';
 import {CircularProgress, LinearProgress} from '@mui/material';
-import {useAppDispatch, useAppSelector} from './bll/store';
-import {initializeAppTC} from './bll/reducers/login-reducer';
+import {useAppDispatch, useAppSelector} from './redux/store';
+import {initializeAppTC} from './redux/reducers/login-reducer';
 import styles from './App.module.css'
 import {Navbar} from './feautures/navbar/Navbar';
 

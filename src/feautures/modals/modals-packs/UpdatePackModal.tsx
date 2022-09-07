@@ -2,13 +2,13 @@ import React, {FC, memo, useEffect, useState} from 'react';
 import {CommonModal} from '../CommonModal';
 import {Checkbox, FormControlLabel, IconButton, TextField} from '@mui/material';
 import {CardPacksType} from '../../packs/packsAPI';
-import {useAppDispatch} from '../../../bll/store';
-import {updatePackTC} from '../../../bll/reducers/packs-reducer';
+import {useAppDispatch} from '../../../redux/store';
+import {updatePackTC} from '../../../redux/reducers/packs-reducer';
 import styles from './PackModal.module.css';
 import noImage from '../../../assets/img/no-image.svg';
 import {InputTypeFile} from '../../../components/InputTypeFile/InputTypeFile';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
-import {setAppErrorAC} from '../../../bll/reducers/app-reducer';
+import {setAppErrorAC} from '../../../redux/reducers/app-reducer';
 
 type UpdatePackModalPropsType = {
     isModalOpen: boolean

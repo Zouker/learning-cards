@@ -1,13 +1,13 @@
 import React, {FC, memo, useState} from 'react';
 import {CommonModal} from '../CommonModal';
 import {Checkbox, FormControlLabel, IconButton, TextField} from '@mui/material';
-import {useAppDispatch} from '../../../bll/store';
+import {useAppDispatch} from '../../../redux/store';
 import {useNavigate} from 'react-router-dom';
-import {addPackTC} from '../../../bll/reducers/packs-reducer';
+import {addPackTC} from '../../../redux/reducers/packs-reducer';
 import {InputTypeFile} from '../../../components/InputTypeFile/InputTypeFile';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import noImage from '../../../assets/img/no-image.svg';
-import {setAppErrorAC} from '../../../bll/reducers/app-reducer';
+import {setAppErrorAC} from '../../../redux/reducers/app-reducer';
 import styles from './PackModal.module.css'
 
 type CreatePackModalPropsType = {

@@ -1,14 +1,14 @@
 import React, {ChangeEvent, FC, memo, useState} from 'react';
 import {CommonModal} from '../CommonModal';
 import {FormControl, IconButton, InputLabel, NativeSelect, TextField} from '@mui/material';
-import {useAppDispatch} from '../../../bll/store';
+import {useAppDispatch} from '../../../redux/store';
 import {useParams} from 'react-router-dom';
-import {addCardTC} from '../../../bll/reducers/cards-reducer';
+import {addCardTC} from '../../../redux/reducers/cards-reducer';
 import noImage from '../../../assets/img/no-image.svg';
 import styles from './CardModal.module.css';
 import {InputTypeFile} from '../../../components/InputTypeFile/InputTypeFile';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
-import {setAppErrorAC} from '../../../bll/reducers/app-reducer';
+import {setAppErrorAC} from '../../../redux/reducers/app-reducer';
 
 type AddNewCardType = {
     isModalOpen: boolean

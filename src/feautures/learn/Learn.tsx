@@ -1,10 +1,17 @@
 import React, {useEffect, useState} from 'react';
-import {useAppDispatch, useAppSelector} from '../../bll/store';
+import {useAppDispatch, useAppSelector} from '../../redux/store';
 import {CardsType} from '../cards/cardsAPI';
 import styles from './Learn.module.css';
 import {useNavigate, useParams} from 'react-router-dom';
-import {Button, FormControl, FormControlLabel, FormLabel, Radio, RadioGroup} from '@mui/material';
-import {getCardsTC, updateCardGradeTC} from '../../bll/reducers/cards-reducer';
+import {
+    Button,
+    FormControl,
+    FormControlLabel,
+    FormLabel,
+    Radio,
+    RadioGroup
+} from '@mui/material';
+import {getCardsTC, updateCardGradeTC} from '../../redux/reducers/cards-reducer';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
 const grades = [
@@ -31,6 +38,7 @@ export const Learn = () => {
     const [first, setFirst] = useState(true);
     const [value, setValue] = useState('');
     const [grade, setGrade] = useState(0);
+    const isLoggedIn = useAppSelector(state => state.login.isLoggedIn)
 
     const {packId, packName} = useParams<'packId' | 'packName'>()
 
@@ -87,6 +95,10 @@ export const Learn = () => {
 
     }, [dispatch, packId, cards, first]);
 
+    if (!isLoggedIn) {
+        navigate('/login')
+    }
+
     return (
         <div className={styles.wrapper}>
             <div onClick={onClickBackHandler} className={styles.backButton}>
@@ -115,16 +127,20 @@ export const Learn = () => {
                                         <FormControlLabel
                                             key={'grade-' + i}
                                             value={grade.value}
-                                            control={<Radio onChange={() => setGrade(grade.value)}/>}
+                                            control={<Radio
+                                                onChange={() => setGrade(grade.value)}/>}
                                             label={grade.label}
                                         />
                                     ))}
                                 </RadioGroup>
                             </FormControl>
                         </div>
-                        <div><Button disabled={!value} variant={'contained'} onClick={onNext}>next</Button></div>
+                        <div><Button disabled={!value} variant={'contained'}
+                                     onClick={onNext}>next</Button></div>
                     </>
-                    : <div><Button variant={'contained'} onClick={() => setIsChecked(true)}>Show answer</Button></div>
+                    :
+                    <div><Button variant={'contained'} onClick={() => setIsChecked(true)}>Show
+                        answer</Button></div>
                 }
             </div>
         </div>

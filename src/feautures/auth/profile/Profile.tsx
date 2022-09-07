@@ -6,11 +6,11 @@ import {Button} from '@mui/material';
 import LogoutIcon from '@mui/icons-material/Logout';
 import PhotoCameraIcon from '@mui/icons-material/PhotoCamera';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import {useAppDispatch, useAppSelector} from '../../../bll/store';
-import {EditableSpan} from './EditableSpan';
-import {updateUserDataTC} from '../../../bll/reducers/profile-reducer';
+import {useAppDispatch, useAppSelector} from '../../../redux/store';
+import {EditableSpan} from '../../../components/EditableSpan/EditableSpan';
+import {updateUserDataTC} from '../../../redux/reducers/profile-reducer';
 import {useNavigate} from 'react-router-dom';
-import {logoutTC} from '../../../bll/reducers/login-reducer';
+import {logoutTC} from '../../../redux/reducers/login-reducer';
 
 type ProfilePropsType = {
     title?: string

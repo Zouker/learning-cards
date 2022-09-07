@@ -11,8 +11,8 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import StyleIcon from '@mui/icons-material/Style';
 import {useLocation, useNavigate} from 'react-router-dom';
-import {logoutTC} from '../../bll/reducers/login-reducer';
-import {useAppDispatch, useAppSelector} from '../../bll/store';
+import {logoutTC} from '../../redux/reducers/login-reducer';
+import {useAppDispatch, useAppSelector} from '../../redux/store';
 import profile from '../../assets/img/profile.svg'
 import logout from '../../assets/img/logout.svg'
 import styles from './Navbar.module.css'

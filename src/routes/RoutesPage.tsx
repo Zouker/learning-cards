@@ -10,7 +10,7 @@ import {Learn} from '../feautures/learn/Learn';
 import {ForgotPass} from '../feautures/auth/forgotPass/ForgotPass';
 import {RecoverPassword} from '../feautures/auth/recoverPassword/RecoverPassword';
 import {CheckEmail} from '../feautures/auth/checkEmail/CheckEmail';
-import {useAppSelector} from '../bll/store';
+import {useAppSelector} from '../redux/store';
 
 export const RoutesPage = () => {
 

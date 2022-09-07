@@ -1,7 +1,7 @@
 import {AppThunk} from '../store';
 import {AxiosError} from 'axios';
 import {errorUtils} from '../../utils/error-utils';
-import {profileAPI} from "../../feautures/auth/profile/profileAPI";
+import {profileAPI} from "../../API/profileAPI";
 
 const initialState = {
     _id: '',

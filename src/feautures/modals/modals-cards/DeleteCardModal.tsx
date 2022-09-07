@@ -1,7 +1,7 @@
 import React, {FC, memo} from 'react';
 import {CommonModal} from '../CommonModal';
-import {deleteCardTC} from '../../../bll/reducers/cards-reducer';
-import {useAppDispatch} from '../../../bll/store';
+import {deleteCardTC} from '../../../redux/reducers/cards-reducer';
+import {useAppDispatch} from '../../../redux/store';
 
 type DeleteCardModalPropsType = {
     isModalOpen: boolean

@@ -7,12 +7,12 @@ import TableFooter from '@mui/material/TableFooter';
 import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-import {useAppDispatch, useAppSelector} from '../../bll/store';
+import {useAppDispatch, useAppSelector} from '../../redux/store';
 import {TableHead} from '@mui/material';
 import IconButton from '@mui/material/IconButton';
 import DeleteIcon from '@mui/icons-material/Delete';
 import SchoolIcon from '@mui/icons-material/School';
-import {setPackPageAC, setPackPageCountAC, sortPacksTC,} from '../../bll/reducers/packs-reducer';
+import {setPackPageAC, setPackPageCountAC, sortPacksTC,} from '../../redux/reducers/packs-reducer';
 import CreateIcon from '@mui/icons-material/Create';
 import {useNavigate} from 'react-router-dom';
 import styles from './PacksTable.module.css'

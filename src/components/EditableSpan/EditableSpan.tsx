@@ -5,7 +5,7 @@ import InputLabel from "@mui/material/InputLabel";
 import Input from "@mui/material/Input";
 import InputAdornment from "@mui/material/InputAdornment";
 import SaveIcon from "@mui/icons-material/Save";
-import style from "./Profile.module.css";
+import style from "../../feautures/auth/profile/Profile.module.css";
 import EditIcon from "@mui/icons-material/Edit";
 
 type EditableSpanPropsType = {

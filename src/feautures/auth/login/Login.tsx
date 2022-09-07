@@ -10,11 +10,11 @@ import {
     InputAdornment,
     InputLabel
 } from '@mui/material'
-import {loginTC} from '../../../bll/reducers/login-reducer';
+import {loginTC} from '../../../redux/reducers/login-reducer';
 import styles from './Login.module.css';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import Visibility from '@mui/icons-material/Visibility';
-import {useAppDispatch, useAppSelector} from '../../../bll/store';
+import {useAppDispatch, useAppSelector} from '../../../redux/store';
 import {Navigate, NavLink} from 'react-router-dom';
 
 export const Login = () => {

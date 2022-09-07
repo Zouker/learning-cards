@@ -1,6 +1,6 @@
 import React, {ChangeEvent} from 'react';
-import {useAppDispatch} from '../../bll/store';
-import {setAppErrorAC} from '../../bll/reducers/app-reducer';
+import {useAppDispatch} from '../../redux/store';
+import {setAppErrorAC} from '../../redux/reducers/app-reducer';
 import {convertFileToBase64} from '../../utils/convertFileToBase64';
 
 type InputTypeFilePropsType = {

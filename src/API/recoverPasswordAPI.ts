@@ -1,5 +1,5 @@
 import {AxiosResponse} from 'axios';
-import {instance} from '../../../instance/instance';
+import {instance} from './instance/instance';
 
 export const recoverPasswordAPI = {
     setNewPass(data: recoverPasswordDataType) {

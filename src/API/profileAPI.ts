@@ -1,5 +1,5 @@
-import {UserDataType} from '../../../bll/reducers/profile-reducer';
-import {instance} from '../../../instance/instance';
+import {UserDataType} from '../redux/reducers/profile-reducer';
+import {instance} from './instance/instance';
 
 export const profileAPI = {
     updateUserData(params: UserDataType) {
