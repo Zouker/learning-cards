@@ -29,7 +29,7 @@ export const Profile: React.FC<ProfilePropsType> = () => {
     const email = useAppSelector(state => state.profile.email)
     const userAvatar = useAppSelector(state => state.profile.avatar)
     const [avatarImage, setAvatarImage] = useState(userAvatar || defaultUser)
-    console.log(userAvatar)
+
     const navigate = useNavigate();
 
     const dispatch = useAppDispatch()
