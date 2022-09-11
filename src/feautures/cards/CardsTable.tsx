@@ -14,9 +14,11 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import CreateIcon from '@mui/icons-material/Create';
 import {setCardPageAC, setCardPageCountAC} from '../../redux/reducers/cards-reducer';
 import {formatDate} from '../../common/format-date/formatDate';
-import {CardsType} from './cardsAPI';
+import {CardsType} from '../../api/cardsAPI';
 import {DeleteCardModal} from '../modals/modals-cards/DeleteCardModal';
 import {UpdateCardModal} from '../modals/modals-cards/UpdateCardModal';
+import noImage from '../../assets/img/no-image.svg';
+import styles from './Cards.module.css'
 
 export const CardsTable = () => {
     const dispatch = useAppDispatch()
@@ -58,6 +60,16 @@ export const CardsTable = () => {
         setUpdateCardData(card);
     }
 
+    const cardQuestion = (question: string) => {
+        if (question.includes('data:image')) {
+            return <img src={question} alt={'img question'}
+                        style={{width: '100px'}}/>
+        } else if (question.includes('/learning')) {
+            return <img src={noImage} className={styles.packDeckCover} alt={'no img'}/>
+        }
+        return <>{question}</>
+    }
+
     return (
         <>
             <TableContainer component={Paper}>
@@ -75,9 +87,7 @@ export const CardsTable = () => {
                         {cards.length ? status !== 'loading' && cards.map((card) => (
                             <TableRow key={card._id}>
                                 <TableCell align="center" component="th" scope="row">
-                                    {(card.question.slice(0, 10) === 'data:image')
-                                        ? <img src={card.question} alt={'img question'} style={{width: '100px'}}/>
-                                        : <>{card.question}</>}
+                                    {cardQuestion(card.question)}
                                 </TableCell>
                                 <TableCell align="center">
                                     {card.answer}
@@ -86,7 +96,8 @@ export const CardsTable = () => {
                                     {formatDate(card.updated)}
                                 </TableCell>
                                 <TableCell align="center">
-                                    <Rating name="read-only" value={card.grade} readOnly/>
+                                    <Rating name="read-only" value={card.grade}
+                                            readOnly/>
                                 </TableCell>
                                 <TableCell align="center">
                                     <IconButton disabled={userId !== card.user_id}
@@ -106,7 +117,8 @@ export const CardsTable = () => {
                                                                                textAlign: 'center',
                                                                                fontWeight: 'bold',
                                                                                color: 'red'
-                                                                           }}>CARDS NOT FOUND</TableCell></TableRow>}
+                                                                           }}>CARDS NOT
+                            FOUND</TableCell></TableRow>}
                     </TableBody>
                     <TableFooter>
                         <TableRow>
