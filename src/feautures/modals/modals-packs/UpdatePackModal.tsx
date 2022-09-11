@@ -1,7 +1,7 @@
 import React, {FC, memo, useEffect, useState} from 'react';
 import {CommonModal} from '../CommonModal';
 import {Checkbox, FormControlLabel, IconButton, TextField} from '@mui/material';
-import {CardPacksType} from '../../packs/packsAPI';
+import {CardPacksType} from '../../../api/packsAPI';
 import {useAppDispatch} from '../../../redux/store';
 import {updatePackTC} from '../../../redux/reducers/packs-reducer';
 import styles from './PackModal.module.css';

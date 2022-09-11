@@ -17,7 +17,7 @@ import CreateIcon from '@mui/icons-material/Create';
 import {useNavigate} from 'react-router-dom';
 import styles from './PacksTable.module.css'
 import {formatDate} from '../../common/format-date/formatDate';
-import {CardPacksType} from './packsAPI';
+import {CardPacksType} from '../../api/packsAPI';
 import {UpdatePackModal} from '../modals/modals-packs/UpdatePackModal';
 import {DeletePackModal} from '../modals/modals-packs/DeletePackModal';
 import noImage from '../../assets/img/no-image.svg';

@@ -1,4 +1,4 @@
-import {loginAPI, LoginDataType} from '../../API/loginAPI';
+import {loginAPI, LoginDataType} from '../../api/loginAPI';
 import {AxiosError} from 'axios';
 import {errorUtils} from '../../utils/error-utils';
 import {setAppStatusAC} from './app-reducer';
