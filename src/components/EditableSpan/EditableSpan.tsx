@@ -1,26 +1,25 @@
 import React, {ChangeEvent, useState} from 'react';
-import Box from "@mui/material/Box";
-import FormControl from "@mui/material/FormControl";
-import InputLabel from "@mui/material/InputLabel";
-import Input from "@mui/material/Input";
-import InputAdornment from "@mui/material/InputAdornment";
-import SaveIcon from "@mui/icons-material/Save";
-import style from "../../feautures/auth/profile/Profile.module.css";
-import EditIcon from "@mui/icons-material/Edit";
+import Box from '@mui/material/Box';
+import FormControl from '@mui/material/FormControl';
+import InputLabel from '@mui/material/InputLabel';
+import Input from '@mui/material/Input';
+import InputAdornment from '@mui/material/InputAdornment';
+import SaveIcon from '@mui/icons-material/Save';
+import style from '../../feautures/auth/profile/Profile.module.css';
+import EditIcon from '@mui/icons-material/Edit';
 
 type EditableSpanPropsType = {
     value: string
     onChangeTitle: (newValue: string) => void
 }
 
-
 export const EditableSpan = ({
                                  value,
                                  onChangeTitle,
                              }: EditableSpanPropsType) => {
 
-    const[editMode, setEditMode] = useState<boolean>(false);
-    const[title, setTitle] = useState(value)
+    const [editMode, setEditMode] = useState<boolean>(false);
+    const [title, setTitle] = useState(value)
 
     const activateEditMode = () => {
         setEditMode(true);
@@ -39,7 +38,11 @@ export const EditableSpan = ({
     return editMode
         ? <Box sx={{'& > :not(style)': {m: 1}}}
                onBlur={activateViewMode}
-               onKeyDown={(e) => {if(e.key === 'Enter') {activateViewMode()}}}>
+               onKeyDown={(e) => {
+                   if (e.key === 'Enter') {
+                       activateViewMode()
+                   }
+               }}>
             <FormControl variant="standard">
                 <InputLabel htmlFor="nickname">
                     Nickname
@@ -51,14 +54,15 @@ export const EditableSpan = ({
                     startAdornment={
                         <InputAdornment position="start"
                                         onClick={activateViewMode}>
-                            <SaveIcon color={"primary"}/>
+                            <SaveIcon color={'primary'} sx={{cursor: 'pointer'}}/>
                         </InputAdornment>
                     }
                 />
             </FormControl>
         </Box> : <div className={style.editableSpan}>
             <span onDoubleClick={activateEditMode}>
-                <EditIcon color={"primary"} onClick={activateEditMode}/>{value}
+                <EditIcon color={'primary'} onClick={activateEditMode}
+                          sx={{cursor: 'pointer'}}/>{value}
             </span>
         </div>
 }

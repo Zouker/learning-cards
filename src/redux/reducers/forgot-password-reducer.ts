@@ -2,7 +2,7 @@ import {AppThunk} from '../store';
 import {setAppStatusAC} from './app-reducer';
 import {errorUtils} from '../../utils/error-utils';
 import {AxiosError} from 'axios';
-import {forgotPassAPI, ForgotPassDataType} from '../../API/forgotPassAPI';
+import {forgotPassAPI, ForgotPassDataType} from '../../api/forgotPassAPI';
 
 const initialState = {
     isSent: false,

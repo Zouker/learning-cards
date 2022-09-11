@@ -1,5 +1,5 @@
 import {AxiosResponse} from 'axios';
-import {instance} from '../../API/instance/instance';
+import {instance} from './instance/instance';
 
 export const cardsAPI = {
     getCards(cardsPack_id: string, params: RequestGetCardsType) {

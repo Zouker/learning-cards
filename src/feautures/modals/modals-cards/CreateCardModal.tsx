@@ -1,6 +1,12 @@
 import React, {ChangeEvent, FC, memo, useState} from 'react';
 import {CommonModal} from '../CommonModal';
-import {FormControl, IconButton, InputLabel, NativeSelect, TextField} from '@mui/material';
+import {
+    FormControl,
+    IconButton,
+    InputLabel,
+    NativeSelect,
+    TextField
+} from '@mui/material';
 import {useAppDispatch} from '../../../redux/store';
 import {useParams} from 'react-router-dom';
 import {addCardTC} from '../../../redux/reducers/cards-reducer';
@@ -15,7 +21,10 @@ type AddNewCardType = {
     setIsModalOpen: (value: boolean) => void
 }
 
-export const CreateCardModal: FC<AddNewCardType> = memo(({isModalOpen, setIsModalOpen}) => {
+export const CreateCardModal: FC<AddNewCardType> = memo(({
+                                                             isModalOpen,
+                                                             setIsModalOpen
+                                                         }) => {
     const [newCardQuestion, setNewCardQuestion] = useState('')
     const [newCardAnswer, setNewCardAnswer] = useState('')
     const [isImageBroken, setIsImageBroken] = useState(false)
@@ -92,7 +101,8 @@ export const CreateCardModal: FC<AddNewCardType> = memo(({isModalOpen, setIsModa
                                 alt="img"
                             />
                         </div>
-                        <InputTypeFile uploadImage={(image: string = noImage) => setQuestionImg(image)}>
+                        <InputTypeFile
+                            uploadImage={(image: string) => setQuestionImg(image)}>
                             <div className={styles.uploadButton}>
                                 <IconButton component="span">
                                     <CloudUploadIcon color={'primary'}/>

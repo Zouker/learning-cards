@@ -1,4 +1,4 @@
-import {CardPacksType, packsAPI} from '../../feautures/packs/packsAPI';
+import {CardPacksType, packsAPI} from '../../api/packsAPI';
 import {AppThunk} from '../store';
 import {AxiosError} from 'axios';
 import {errorUtils} from '../../utils/error-utils';

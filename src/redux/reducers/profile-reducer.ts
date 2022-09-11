@@ -1,22 +1,15 @@
 import {AppThunk} from '../store';
 import {AxiosError} from 'axios';
 import {errorUtils} from '../../utils/error-utils';
-import {profileAPI} from "../../API/profileAPI";
+import {profileAPI} from '../../api/profileAPI';
+import defaultUser from '../../assets/img/user.svg'
 
 const initialState = {
     _id: '',
     email: '',
-    // rememberMe: false,
-    // isAdmin: false,
     name: 'Enter name',
-    // verified: true,
     publicCardPacksCount: 0,
-    // created: '',
-    // updated: '',
-    // __v: 0,
-    // token: '',
-    // tokenDeathTime: 0,
-    avatar: ''
+    avatar: defaultUser
 }
 
 export const profileReducer = (state: UserDataType = initialState, action: ActionType): InitialStateType => {
@@ -41,7 +34,10 @@ export const updateUserDataTC = (userData: UserDataType): AppThunk => (dispatch)
 }
 
 // actions
-export const setUserDataAC = (userData: UserDataType) => ({type: 'profile/SET-USER-DATA', userData} as const)
+export const setUserDataAC = (userData: UserDataType) => ({
+    type: 'profile/SET-USER-DATA',
+    userData
+} as const)
 
 // types
 type InitialStateType = typeof initialState

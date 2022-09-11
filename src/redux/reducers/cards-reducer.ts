@@ -2,7 +2,7 @@ import {AppThunk} from '../store';
 import {AxiosError} from 'axios';
 import {errorUtils} from '../../utils/error-utils';
 import {setAppStatusAC} from './app-reducer';
-import {cardsAPI, CardsType} from '../../feautures/cards/cardsAPI';
+import {cardsAPI, CardsType} from '../../api/cardsAPI';
 
 const initialState = {
     cards: [] as CardsType[],

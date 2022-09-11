@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {useAppDispatch, useAppSelector} from '../../redux/store';
-import {CardsType} from '../cards/cardsAPI';
+import {CardsType} from '../../api/cardsAPI';
 import styles from './Learn.module.css';
 import {useNavigate, useParams} from 'react-router-dom';
 import {

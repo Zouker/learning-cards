@@ -51,6 +51,3 @@ In order to gain access to educational resources, please follow this
 * [Denis Shubin](https://github.com/Zouker)
 * [Yury Zhykharka](https://github.com/YuryHouse)
 * [Anatoly Rack](https://github.com/RackAnatoly)
-
-## In Progress
-* Change avatar
