@@ -20,6 +20,7 @@ export const Cards = () => {
     const packUserId = useAppSelector(state => state.cards.packUserId)
     const status = useAppSelector(state => state.app.status)
     const packDeckCover = useAppSelector(state => state.cards.packDeckCover)
+    const isLoggedIn = useAppSelector(state => state.login.isLoggedIn)
     const navigate = useNavigate()
 
     const [value, setValue] = useState('')
@@ -46,6 +47,10 @@ export const Cards = () => {
             dispatch(getCardsTC(packId))
         }
     }, [dispatch, packId, packName, page, pageCount, debouncedValue, packDeckCover])
+
+    if (!isLoggedIn) {
+        navigate('/login')
+    }
 
     return (
         <div className={styles.wrapper}>
